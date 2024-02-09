@@ -1,45 +1,9 @@
 import mysql.connector
 import requests
+import time
 
-# Verbinding maken met de database
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="goodgarden"
-)
-
-# Controleren of de verbinding succesvol is
-if mydb.is_connected():
-    print("Connected to the database")
-else:
-    print("Failed to connect to the database")
-
-try:
-    # Maak een cursor aan
-    mycursor = mydb.cursor()
-
-    # Voer de query uit om gegevens op te halen
-    mycursor.execute("SELECT * FROM goodgarden.sensor_data")
-
-    # Haal de resultaten op
-    myresult = mycursor.fetchall()
-
-    # Print de resultaten
-    for x in myresult:
-        print(x)
-
-except mysql.connector.Error as err:
-    print(f"Error: {err}")
-
-finally:
-    # Sluit de cursor en de databaseverbinding
-    mycursor.close()
-    mydb.close(
-
-    )
-
-def fetch_data():
+def gegevens_ophalen_en_database_bijwerken():
+    # API-verzoek
     url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
     headers = {
         "Authorization": "Token 33bb3b42452306c58ecedc3c86cfae28ba22329c"
@@ -47,16 +11,51 @@ def fetch_data():
 
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+        response.raise_for_status()
 
-        data = response.json()
-        load_data(data)
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
+        data = response.json().get('results', [])
 
-def load_data(data):
-    api_data = data
-    print("Data loaded:", api_data)
+        print("API-reactie:")
+        print(data)
 
-if __name__ == "__main__":
-    fetch_data()
+        if not isinstance(data, list):
+            raise ValueError("De API-reactie wordt niet herkend als een lijst van dictionaries.")
+
+        # Verbinding maken met de database
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="goodgarden"
+        )
+
+        if connection.is_connected():
+            cursor = connection.cursor()
+
+            # Database bijwerken met API-gegevens
+            for entry in data:
+                timestamp = entry.get("timestamp")
+                gateway_receive_time = entry.get("gateway_receive_time")
+                device = entry.get("device")
+                value = entry.get("value")
+
+                # Veronderstel dat de kolommen van de 'sensor_data'-tabel timestamp, gateway_receive_time, device, en value zijn
+                sql_update_query = f"INSERT INTO goodgarden.sensor_data (timestamp, gateway_receive_time, device, value) VALUES ({timestamp}, '{gateway_receive_time}', {device}, {value})"
+                cursor.execute(sql_update_query)
+                connection.commit()
+
+            print("Database succesvol bijgewerkt")
+
+    except Exception as e:
+        print(f"Fout bijwerken database: {e}")
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL-verbinding is gesloten")
+
+# Zet een timer op om de functie elke 10 minuten uit te voeren
+while True:
+    gegevens_ophalen_en_database_bijwerken()
+    time.sleep(60)  # 600 seconden = 10 minuten
