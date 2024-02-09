@@ -2,14 +2,14 @@ import mysql.connector
 import requests
 import time
 
-def gegevens_ophalen_en_database_bijwerken():
-    # API-verzoek
-    url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
-    headers = {
-        "Authorization": "Token 33bb3b42452306c58ecedc3c86cfae28ba22329c"
-    }
-
+while True:
     try:
+        # API-verzoek
+        url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
+        headers = {
+            "Authorization": "Token 33bb3b42452306c58ecedc3c86cfae28ba22329c"
+        }
+
         response = requests.get(url, headers=headers)
         response.raise_for_status()
 
@@ -39,9 +39,13 @@ def gegevens_ophalen_en_database_bijwerken():
                 device = entry.get("device")
                 value = entry.get("value")
 
-                # Veronderstel dat de kolommen van de 'sensor_data'-tabel timestamp, gateway_receive_time, device, en value zijn
-                sql_update_query = f"INSERT INTO goodgarden.sensor_data (timestamp, gateway_receive_time, device, value) VALUES ({timestamp}, '{gateway_receive_time}', {device}, {value})"
-                cursor.execute(sql_update_query)
+                # Gebruik van prepared statements om SQL-injectie te voorkomen
+                sql_update_query = (
+                    "UPDATE goodgarden.sensor_data "
+                    "SET timestamp=%s, gateway_receive_time=%s, device=%s "
+                    "WHERE value=%s"
+                )
+                cursor.execute(sql_update_query, (timestamp, gateway_receive_time, device, value))
                 connection.commit()
 
             print("Database succesvol bijgewerkt")
@@ -55,7 +59,8 @@ def gegevens_ophalen_en_database_bijwerken():
             connection.close()
             print("MySQL-verbinding is gesloten")
 
-# Zet een timer op om de functie elke 10 minuten uit te voeren
-while True:
-    gegevens_ophalen_en_database_bijwerken()
-    time.sleep(60)  # 600 seconden = 10 minuten
+    # Voeg deze regel toe binnen de while-loop
+    print("Aantal gegevens uit de API:", len(data))
+
+    # Voeg een pauze toe van 10 minuten voordat de lus opnieuw wordt uitgevoerd
+    time.sleep(600)
