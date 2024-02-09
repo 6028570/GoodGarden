@@ -1,4 +1,5 @@
 import mysql.connector
+import requests
 
 # Verbinding maken met de database
 mydb = mysql.connector.connect(
@@ -34,4 +35,28 @@ except mysql.connector.Error as err:
 finally:
     # Sluit de cursor en de databaseverbinding
     mycursor.close()
-    mydb.close()
+    mydb.close(
+
+    )
+
+def fetch_data():
+    url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
+    headers = {
+        "Authorization": "Token 33bb3b42452306c58ecedc3c86cfae28ba22329c"
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+
+        data = response.json()
+        load_data(data)
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+
+def load_data(data):
+    api_data = data
+    print("Data loaded:", api_data)
+
+if __name__ == "__main__":
+    fetch_data()
