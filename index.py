@@ -47,7 +47,7 @@ def fetch_data():
 
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+        response.raise_for_status()
 
         data = response.json()
         load_data(data)
