@@ -1,7 +1,6 @@
 import mysql.connector
 import requests
 import time
-paho.mttq
 
 def database_connect():
     return mysql.connector.connect(
