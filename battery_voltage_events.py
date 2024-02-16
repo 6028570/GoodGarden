@@ -2,6 +2,7 @@ import mysql.connector
 import requests
 import time
 
+# Functie om verbinding te maken met de database
 def database_connect():
     return mysql.connector.connect(
         host="localhost",
@@ -10,8 +11,9 @@ def database_connect():
         database="goodgarden"
     )
 
-def fetch_and_display_all(urls, access_token):
-    for url in urls:
+# Functie voor het aanmaken van gegevens in de database
+def create_data(url, access_token, repeat_count=5):
+    for _ in range(repeat_count):
         try:
             headers = {
                 "Authorization": f"Token {access_token}"
@@ -22,51 +24,161 @@ def fetch_and_display_all(urls, access_token):
             data = response.json()
             print(f"Data from {url}:")
             print(data)
-            load_data(data)
+            insert_data(data)
 
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data from {url}: {e}")
 
-        # Wait for a certain time (e.g., 60 seconds) before making the next call
-        print("Waiting for the next retrieval action...")
-        time.sleep(10)  # Time here is in seconds.
+        # Wacht een bepaalde tijd (bijv. 1 seconde) voordat de volgende oproep wordt gedaan
+        print("Waiting for the next create action...")
+        time.sleep(1)
 
-def load_data(data):
+# Functie voor het invoegen van gegevens in de database
+def insert_data(data):
     mydb = database_connect()
     if mydb.is_connected():
         mycursor = mydb.cursor()
 
-        # Here you need to adjust the correct column names and data formats based on the API response
+        # Hier moet je de juiste kolomnamen en gegevensindeling aanpassen op basis van de API-respons
         insert_query = """
         INSERT INTO goodgarden.battery_voltage_events (timestamp, gateway_receive_time, device, value)
         VALUES (%s, %s, %s, %s)
         """
-        for record in data['results']:  # Adjust this based on the actual structure of the JSON
+        for record in data['results']:  # Pas dit aan op basis van de werkelijke structuur van de JSON
             timestamp = record.get('timestamp', '')
             gateway_receive_time = record.get('gateway_receive_time', '')
             device = record.get('device', '')
             value = record.get('value', '')
 
-            print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}")  # Print the data being inserted
+            print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}")  # Print de ingevoerde gegevens
 
-            # Execute the query
+            # Voer de query uit
             mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
 
-        # Commit the changes
+        # Bevestig de wijzigingen
         mydb.commit()
 
-        # Close cursor and connection
+        # Sluit cursor en verbinding
         mycursor.close()
         mydb.close()
 
         print("Data inserted into the database.")
 
+# Functie voor het lezen van gegevens uit de database
+def read_data(url, access_token, repeat_count=5):
+    for _ in range(repeat_count):
+        try:
+            headers = {
+                "Authorization": f"Token {access_token}"
+            }
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+
+            data = response.json()
+            print(f"Data from {url}:")
+            print(data)
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching data from {url}: {e}")
+
+        # Wacht een bepaalde tijd (bijv. 1 seconde) voordat de volgende oproep wordt gedaan
+        print("Waiting for the next read action...")
+        time.sleep(300)
+
+# Functie voor het bijwerken van gegevens in de database
+# Functie voor het bijwerken van gegevens in de database
+def update_data(record_id, new_value):
+    try:
+        mydb = database_connect()
+
+        if mydb.is_connected():
+            mycursor = mydb.cursor()
+
+            # Controleer of het record bestaat voordat je het bijwerkt
+            mycursor.execute("SELECT * FROM goodgarden.battery_voltage_events WHERE id = %s", (record_id,))
+            existing_record = mycursor.fetchone()
+
+            if not existing_record:
+                print(f"Record with ID {record_id} not found. Update operation aborted.")
+                return
+
+            # Hier moet je de juiste kolomnamen aanpassen op basis van de structuur van je database
+            update_query = """
+            UPDATE goodgarden.battery_voltage_events
+            SET value = %s
+            WHERE id = %s
+            """
+
+            # Voer de query uit
+            # Voer de query uit
+            print(f"Executing update query: {update_query}")
+            print(f"Updating record with ID {record_id} to new value: {new_value}")
+
+            mycursor.execute(update_query, (new_value, record_id))  # Provide the tuple with values here
+
+            # Bevestig de wijzigingen
+            mydb.commit()
+
+            print(f"Update executed. Rowcount: {mycursor.rowcount}")
+
+    except mysql.connector.Error as update_err:
+            print(f"Error updating data: {update_err}")
+    finally:
+        # Zorg ervoor dat je altijd de cursor en de databaseverbinding sluit
+        if 'mycursor' in locals() and mycursor is not None:
+            mycursor.close()
+        if 'mydb' in locals() and mydb.is_connected():
+            mydb.close()
+
+
+# Functie voor het verwijderen van gegevens uit de database
+def delete_data(record_id):
+    mydb = database_connect()
+    if mydb.is_connected():
+        mycursor = mydb.cursor()
+
+        # Hier moet je de juiste kolomnamen aanpassen op basis van de structuur van je database
+        delete_query = """
+        DELETE FROM goodgarden.battery_voltage_events
+        WHERE id = %s
+        """
+
+        # Voer de query uit
+        mycursor.execute(delete_query, (record_id,))
+
+        # Bevestig de wijzigingen
+        mydb.commit()
+
+        # Sluit cursor en verbinding
+        mycursor.close()
+        mydb.close()
+
+        print(f"Data with ID {record_id} deleted.")
+
 if __name__ == "__main__":
-    urls = [
-        "https://garden.inajar.nl/api/battery_voltage_events/?format=json",
-        
-    ]
+    url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
+    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Vervang dit door je werkelijke toegangstoken
     
-    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Vervang dit met jouw echte toegangstoken
+    # Je kunt repeat_count wijzigen om te bepalen hoe vaak je de bewerking wilt herhalen
+    repeat_count = 10
     
-    fetch_and_display_all(urls, access_token)
+    # Keuze voor de bewerking
+    operation_choice = input("Choose operation (C for Create, R for Read, U for Update, D for Delete): ").upper()
+
+    if operation_choice == "C":
+        # Maak gegevens aan
+        create_data(url, access_token, repeat_count)
+    elif operation_choice == "R":
+        # Lees gegevens
+        read_data(url, access_token, repeat_count)
+    elif operation_choice == "U":
+        # Update gegevens
+        record_id = int(input("Enter record ID to update: "))
+        new_value = input("Enter new value: ")
+        update_data(record_id, new_value)
+    elif operation_choice == "D":
+        # Verwijder gegevens
+        record_id = int(input("Enter record ID to delete: "))
+        delete_data(record_id)
+    else:
+        print("Invalid operation choice. Please choose C, R, U, or D.")

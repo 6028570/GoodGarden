@@ -52,7 +52,7 @@ def load_data(data):
             # Execute the query
             mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
 
-        # insert_query = """ Voor deze code werktengid te krijgen moet je in de datebase een ''id, serial_number, name, label, last_seen, last_battery_voltage)' aanmaken en dan werkt het.
+        # insert_query = """ Voor deze code werktengird te krijgen moet je in de datebase een ''id, serial_number, name, label, last_seen, last_battery_voltage)' aanmaken en dan werkt het.
         # INSERT INTO goodgarden.fetch (id, serial_number, name, label, last_seen, last_battery_voltage) Hier de tabel naam veranderen
         # VALUES (%s, %s, %s, %s, %s, %s)
         # """
