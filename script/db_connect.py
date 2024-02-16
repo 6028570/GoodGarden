@@ -1,4 +1,4 @@
-import mysql.connector
+import mysql.connector #** TYPE IN TERMINAL: "pip install mysql-connector-python"
 from mysql.connector import Error
 
 def database_connect():

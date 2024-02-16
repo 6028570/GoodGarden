@@ -2,6 +2,7 @@ import requests
 import time
 
 from db_connect import database_connect
+
 # Establish a database connection
 connection = database_connect()
 
@@ -46,26 +47,6 @@ def load_data(data):
 
             # Execute the query
             mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
-
-        # insert_query = """ Voor deze code werktengid te krijgen moet je in de datebase een ''id, serial_number, name, label, last_seen, last_battery_voltage)' aanmaken en dan werkt het.
-        # INSERT INTO goodgarden.fetch (id, serial_number, name, label, last_seen, last_battery_voltage) Hier de tabel naam veranderen
-        # VALUES (%s, %s, %s, %s, %s, %s)
-        # """
-        # for record in data['results']:  # Adjust this based on the actual structure of the JSON
-        #     id = record.get('id', '')
-        #     serial_number = record.get('serial_number', '')
-        #     name = record.get('name', '')
-        #     label = record.get('label', '')
-        #     last_seen = record.get('last_seen', '')
-        #     last_battery_voltage = record.get('last_battery_voltage', '')
-
-        #     print(f"Inserting data: id={id}, serial_number={serial_number}, name={name}, label={label}, last_seen={last_seen}, last_battery_voltage={last_battery_voltage}")  # Print the data being inserted
-
-        #     # Execute the query
-        #     mycursor.execute(insert_query, (id, serial_number, name, label, last_seen, last_battery_voltage))
-
-
-
 
         # Commit the changes
         mydb.commit()

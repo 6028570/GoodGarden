@@ -3,8 +3,8 @@ import time
 
 from db_connect import database_connect
 
-def fetch_and_display_all(urls, access_token):
-    for url in urls:
+def fetch_and_display_all(url, access_token, repeat_count=5):
+    for _ in range(repeat_count):
         try:
             headers = {
                 "Authorization": f"Token {access_token}"
@@ -21,7 +21,8 @@ def fetch_and_display_all(urls, access_token):
             print(f"Error fetching data from {url}: {e}")
 
         print("Waiting for the next retrieval action...")
-        time.sleep(300)  # Time here is in seconds.
+
+        time.sleep(1)  # Time here is in seconds.
 
 def load_data(data):
     mydb = database_connect()
@@ -54,10 +55,10 @@ def load_data(data):
         print("Data inserted into the database.")
 
 if __name__ == "__main__":
-    urls = [
-         "https://garden.inajar.nl/api/relative_humidity_events/?format=json"
-    ]
-    
+    url = "https://garden.inajar.nl/api/relative_humidity_events/?format=json"
     access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"
     
-    fetch_and_display_all(urls, access_token)
+    # You can change the repeat_count to control how many times you want to repeat the process
+    repeat_count = 10
+    
+    fetch_and_display_all(url, access_token, repeat_count)
