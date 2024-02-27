@@ -1,46 +1,39 @@
 const { app, BrowserWindow, nativeImage, shell } = require("electron");
-const screen = require("electron").screen;
+// const screen = require("electron").screen;
 const path = require("path");
 
 let mainWindow;
 
-function createWindow() {
-  const iconPath = path.join(__dirname, "images/logo.png");
-  const icon = nativeImage.createFromPath(iconPath);
+function createWindow() 
+{
+  // const iconPath = path.join(__dirname, "images/logo.png");
+  // const icon = nativeImage.createFromPath(iconPath);
+  const urlElectron = path.join(__dirname, "src/main.html");
 
-  mainWindow = new BrowserWindow({
-    width: 450,
-    height: 500, //moet 500 zijn als frame false is
-    webPreferences: {
+  mainWindow = new BrowserWindow(
+  {
+    width: 1000,
+    height: 650,
+    webPreferences: 
+    {
       nodeIntegration: true,
     },
     resizable: false,
-    frame: false,
-    icon: icon,
+    frame: true,
+    // icon: icon,
     alwaysOnTop: true,
-    backgroundColor: "red"
+    // backgroundColor: "green"
   });
 
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-  mainWindow.setPosition(width - 450, height - 500);
+  // const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  // mainWindow.setPosition(width - 450, height - 500);
 
-  mainWindow.loadURL("C:/Users/oomen/OneDrive - mboRijnland/Schooljaar 23-24/P3/ALA/GoodGarden/index.html");
+  mainWindow.loadURL(urlElectron);
 
-  mainWindow.on("closed", function () {
-    mainWindow = null;
-  });
+  // mainWindow.on("closed", function () 
+  // {
+  //   mainWindow = null;
+  // });
 }
 
 app.on("ready", createWindow);
-
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-app.on("activate", function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});

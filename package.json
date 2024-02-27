@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "goodgarden",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^23.1.1"
+    "electron": "^23.3.13"
+  },
+  "dependencies": {
+    "elctron": "^0.0.1-security"
   }
 }
