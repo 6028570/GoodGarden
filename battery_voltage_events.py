@@ -86,8 +86,7 @@ def read_data(url, access_token, repeat_count=5):
         time.sleep(300)
 
 # Functie voor het bijwerken van gegevens in de database
-# Functie voor het bijwerken van gegevens in de database
-def update_data(record_id, new_value):
+def update_data(record_id):
     try:
         mydb = database_connect()
 
@@ -102,19 +101,24 @@ def update_data(record_id, new_value):
                 print(f"Record with ID {record_id} not found. Update operation aborted.")
                 return
 
+            # Vraag de gebruiker om nieuwe waarden voor de andere velden
+            new_timestamp = input("Enter new timestamp: ")
+            new_gateway_receive_time = input("Enter new gateway_receive_time: ")
+            new_device = input("Enter new device: ")
+            new_value = input("Enter new value: ")
+
             # Hier moet je de juiste kolomnamen aanpassen op basis van de structuur van je database
             update_query = """
             UPDATE goodgarden.battery_voltage_events
-            SET value = %s
+            SET timestamp = %s, gateway_receive_time = %s, device = %s, value = %s
             WHERE id = %s
             """
 
             # Voer de query uit
-            # Voer de query uit
             print(f"Executing update query: {update_query}")
-            print(f"Updating record with ID {record_id} to new value: {new_value}")
+            print(f"Updating record with ID {record_id} to new values - timestamp: {new_timestamp}, gateway_receive_time: {new_gateway_receive_time}, device: {new_device}, value: {new_value}")
 
-            mycursor.execute(update_query, (new_value, record_id))  # Provide the tuple with values here
+            mycursor.execute(update_query, (new_timestamp, new_gateway_receive_time, new_device, new_value, record_id))
 
             # Bevestig de wijzigingen
             mydb.commit()
@@ -122,14 +126,14 @@ def update_data(record_id, new_value):
             print(f"Update executed. Rowcount: {mycursor.rowcount}")
 
     except mysql.connector.Error as update_err:
-            print(f"Error updating data: {update_err}")
+        print(f"Error updating data: {update_err}")
     finally:
         # Zorg ervoor dat je altijd de cursor en de databaseverbinding sluit
         if 'mycursor' in locals() and mycursor is not None:
             mycursor.close()
         if 'mydb' in locals() and mydb.is_connected():
             mydb.close()
-
+            
 
 # Functie voor het verwijderen van gegevens uit de database
 def delete_data(record_id):
@@ -174,8 +178,8 @@ if __name__ == "__main__":
     elif operation_choice == "U":
         # Update gegevens
         record_id = int(input("Enter record ID to update: "))
-        new_value = input("Enter new value: ")
-        update_data(record_id, new_value)
+        # Call the update_data function without additional arguments
+        update_data(record_id)
     elif operation_choice == "D":
         # Verwijder gegevens
         record_id = int(input("Enter record ID to delete: "))
