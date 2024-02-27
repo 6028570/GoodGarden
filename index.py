@@ -2,6 +2,8 @@ import mysql.connector
 import requests
 import time
 
+
+
 def database_connect():
     return mysql.connector.connect(
         host="localhost",
