@@ -3,7 +3,7 @@ const express = require('express');  /* TYPE IN TERMINAL: "npm install express" 
 const bodyParser = require('body-parser');  /* TYPE IN TERMINAL: "npm install body-parser" */
 const { PythonShell } = require('python-shell');  /* TYPE IN TERMINAL: "npm install python-shell" */
 const path = require('path');
-const urlElectron = path.join(__dirname, "src/main.html");
+const urlElectron = path.join(__dirname, "src/index.html");
 
 // Maak een Express-app
 const server = express();
@@ -40,8 +40,8 @@ server.listen(PORT, () => {
 // Maak de Electron applicatie aan met bijbehorende waardes
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
