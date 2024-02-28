@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Script Interaction</title>
+</head>
+<body>
+    <h1>Choose Operation</h1>
+    <label for="operation_choice">Choose operation (C for Create, R for Read, U for Update, D for Delete): </label>
+    <input type="text" id="operation_choice" name="operation_choice" required>
+    <button onclick="executeOperation()">Submit</button>
+
+    <script type="module">
+        import { executeOperation } from './index.js';
+
+        if (typeof executeOperation === 'function') {
+            document.getElementById('operation_choice').addEventListener('input', (event) => {
+                executeOperation(event.target.value);
+            });
+        } else {
+            console.error('executeOperation function not found.');
+        }
+    </script>
+</body>
+</html>
