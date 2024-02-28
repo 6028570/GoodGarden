@@ -1,3 +1,93 @@
+/*default colors*/
+@import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
+/* The Main container and border*/
+body {
+  background-image: url("../images/achtergrond.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Afacad", sans-serif;
+}
+
+.mainContainer {
+  margin: 2rem;
+  height: 37rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 40px;
+  padding: 2rem;
+}
+.mainContainer .mainBorder {
+  padding: 1rem 0;
+  height: 35rem;
+  border: solid 5px rgb(171, 211, 174);
+  border-radius: 40px;
+}
+.mainContainer .mainBorder .content {
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  height: 100%;
+}
+.mainContainer .mainBorder .content .kant-links {
+  grid-column: 1;
+}
+.mainContainer .mainBorder .content .kant-links #planten {
+  width: 100%;
+  border-collapse: collapse;
+}
+.mainContainer .mainBorder .content .kant-links #planten td article {
+  height: 7rem;
+  width: 10rem;
+  padding: 0.6rem;
+  margin: 0.1rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px rgb(171, 211, 174);
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.mainContainer .mainBorder .content .kant-links #planten td article #toevoegen {
+  height: 5rem;
+  width: 5rem;
+}
+.mainContainer .mainBorder .content .kant-links #planten td article h2 {
+  color: gray;
+}
+.mainContainer .mainBorder .content .kant-links #planten td article:hover {
+  background-color: lightgray;
+}
+.mainContainer .mainBorder .content .kant-rechts {
+  grid-column: 3;
+  margin-right: 2rem;
+}
+.mainContainer .mainBorder .content .kant-rechts #metingen {
+  border: solid 3px rgb(171, 211, 174);
+  border-radius: 40px;
+}
+.mainContainer .mainBorder .content .kant-rechts #metingen #main-waardes {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+  padding-bottom: 0;
+  width: 100%;
+}
+.mainContainer .mainBorder .content .kant-rechts #metingen #main-waardes table {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  justify-content: center;
+  border: solid 1px rgb(171, 211, 174);
+  border-radius: 5px;
+  width: 80%;
+  margin: 0 auto;
+}
+
 /* The Modal (background) */
 .modal {
   display: none;
