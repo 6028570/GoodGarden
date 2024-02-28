@@ -11,6 +11,8 @@ def database_connect():
         database="goodgarden"
     )
 
+
+
 # Function for creating data in the database based on battery voltage information from the API
 def create_data_from_api(url, access_token, repeat_count=5):
     for _ in range(repeat_count):
