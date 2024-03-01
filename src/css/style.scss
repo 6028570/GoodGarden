@@ -7,7 +7,6 @@ $secondary-color: rgb(143, 188, 143);
 @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
 
 $font-titels: "Akaya Kanadaka", system-ui;
-;
 $font-text: "Afacad", sans-serif;
 
 /* The Main container and border*/
@@ -22,7 +21,7 @@ body
 .mainContainer 
 {
     margin: 2rem;
-    height: 37rem;
+    height: 38rem;
     background-color: rgb(255, 255, 255, 95%);
     border-radius: 40px;
     padding: 2rem;
@@ -83,7 +82,6 @@ body
                                 {
                                     background-color: lightgray;
                                 }
-
 
                             }
                         }
