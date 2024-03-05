@@ -1,4 +1,3 @@
-/*default colors*/
 @import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
 h1, h2, h3, h4, h5 {
@@ -103,19 +102,19 @@ body .mainContainer .mainBorder #sectie-1 .grafiek .grafiek-innerbox canvas {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-body .mainContainer .mainBorder #sectie-1 .content {
+body .mainContainer .mainBorder .content {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
   height: 100%;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links {
+body .mainContainer .mainBorder .content .kant-links {
   grid-column: 1;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten {
+body .mainContainer .mainBorder .content .kant-links #planten {
   width: 100%;
   border-collapse: collapse;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten td article {
+body .mainContainer .mainBorder .content .kant-links #planten td article {
   height: 7rem;
   width: 10rem;
   padding: 0.6rem;
@@ -129,33 +128,34 @@ body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten td artic
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten td article #toevoegen {
+body .mainContainer .mainBorder .content .kant-links #planten td article #toevoegen {
   height: 5rem;
   width: 5rem;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten td article h2 {
+body .mainContainer .mainBorder .content .kant-links #planten td article h2 {
   color: gray;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-links #planten td article:hover {
+body .mainContainer .mainBorder .content .kant-links #planten td article:hover {
   background-color: lightgray;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-rechts {
+body .mainContainer .mainBorder .content .kant-rechts {
   grid-column: 3;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-rechts #metingen {
+body .mainContainer .mainBorder .content .kant-rechts #metingen {
   border: solid 3px rgb(171, 211, 174);
   border-radius: 40px;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-rechts #metingen #main-waardes {
+body .mainContainer .mainBorder .content .kant-rechts #metingen #main-waardes {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 0.5rem;
   padding-bottom: 0;
   width: 100%;
 }
-body .mainContainer .mainBorder #sectie-1 .content .kant-rechts #metingen #main-waardes table {
+body .mainContainer .mainBorder .content .kant-rechts #metingen #main-waardes table {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
 }
 body .mainContainer .mainBorder .grid-column-2 {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
