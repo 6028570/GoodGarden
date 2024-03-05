@@ -1,6 +1,8 @@
 import mysql.connector
 import requests
+from datetime import datetime, timezone, timedelta
 import time
+import GoodGarden.servermqtt as servermqtt
 
 # Function to make a connection to the database
 def database_connect():
@@ -11,130 +13,135 @@ def database_connect():
         database="goodgarden"
     )
 
+def calculate_timestamp(gateway_receive_time):
+    # Converteer de stringrepresentatie naar een datetime-object in UTC
+    datetime_obj_utc = datetime.strptime(gateway_receive_time, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    
+    # Voeg het tijdsverschil van 1 uur toe voor de Nederlandse tijdzone (UTC+1)
+    datetime_obj_nl = datetime_obj_utc + timedelta(hours=1)
 
+    # Formateer het datetime-object als een leesbare datumstring
+    formatted_date = datetime_obj_nl.strftime("%Y-%m-%d %H:%M:%S")
+    return formatted_date
 
-# Function for creating data in the database based on battery voltage information from the API
-def create_data_from_api(url, access_token, repeat_count=5):
+# Functie voor het aanmaken van gegevens in de database
+# ...
+
+# Functie voor het aanmaken van gegevens in de database
+# Functie voor het aanmaken van gegevens in de database
+def create_data(url, access_token, repeat_count=5):
     for _ in range(repeat_count):
         try:
-            headers = {
-                "Authorization": f"Token {access_token}"
-            }
+            headers = {"Authorization": f"Token {access_token}"}
             response = requests.get(url, headers=headers)
             response.raise_for_status()
 
             data = response.json()
-            insert_data(data['results'])
+            print(f"Data from {url}:\n")
+
+            # Check if data is a list (records directly under the root)
+            if isinstance(data, list):
+                records = data
+            elif isinstance(data, dict) and 'results' in data:
+                records = data['results']
+            else:
+                print(f"Unexpected data format received: {data}")
+                continue
+
+            for record in records:
+                # Now, record is assumed to be a dictionary
+                timestamp = record.get('timestamp', '')
+                gateway_receive_time = record.get('gateway_receive_time', '')
+                device = record.get('device', '')
+                value = record.get('value', '')
+
+                # Voeg de timestamp-berekening toe
+                calculated_timestamp = calculate_timestamp(gateway_receive_time)
+
+                print(f"\nInserted data: Timestamp: {calculated_timestamp}, Device: {device}, Battery Voltage: {value}V\n")
+                if float(value) < 3.0:
+                    print("Waarschuwing: Batterijspanning is lager dan 3.0 volt. Opladen aanbevolen.\n")
+                # Controleer of de batterijspanning hoger is dan 4.2 volt en geef een melding
+                elif float(value) > 4.2:
+                    print("Melding: Batterijspanning is hoger dan 4.2 volt. Batterij is vol.\n")
+                else:
+                    print("Melding: Batterijspanning is binnen het gewenste bereik.\n\n")
+
+                # Insert data into the database
+                insert_data(record)
 
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data from {url}: {e}")
 
-        # Wait for a certain time (e.g., 1 second) before making the next API call
-        print("Waiting for the next create action...")
+        print("Waiting for the next create action...\n")
         time.sleep(1)
 
-# Function for inserting data into the database
-def insert_data(data):
+
+# Functie voor het invoegen van gegevens in de database
+def insert_data(record):
     mydb = database_connect()
     if mydb.is_connected():
         mycursor = mydb.cursor()
 
-        # Adjust column names and data format based on the API response
+        # Hier moet je de juiste kolomnamen en gegevensindeling aanpassen op basis van de API-respons
         insert_query = """
         INSERT INTO goodgarden.battery_voltage_events (timestamp, gateway_receive_time, device, value)
         VALUES (%s, %s, %s, %s)
         """
-        for record in data:
-            timestamp = record.get('timestamp', '')
-            gateway_receive_time = record.get('gateway_receive_time', '')
-            device = record.get('device', '')
-            value = record.get('value', '')
+        # Pas dit aan op basis van de werkelijke structuur van de JSON
+        timestamp = calculate_timestamp(record.get('gateway_receive_time', ''))
+        gateway_receive_time = record.get('gateway_receive_time', '')
+        device = record.get('device', '')
+        value = record.get('value', '')
 
-            print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}")
-            
-            # Execute the query
-            mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
+        print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}")  # Print de ingevoerde gegevens
 
-        # Confirm the changes
+        # Voer de query uit
+        mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
+
+        # Bevestig de wijzigingen
         mydb.commit()
 
-        # Close cursor and connection
+        # Sluit cursor en verbinding
         mycursor.close()
         mydb.close()
 
         print("Data inserted into the database.")
-# Functie voor het aanmaken van gegevens in de database op basis van batterijspanningsinformatie
-def create_data_from_battery_info(battery_info, repeat_count=5):
-    for _ in range(repeat_count):
-        try:
-            # Hier moet je de juiste kolomnamen en gegevensindeling aanpassen op basis van de API-respons
-            insert_query = """
-            INSERT INTO goodgarden.battery_voltage_events (timestamp, gateway_receive_time, device, value)
-            VALUES (%s, %s, %s, %s)
-            """
-
-            mydb = database_connect()
-            if mydb.is_connected():
-                mycursor = mydb.cursor()
-
-                for record in battery_info:
-                    timestamp = record.get('timestamp', '')
-                    gateway_receive_time = record.get('gateway_receive_time', '')
-                    device = record.get('device', '')
-                    value = record.get('value', '')
-
-                    print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}")  # Print de ingevoerde gegevens
-
-                    # Voer de query uit
-                    mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
-
-                    # Controleer of de batterijspanning lager is dan 4.5 volt en geef een melding
-                    if float(value) < 3.4:
-                        print("Waarschuwing: Batterijspanning is lager dan 3.4 volt. Opladen aanbevolen.")
-                    # Controleer of de batterijspanning hoger is dan 4.3 volt en geef een melding
-                    elif float(value) > 3.9:
-                        print("Melding: Batterijspanning is hoger dan 3.9 volt. Batterij is vol.")
 
 
-                # Bevestig de wijzigingen
-                mydb.commit()
 
-                # Sluit cursor en verbinding
-                mycursor.close()
-                mydb.close()
-
-                print("Data inserted into the database.")
-
-        except mysql.connector.Error as e:
-            print(f"Error inserting data into the database: {e}")
-
-        # Wacht een bepaalde tijd (bijv. 1 seconde) voordat de volgende oproep wordt gedaan
-        print("Waiting for the next create action...")
-        time.sleep(1)
-
-
-# Function for reading data from the database
+# Functie voor het lezen van gegevens uit de database
 def read_data(url, access_token, repeat_count=5):
     for _ in range(repeat_count):
         try:
-            headers = {
-                "Authorization": f"Token {access_token}"
-            }
+            headers = {"Authorization": f"Token {access_token}"}
             response = requests.get(url, headers=headers)
             response.raise_for_status()
-
+            
             data = response.json()
-            print(f"Data from {url}:")
-            print(data)
+            print(f"Data from {url}:\n")
+            
+            for record in data['results']:
+                timestamp = record.get('timestamp', '')
+                device = record.get('device', '')
+                value = record.get('value', '')
+                print(f"Timestamp: {timestamp}, Device: {device}, Battery Voltage: {value}V\n")
+
+                if float(value) < 3.0:
+                    print("Waarschuwing: Batterijspanning is lager dan 3.0 volt. Opladen aanbevolen.\n")
+                # Controleer of de batterijspanning hoger is dan 4.2 volt en geef een melding
+                elif float(value) > 4.2:
+                    print("Melding: Batterijspanning is hoger dan 4.2 volt. Batterij is vol.\n")
+                else:
+                    print("Melding: Batterijspanning is binnen het gewenste bereik.\n\n")
 
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data from {url}: {e}")
 
-        # Wait for a certain time (e.g., 1 second) before making the next API call
-        print("Waiting for the next read action...")
+        print("Waiting for the next read action...\n")
         time.sleep(300)
 
-# Function for updating data in the database
+# Functie voor het bijwerken van gegevens in de database
 def update_data(record_id):
     try:
         mydb = database_connect()
@@ -142,6 +149,7 @@ def update_data(record_id):
         if mydb.is_connected():
             mycursor = mydb.cursor()
 
+            # Controleer of het record bestaat voordat je het bijwerkt
             mycursor.execute("SELECT * FROM goodgarden.battery_voltage_events WHERE id = %s", (record_id,))
             existing_record = mycursor.fetchone()
 
@@ -149,22 +157,26 @@ def update_data(record_id):
                 print(f"Record with ID {record_id} not found. Update operation aborted.")
                 return
 
+            # Vraag de gebruiker om nieuwe waarden voor de andere velden
             new_timestamp = input("Enter new timestamp: ")
             new_gateway_receive_time = input("Enter new gateway_receive_time: ")
             new_device = input("Enter new device: ")
             new_value = input("Enter new value: ")
 
+            # Hier moet je de juiste kolomnamen aanpassen op basis van de structuur van je database
             update_query = """
             UPDATE goodgarden.battery_voltage_events
             SET timestamp = %s, gateway_receive_time = %s, device = %s, value = %s
             WHERE id = %s
             """
 
+            # Voer de query uit
             print(f"Executing update query: {update_query}")
             print(f"Updating record with ID {record_id} to new values - timestamp: {new_timestamp}, gateway_receive_time: {new_gateway_receive_time}, device: {new_device}, value: {new_value}")
 
             mycursor.execute(update_query, (new_timestamp, new_gateway_receive_time, new_device, new_value, record_id))
 
+            # Bevestig de wijzigingen
             mydb.commit()
 
             print(f"Update executed. Rowcount: {mycursor.rowcount}")
@@ -172,46 +184,61 @@ def update_data(record_id):
     except mysql.connector.Error as update_err:
         print(f"Error updating data: {update_err}")
     finally:
+        # Zorg ervoor dat je altijd de cursor en de databaseverbinding sluit
         if 'mycursor' in locals() and mycursor is not None:
             mycursor.close()
         if 'mydb' in locals() and mydb.is_connected():
             mydb.close()
 
-# Function for deleting data from the database
+# Functie voor het verwijderen van gegevens uit de database
 def delete_data(record_id):
     mydb = database_connect()
     if mydb.is_connected():
         mycursor = mydb.cursor()
 
+        # Hier moet je de juiste kolomnamen aanpassen op basis van de structuur van je database
         delete_query = """
         DELETE FROM goodgarden.battery_voltage_events
         WHERE id = %s
         """
 
+        # Voer de query uit
         mycursor.execute(delete_query, (record_id,))
 
+        # Bevestig de wijzigingen
         mydb.commit()
 
+        # Sluit cursor en verbinding
         mycursor.close()
         mydb.close()
 
         print(f"Data with ID {record_id} deleted.")
 
+# Functie voor het aanmaken van gegevens in de database op basis van batterijspanningsinformatie
+
 if __name__ == "__main__":
     url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
-    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Replace this with your actual access token
+    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Vervang dit door je werkelijke toegangstoken
+    
+    # Je kunt repeat_count wijzigen om te bepalen hoe vaak je de bewerking wilt herhalen
     repeat_count = 10
-
+    
+    # Keuze voor de bewerking
     operation_choice = input("Choose operation (C for Create, R for Read, U for Update, D for Delete): ").upper()
 
     if operation_choice == "C":
-        create_data_from_api(url, access_token, repeat_count)
+        # Maak gegevens aan
+        create_data(url, access_token, repeat_count)
     elif operation_choice == "R":
+        # Lees gegevens
         read_data(url, access_token, repeat_count)
     elif operation_choice == "U":
+        # Update gegevens
         record_id = int(input("Enter record ID to update: "))
+        # Call the update_data function without additional arguments
         update_data(record_id)
     elif operation_choice == "D":
+        # Verwijder gegevens
         record_id = int(input("Enter record ID to delete: "))
         delete_data(record_id)
     else:
