@@ -2,8 +2,6 @@ const { ipcRenderer } = require("electron");
 
 document.addEventListener('DOMContentLoaded', () => 
 {
-    // Stuur een bericht naar de main process om het Python script uit te voeren
-// In je renderer.js (geladen met defer in je HTML)
     ipcRenderer.send('request-update-temp', ['some', 'arguments']);
 
     ipcRenderer.on('update-temp-result', (event, newTemperature) => {
@@ -15,11 +13,6 @@ document.addEventListener('DOMContentLoaded', () =>
     });
 
 });
-
-// function dataTablePython()
-// {
-//     document.getElementById("")
-// }
 
 function openModal()
 {
@@ -58,19 +51,17 @@ function drawLineChart()
     const data = [20, 50, 60, 45, 50, 100, 70, 60, 65, 0, 85, 0];
     const xLabels = ["", "", "", "", "", 6, "", "", "", "", "", 12];
     
-    // Define Y-axis labels here. The number of labels should match your scale.
     const yLabels = ["", 20, "", 40, "", 60, "", 80, "", 100]; /*NIET VERANDEREN!!!*/
 
     const canvas = document.getElementById("myCanvas");
     const ctx = canvas.getContext("2d");
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const padding = 35; // Increased padding for Y labels
     const graphWidth = canvas.width - padding * 2;
     const graphHeight = canvas.height - padding * 2;
 
-    // Draw the axes
     ctx.beginPath();
     ctx.moveTo(padding, padding);
     ctx.lineTo(padding, canvas.height - padding);
@@ -78,10 +69,10 @@ function drawLineChart()
     ctx.stroke();
 
     // Set the color of the line
-    ctx.strokeStyle = "#008000"; // This sets the line color to green
+    ctx.strokeStyle = "rgb(143, 188, 143)";
 
     const xIncrement = graphWidth / (xLabels.length - 1);
-    const yIncrement = graphHeight / (yLabels.length - 1); // Assuming you have labels for each increment
+    const yIncrement = graphHeight / (yLabels.length - 1);
 
     // Plot the data
     ctx.beginPath();
@@ -93,7 +84,7 @@ function drawLineChart()
         const yPos = canvas.height - padding - (data[i] / 100) * graphHeight;
         ctx.lineTo(xPos, yPos);
     }
-    ctx.stroke(); // Apply the stroke to the line
+    ctx.stroke();
 
     // Draw Y labels
     ctx.fillStyle = "black";

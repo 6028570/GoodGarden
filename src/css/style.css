@@ -14,6 +14,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  font-family: "Afacad", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,6 +40,7 @@ body .mainContainer .informatie-kas-main-container {
   grid-template-columns: 5fr 7fr;
 }
 body .mainContainer .mainBorder {
+  padding: 1.25rem 1.5rem;
   padding: 1rem 0;
   height: 35rem;
   border: solid 5px rgb(171, 211, 174);
@@ -90,6 +92,7 @@ body .mainContainer .mainBorder #sectie-1 .grafiek .grafiek-innerbox {
   font-size: 1.25rem;
   padding: 0 1rem 2.5rem;
   height: 225px;
+  position: relative;
 }
 body .mainContainer .mainBorder #sectie-1 .grafiek .grafiek-innerbox h2 {
   position: absolute;
@@ -140,6 +143,7 @@ body .mainContainer .mainBorder .content .kant-links #planten td article:hover {
 }
 body .mainContainer .mainBorder .content .kant-rechts {
   grid-column: 3;
+  margin-right: 2rem;
 }
 body .mainContainer .mainBorder .content .kant-rechts #metingen {
   border: solid 3px rgb(171, 211, 174);
@@ -174,12 +178,6 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table {
   flex-direction: column;
   justify-content: space-around;
   height: 90%;
-}
-body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table table tr td {
-  font-size: 1.05rem;
-}
-body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-table-1 tr td {
-  font-size: 1.25rem;
 }
 body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-table-2 {
   position: relative;
