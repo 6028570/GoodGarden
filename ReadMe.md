@@ -1,6 +1,6 @@
 # GoodGarden
 
-Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een monolitisch project van te maken. Alles is te vinden binnen deze repository.
+Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een monolitische project van te maken. Alles is te vinden binnen deze repository.
 
 ### Vereisten
 
@@ -10,7 +10,7 @@ Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een monol
 
 ### Installeren
 
-Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "../GoodGarden". Als je in de correcte map zit moet je de volgende items installeren:
+Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "/GoodGarden". Als je in de correcte map zit moet je de volgende items installeren:
 
     - npm install electron
     - npm install express
