@@ -181,6 +181,9 @@ import mysql.connector
 import requests
 from datetime import datetime, timezone, timedelta
 import time
+import os
+import paho.mqtt.client as mqtt
+from dotenv import load_dotenv
  
 # Functie om verbinding te maken met de database
 def database_connect():
