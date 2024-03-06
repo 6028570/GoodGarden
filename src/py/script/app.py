@@ -19,7 +19,7 @@ def get_api_data():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('kas_informatie.html')
 
 @app.route('/battery_voltage_events')
 def battery_voltage_events():
