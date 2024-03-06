@@ -1,7 +1,7 @@
-const { app, BrowserWindow,ipcMain } = require('electron'); /* TYPE IN TERMINAL: "npm install electron" */
-const express = require('express');  /* TYPE IN TERMINAL: "npm install express" */
-const bodyParser = require('body-parser');  /* TYPE IN TERMINAL: "npm install body-parser" */
-const { PythonShell } = require('python-shell');  /* TYPE IN TERMINAL: "npm install python-shell" */
+const { app, BrowserWindow, ipcMain } = require('electron');
+const express = require('express');
+const bodyParser = require('body-parser');
+const { PythonShell } = require('python-shell');
 const path = require('path');
 const urlElectron = path.join(__dirname, "src/index.html");
 
@@ -16,31 +16,19 @@ server.post('/submit-form', (req, res) => {
 
   let options = {
     mode: 'text',
-    args: [plant_naam, plantensoort, plant_geteelt], // Zet hier een variable bij om de data toe te voegen aan de databas
+    args: [plant_naam, plantensoort, plant_geteelt] // Zet hier een variable bij om de data toe te voegen aan de database
   };
 
-/*Om python te gebruiken*/
-// ipcMain.on('request-update-temp', (event, args) => {
-//   let options = {
-//       mode: 'text',
-//       scriptPath: 'path/to/your/python/script',
-//       args: args
-//   };
-
-//   PythonShell.run('calculate.py', options, (err, results) => {
-//       if (err) {
-//           console.error('Error running python script', err);
-//           event.reply('update-temp-result', 'error');
-//       } else {
-//           console.log('Python script results:', results);
-//           event.reply('update-temp-result', results[0]); // Verstuur het resultaat terug naar de renderer proces
-//       }
-//   });
-// });
-
-// En dan in je renderer proces, stuur je een bericht om de update te verzoeken
-ipcRenderer.send('request-update-temp', [/* hier kunnen argumenten komen die je Python script nodig heeft */]);
-
+  // Voer Python script uit met de plant_naam als argument
+  PythonShell.run('./script/db_connect_form.py', options, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.send('Er is een fout opgetreden');
+    } else {
+      console.log('Python script uitvoering resultaten:', results);
+      res.send('Formulier succesvol verwerkt');
+    }
+  });
 });
 
 // Start de server voor verbinding met de database
@@ -62,27 +50,6 @@ function createWindow() {
   });
 
   mainWindow.loadURL(urlElectron);
-
-  /*Is om het Python script te kunnen gebruiken*/
-  ipcMain.on('run-python-script', (event, args) => {
-    let options = {
-        mode: 'text',
-        args: args
-    };
-
-    PythonShell.run('../src/py/calculate.py', options, (err, results) => {
-        if (err) 
-        {
-            console.error('Error running python script', err);
-            event.reply('python-script-response', 'error');
-        } 
-        else 
-        {
-            console.log('Python script results:', results);
-            event.reply('python-script-response', results);
-        }
-    });
-});
 }
 
 app.whenReady().then(createWindow);
