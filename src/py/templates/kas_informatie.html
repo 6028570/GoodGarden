@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../src/css/style.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-    <script src="../src/js/main.js" defer></script>
+    <script src="../static/js/main.js" defer></script>
     <title>Informatie Kas</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/py/script/static/css/style.css') }}">
   </head>
   <body>
     <section class="mainContainer">
       <article>
-        <img src="../src/images/logo.png" class="goodgarden-logo">
+        <img src="../static/images/logo.png" class="goodgarden-logo">
       </article>
       <section class="mainBorder informatie-kas-main-container">
         <article>
@@ -21,20 +22,20 @@
               <article class="algemeen-overzicht">
                 <table class="table-informatie-kas">
                   <tr class="tr-informatie-kas">
-                    <td>Dagen tot Oogst</td>
-                    <td>12</td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Dagen in Kas</td>
-                    <td>2</td>
-                  </tr>
+                    <td>Device </td>
+                    <td id="battery_data_device"></td>
+                </tr> 
+                <tr class="tr-informatie-kas">
+                    <td>Batterij Voltage</td>
+                    <td id="battery_data_voltage"></td>
+                </tr>                
+                <tr class="tr-informatie-kas">
+                    <td>Tijden</td>
+                    <td id="battery_data_time"></td>
+                </tr>
                   <tr class="tr-informatie-kas">
                     <td>Tevredenheid</td>
-                    <td>80%</td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Aandachtspunten</td>
-                    <td>1</td>
+                    <td>-</td>
                   </tr>
                 </table>
               </article>

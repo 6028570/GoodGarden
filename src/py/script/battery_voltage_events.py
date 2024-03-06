@@ -181,7 +181,7 @@ import mysql.connector
 import requests
 from datetime import datetime, timezone, timedelta
 import time
-import GoodGarden.src.py.servermqtt as servermqtt
+from py.script.servermqtt import servermqtt
 
 # Function to make a connection to the database
 def database_connect():

@@ -7,6 +7,11 @@
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
+DROP DATABASE IF EXISTS goodgarden;
+CREATE DATABASE goodgarden;
+
+USE goodgarden; 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

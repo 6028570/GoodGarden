@@ -61,7 +61,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL(urlElectron);
+  mainWindow.loadFile(path.join(__dirname, 'src', 'py', 'templates', 'index.html'));
 
   /*Is om het Python script te kunnen gebruiken*/
   ipcMain.on('run-python-script', (event, args) => {

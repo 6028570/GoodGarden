@@ -121,4 +121,22 @@ function drawLineChart()
     }
 }
 
+  
+document.addEventListener('DOMContentLoaded', function() {
+    var battery_data = {
+        device: "{{ battery_data[2] }}",
+        batteryVoltage: "{{ battery_data[3] }}",
+        time: "{{ battery_data[1] }}"
+    };
+
+    // Update HTML elements using dynamically generated IDs
+    document.getElementById('battery_data_device').innerText = battery_data.device;
+    document.getElementById('battery_data_voltage').innerText = battery_data.batteryVoltage;
+    document.getElementById('battery_data_time').innerText = battery_data.time;
+    // Add other updates as needed
+});
+
+
+    
+  
 drawLineChart();
