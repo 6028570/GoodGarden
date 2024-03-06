@@ -192,7 +192,7 @@ body
                                 #main-waardes
                                 {
                                 display: flex;
-                                justify-content: space-evenly;
+                                justify-content: space-between;
                                 padding: .5rem;
                                 padding-bottom: 0;
                                 width: 100%;
@@ -200,8 +200,8 @@ body
                                     table
                                     {
                                         display: flex;
-                                        justify-content: space-around;
-                                        // width: 100%;
+                                        justify-content: space-between;
+                                        width: 100%;
                                     }
                                 }
                             }

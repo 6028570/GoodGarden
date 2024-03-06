@@ -73,17 +73,39 @@
                             </td>
                         </tr>
                     </table>
-                    <div id="myModal" class="modal">
-                        <!-- Modal content -->
-                        <span class="close">&times;</span>
-                        <form action="http://localhost:3000/submit-form" method="post">
-                            <!-- Form content -->
-                        </form>
+                    <div class="formulier">
+                        <div id="myModal" class="modal" style="display: none;">
+                            <h1>Plant Toevoegen</h1>
+                            <form action="http://localhost:3000/submit-form" method="post">
+                                <label for="plantNaam">Naam van de plant</label><br>
+                                <input type="text" name="plant_naam" id="plantNaam"><br>
+                 
+                                <label for="plantensoort">Soort van de plant</label><br>
+                                <input type="text" name="plantensoort" id="plantensoort"><br>
+                 
+                                <label for="aanwezig">Aanwezig in de kas</label><br>
+                                <select name="aanwezig_in_kas">
+                                    <option value="ja">Ja</option>
+                                    <option value="nee">Nee</option>
+                                </select><br>
+                 
+                                <label for="ontvangenMeldingen">Meldingen ontvangen</label><br>
+                                <select name="ontvangen_meldingen">
+                                    <option value="ja">Ja</option>
+                                    <option value="nee">Nee</option>
+                                </select><br>
+                 
+                                <section class="knop-container">
+                                    <br><button class="annulatie" type="button" onclick="closeOverlay()">Annuleren</button>
+                                    <button class="toevoeging" type="button" onclick="closeOverlay()">Toevoegen</button>
+                                </section>
+                            </form> <!-- Sluit de form-tag hier -->
+                        </div>
                     </div>
+                    <div id="overlay" onclick="closeOverlay"></div>
                 </section>
                 <!-- White space -->
                 <section>
-                    <p>a</p>
                 </section>
                 <section class="kant-rechts">
                     <section id="metingen">
@@ -100,12 +122,12 @@
                                         <p>24u gemiddelde</p>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <p>a</p>
+                                    </td>
+                                </tr>
                             </table>
-                        </article>
-                        <div class="divider">
-                        </div>
-                        <article>
-                            
                         </article>
                     </section>
                 </section>
