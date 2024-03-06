@@ -14,7 +14,8 @@ dataHardObject = [
 ]
 
 class Plant {
-    constructor(dataObject) {
+    constructor(dataObject) 
+    {
       this.id = dataObject.id;
       this.plantNaam = dataObject.plantNaam;
       this.plantensoort = dataObject.plantensoort;
@@ -25,13 +26,10 @@ class Plant {
         if (this.plantGeteelt) 
         {
             const titel = document.querySelectorAll(".plant-naam");
-                // titel.forEach(element => {
-                // element.textContent = this.plantNaam;
-                for (let i = 0; i < titel.length; i++) {
-                    const element = titel[i];
-                    element.textContent = this.plantNaam;
-                }
-            // });
+            for (let i = 0; i < titel.length; i++) {
+                const element = titel[i];
+                element.textContent = this.plantNaam;
+            }
         }
     }
 }
