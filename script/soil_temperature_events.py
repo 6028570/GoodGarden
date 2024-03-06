@@ -1,7 +1,6 @@
 import requests
 import time
 
-
 from db_connect import database_connect
 
 def fetch_and_display_all(url, access_token, repeat_count=5):

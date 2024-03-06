@@ -176,8 +176,16 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table {
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  gap: 2.5rem;
   justify-content: space-around;
   height: 90%;
+}
+body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table table tr td {
+  font-size: 1.05rem;
+}
+body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-table-1 tr td {
+  font-size: 1.25rem;
 }
 body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-table-2 {
   position: relative;
