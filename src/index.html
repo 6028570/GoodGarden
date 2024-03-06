@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../src/css/style.css">
     <script src="../src/js/main.js" defer></script>
+    <script src="../src/js/planten.class.js"></script>
 </head>
 <body>
     <section class="mainContainer">
@@ -21,7 +22,7 @@
                                 <a href="../src/kas_informatie.html">
                                 <article class="article-1">
                                     <img src="images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
+                                    <h2 class="plant-naam"></h2>
                                 </article>
                             </a>
                             </td>
@@ -79,7 +80,7 @@
                     </table>
                     <div id="myModal" class="modal">
                         <span class="close">&times;</span>
-                        <form action="http://localhost:3000/submit-form" method="post">
+                        <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
                 
                             <input type="text" name="plant_naam" id="plantNaam">
                             <label for="plantNaam">Naam van de plant</label>
@@ -97,10 +98,10 @@
                         </form>
                 
                     </div>
+                    <div id="overlay" onclick="closeOverlay"></div>
                 </section>
                 <!-- White space -->
                 <section>
-                    <p>a</p>
                 </section>
                 <section class="kant-rechts">
                     <section id="sectie-1">
