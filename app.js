@@ -1,7 +1,7 @@
-const { app, BrowserWindow } = require('electron'); /* TYPE IN TERMINAL: "npm install electron" */
-const express = require('express');  /* TYPE IN TERMINAL: "npm install express" */
-const bodyParser = require('body-parser');  /* TYPE IN TERMINAL: "npm install body-parser" */
-const { PythonShell } = require('python-shell');  /* TYPE IN TERMINAL: "npm install python-shell" */
+const { app, BrowserWindow, ipcMain } = require('electron');
+const express = require('express');
+const bodyParser = require('body-parser');
+const { PythonShell } = require('python-shell');
 const path = require('path');
 const urlElectron = path.join(__dirname, "src/index.html");
 
@@ -42,6 +42,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
