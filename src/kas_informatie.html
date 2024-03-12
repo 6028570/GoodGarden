@@ -53,7 +53,7 @@
               <table class="kas-table-1">
                   <tr>
                     <td>Aantal geplant:</td>
-                    <td>2</td>
+                    <td id="totale_planten">Loading...</td>
                   </tr>
                   <tr>
                     <td>Succesvolle Oogst:</td>
@@ -105,5 +105,15 @@
         </article>
       </section>
     </section>
-  </body>
+    <script>
+    // JavaScript-code om gegevens op te halen van het PHP-bestand
+    fetch('get_data.php')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('totale_planten').innerHTML = data.totale_planten;
+            // Voeg andere velden toe op dezelfde manier
+        })
+        .catch(error => console.error('Error:', error));
+    </script>
+</body>
 </html>

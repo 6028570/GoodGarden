@@ -111,5 +111,3 @@ function drawLineChart()
         }
     }
 }
-
-drawLineChart();
