@@ -1,4 +1,3 @@
-# mqtt_client.py
 import paho.mqtt.client as mqtt
 
 def create_client(client_id, on_connect, on_message, broker="localhost", port=1883):
