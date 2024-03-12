@@ -1,24 +1,25 @@
-import sys
-import uuid
+import json
 
-from os.path import dirname, abspath, join
+from paho.mqtt import subscribe
 
-root_dir = dirname(dirname(abspath(__file__)))
-sys.path.append(root_dir)
+def on_message(client, userdata, message):
+    payload_str = message.payload.decode("utf-8")
+    data = json.loads(payload_str)
 
-from mqtt.mqtt_client import create_client, start_loop
+    device_322_value = None
+    device_256_value = None
 
-mqtt_topic = "goodgarden/par_events"
+    for key in data["results"]:
+        if key["device"] == 322:
+            device_322_value = key["value"]
+        elif key["device"] == 256:
+            device_256_value = key["value"]
 
-def on_connect(client, userdata, flags, rc):
-        client.subscribe(mqtt_topic)
-        print(f"Subscribed to {mqtt_topic}")
+    print(f"Device 322 value: {device_322_value}")
+    print(f"Device 256 value: {device_256_value}")
 
-def on_message(client, userdata, msg):
-    message = msg.payload.decode()
-    print(f"Message received on topic {msg.topic}: {message}")
+    print(f"Message received on topic {message.topic}: {data}")
 
 if __name__ == "__main__":
-    unique_client_id = f"subscriber_{uuid.uuid4()}"
-    client = create_client(unique_client_id, on_connect, on_message)
-    start_loop(client)
+    topic = "goodgarden/par_events"
+    subscribe.callback(on_message, topic)

@@ -1,9 +1,10 @@
 import requests
 import time
+import json
 
 from mqtt_client import create_client, start_loop  
 
-publish_interval = 300  # Secondes om een aanvraag te doen
+publish_interval = 30  # Secondes om een aanvraag te doen - MOET ~300 ZIJN!!!!!!!!!
 
 api_endpoints = [
     {"url": "https://garden.inajar.nl/api/devices/", "topic": "goodgarden/devices"},
@@ -24,16 +25,13 @@ def on_message(client, userdata, msg):
 client = create_client("publisher1", on_connect, on_message)  # Gebruik een unieke client ID
 
 def publish_to_mqtt(topic, data):
-    """
-    Publiceer de opgehaalde data naar een MQTT-topic.
-    """
-    client.publish(topic, str(data))
+
+    json_data = json.dumps(data)  # Serialiseer de data naar een JSON-string
+    client.publish(topic, json_data)
     print(f"Data published to MQTT topic {topic}.")
 
 def fetch_and_publish_data():
-    """
-    Haal data op van alle endpoints en publiceer naar MQTT.
-    """
+
     for endpoint in api_endpoints:
         url = endpoint["url"]
         mqtt_topic = endpoint["topic"]
@@ -54,6 +52,6 @@ if __name__ == "__main__":
     client.loop_start()  # Start de niet-blokkerende loop
     while True:
         fetch_and_publish_data()
-        print("Waiting for the next retrieval action...")
+        print("Wachten, wachten en nog eens wachten...")
         time.sleep(publish_interval)
     client.loop_stop()
