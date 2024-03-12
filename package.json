@@ -3,18 +3,21 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron app.js"
+    "start": "npm-run-all --parallel start-electron start-flask",
+    "start-electron": "electron main.js",
+    "start-flask": "python app.py"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^23.3.13"
+    "electron": "^23.3.13",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
     "elctron": "^0.0.1-security",
     "express": "^4.18.3",
+    "flask": "^0.2.10",
     "mysql2": "^3.9.1",
     "python-shell": "^5.0.0"
   }

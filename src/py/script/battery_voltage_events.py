@@ -181,7 +181,7 @@ import mysql.connector
 import requests
 from datetime import datetime, timezone, timedelta
 import time
-from py.script.servermqtt import servermqtt
+# from py.script.servermqtt import servermqtt
 
 # Function to make a connection to the database
 def database_connect():
@@ -194,7 +194,7 @@ def database_connect():
 
 def calculate_timestamp(gateway_receive_time):
     # Converteer de stringrepresentatie naar een datetime-object in UTC
-    datetime_obj_utc = datetime.strptime(gateway_receive_time, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    datetime_obj_utc = datetime.strptime(gateway_receive_time, "%Y-%m-%d%H:%M:%S:").replace(tzinfo=timezone.utc)
     
     # Voeg het tijdsverschil van 1 uur toe voor de Nederlandse tijdzone (UTC+1)
     datetime_obj_nl = datetime_obj_utc + timedelta(hours=1)
@@ -286,6 +286,7 @@ def insert_data(record):
         mydb.close()
 
         print("Data inserted into the database.")
+
 
 
 

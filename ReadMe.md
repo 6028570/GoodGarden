@@ -16,9 +16,13 @@ Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "/GoodGarden". Als
      npm install express
      npm install body-parser
      npm install python-shell
+     npm install --save-dev npm-run-all
 
+     
      pip install mysql-connector-python
      pip install requests
+     pip install flask-cors
+
 
 ## Gebruik
 

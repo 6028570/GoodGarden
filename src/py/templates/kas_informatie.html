@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../static/css/style.css" />
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/main.js" defer></script>
     <title>Informatie Kas</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/py/script/static/css/style.css') }}">
   </head>
   <body>
     <section class="mainContainer">
@@ -23,19 +23,19 @@
                 <table class="table-informatie-kas">
                   <tr class="tr-informatie-kas">
                     <td>Device </td>
-                    <td id="battery_data_device"></td>
-                </tr> 
-                <tr class="tr-informatie-kas">
+                    <td id="batteryVoltage">{{battery_data[2]}}</td>
+                  </tr> 
+                  <tr class="tr-informatie-kas">
                     <td>Batterij Voltage</td>
-                    <td id="battery_data_voltage"></td>
-                </tr>                
-                <tr class="tr-informatie-kas">
+                    <td id="batteryVoltage">{{battery_data[3]}}</td>
+                  </tr>                
+                  <tr class="tr-informatie-kas">
                     <td>Tijden</td>
-                    <td id="battery_data_time"></td>
-                </tr>
+                    <td id="batteryVoltage">{{battery_data[1]}}</td>
+                  </tr>
                   <tr class="tr-informatie-kas">
                     <td>Tevredenheid</td>
-                    <td>-</td>
+                    <td id="batteryVoltage">{{battery_data[0]}}</td>
                   </tr>
                 </table>
               </article>

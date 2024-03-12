@@ -1,9 +1,10 @@
-from flask import Flask, render_template, jsonify
 import requests
 import mysql.connector  # Import MySQL connector
+from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='src/py/templates', static_folder='src/py/static')
-
+CORS(app)
 # Function to get data from the API
 def get_api_data():
     api_url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
@@ -37,6 +38,7 @@ def get_database_data():
 
     return battery_data
 
+
 @app.route('/')
 def index():
     # Get data from the API
@@ -47,10 +49,8 @@ def index():
     battery_data = get_database_data()
     print("Battery Data:", battery_data)  # Add this line for debugging
 
-    # Pass data to the HTML template
-    return render_template('kas_informatie.html', api_data=api_data, battery_data=battery_data)
-
-
+    # Pass data to the HTML template, including the latest ID
+    return render_template('kas_informatie.html', api_data=api_data, battery_data=battery_data)  # Pass the latest_id to the template
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000)
