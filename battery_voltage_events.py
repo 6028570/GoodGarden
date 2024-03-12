@@ -17,12 +17,11 @@ def calculate_timestamp(gateway_receive_time):
     datetime_obj_utc = datetime.strptime(gateway_receive_time, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
     
     # Voeg het tijdsverschil van 1 uur toe voor de Nederlandse tijdzone (UTC+1)
-    datetime_obj_nl = datetime_obj_utc + timedelta(hours=0)
+    datetime_obj_nl = datetime_obj_utc + timedelta(hours=1)
 
     # Formateer het datetime-object als een leesbare datumstring
     formatted_date = datetime_obj_nl.strftime("%Y-%m-%d %H:%M:%S")
     return formatted_date
-
 # Functie voor het aanmaken van gegevens in de database
 def create_data(url, access_token, repeat_count=5):
     for _ in range(repeat_count):
@@ -71,7 +70,6 @@ def create_data(url, access_token, repeat_count=5):
         print("Waiting for the next create action...\n")
         time.sleep(2)
 
-# Functie voor het invoegen van gegevens in de database
 def insert_data(record):
     mydb = database_connect()
     if mydb.is_connected():
@@ -82,25 +80,30 @@ def insert_data(record):
         INSERT INTO goodgarden.battery_voltage_events (timestamp, gateway_receive_time, device, value)
         VALUES (%s, %s, %s, %s)
         """
-        # Pas dit aan op basis van de werkelijke structuur van de JSON
-        timestamp = calculate_timestamp(record.get('gateway_receive_time', ''))
-        gateway_receive_time = record.get('gateway_receive_time', '')
-        device = record.get('device', '')
-        value = record.get('value', '')
 
-        print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}\n\n")  # Print de ingevoerde gegevens
+        try:
+            # Voer de query uit zonder de timestamp te berekenen
+            timestamp = record.get('timestamp', '')
+            gateway_receive_time = record.get('gateway_receive_time', '')
+            device = record.get('device', '')
+            value = record.get('value', '')
 
-        # Voer de query uit
-        mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
+            print(f"Inserting data: timestamp={timestamp}, gateway_receive_time={gateway_receive_time}, device={device}, value={value}\n")  # Print de ingevoerde gegevens
 
-        # Bevestig de wijzigingen
-        mydb.commit()
+            mycursor.execute(insert_query, (timestamp, gateway_receive_time, device, value))
 
-        # Sluit cursor en verbinding
-        mycursor.close()
-        mydb.close()
+            # Bevestig de wijzigingen
+            mydb.commit()
 
-        print("Data inserted into the database.")
+            print("Data inserted into the database.")
+
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+
+        finally:
+            # Sluit cursor en verbinding
+            mycursor.close()
+            mydb.close()
 
 # Functie voor het lezen van gegevens uit de database
 def read_data(url, access_token, repeat_count=5):
