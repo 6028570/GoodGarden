@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { PythonShell } = require('python-shell');
 const path = require('path');
 
+
 const urlElectron = path.join(__dirname, "src/index.html");
 
 // Create an Express app
@@ -55,7 +56,7 @@ function createWindow() {
       args: args,
     };
 
-    PythonShell.run('../src/py/calculate.py', options, (err, results) => {
+    PythonShell.run('../src/py/script/calculate.py', options, (err, results) => {
       if (err) {
         console.error('Error running python script', err);
         event.reply('python-script-response', 'error');
@@ -85,7 +86,7 @@ app.whenReady().then(() => {
     args: [/* arguments for the Python script */]
   };
 
-  PythonShell.run('calculate.py', options, (err, results) => {
+  PythonShell.run('../src/py/script/calculate.py', options, (err, results) => {
     if (err) {
       console.error('Error running python script', err);
       mainWindow.webContents.send('python-script-response', 'error');

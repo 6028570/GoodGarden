@@ -1,4 +1,5 @@
 const { ipcRenderer } = require("electron");
+const axios = require('axios');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Send a message to the main process to execute the Python script
@@ -13,39 +14,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Additional IPC event to update HTML data
+    // Listen for updates to HTML data from the main process
     ipcRenderer.on('update-html-data', (event, data) => {
-        document.getElementById('battery_data_device_placeholder').innerText = data.battery_data_device;
-        document.getElementById('battery_data_voltage_placeholder').innerText = data.battery_data_voltage;
-        document.getElementById('battery_data_time_placeholder').innerText = data.battery_data_time;
+        // Update the HTML with the received data
+        document.getElementById('batteryVoltage').innerText = data.batteryVoltage;
+        // Add similar lines for other data fields
     });
 
+    // Trigger an event to request data update
+    ipcRenderer.send('request-update-data');
+
     // Function to open the modal
-        function openModal() {
-            const modal = document.getElementById("myModal");
-            const button = document.getElementById("modalButton");
-            const close = document.getElementsByClassName("close")[0];
-        
-            // Check if elements are found before attaching events
-            if (modal && button && close) {
-                // Show the modal when the button is clicked
-                button.onclick = function () {
-                    modal.style.display = "block";
-                }
-        
-                // Close the modal when the 'close' icon is clicked
-                close.onclick = function () {
+    function openModal() {
+        const modal = document.getElementById("myModal");
+        const button = document.getElementById("modalButton");
+        const close = document.getElementsByClassName("close")[0];
+
+        // Check if elements are found before attaching events
+        if (modal && button && close) {
+            // Show the modal when the button is clicked
+            button.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // Close the modal when the 'close' icon is clicked
+            close.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicked outside the modal
+            window.onclick = function (event) {
+                if (event.target == modal) {
                     modal.style.display = "none";
                 }
-        
-                // Close the modal when clicked outside the modal
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            } 
+            }
         }
+    }
 
     // Call the function to open the modal
     openModal();
@@ -62,4 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call the function to draw the line chart
     drawLineChart();
+
+    // Function to fetch battery data from Flask API
+    function fetchBatteryData() {
+        axios.get('http://127.0.0.1:5000')
+            .then(response => {
+                const batteryData = response.data;
+                updateBatteryData(batteryData);
+            })
+            .catch(error => {
+                console.error('Error fetching battery data:', error);
+            });
+    }
+
+// Function to update HTML content with battery data
+function updateBatteryData(batteryData){
+    document.getElementById('deviceNumber').innerText = batteryData.device;
+    document.getElementById('voltage').innerText = batteryData.value;
+    document.getElementById('time').innerText = batteryData.gateway_receive_time;
+    document.getElementById('tevredenheid').innerText = batteryData.timestamp;
+
+    // Voeg andere eigenschappen toe zoals nodig
+}
+
+
+
+    // Fetch battery data when the page loads
+    fetchBatteryData();
 });
