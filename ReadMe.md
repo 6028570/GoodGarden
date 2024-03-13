@@ -1,16 +1,17 @@
 # GoodGarden
 
-Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een monolitische project van te maken. Alles is te vinden binnen deze repository.
+Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een semi-monolithic project van te maken. Alles is te vinden binnen deze repository, inclusief de "mqtt" publisher.
 
 ### Vereisten
 
  * Python
  * Node.Js
  * XAMPP (of andere naar keuze)
+ * MQTT Geinstalleerd en toegevoegd aan je PATH variable
 
 ### Installeren
 
-Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "/GoodGarden". Als je in de correcte map zit moet je de volgende items installeren:
+Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "../GoodGarden". Als je in de correcte map zit moet je de volgende items installeren:
 
      npm install electron
      npm install express

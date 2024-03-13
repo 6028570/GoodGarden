@@ -10,10 +10,7 @@ def database_connect():
             database="goodgarden"
         )
         if connection.is_connected():
-            # print("Connection gelukt!")
             return connection
     except Error as e:
         print(f"Connection NIET gelukt! ${e}")
     return None
-
-# database_connect()

@@ -1,5 +1,3 @@
-/*default colors*/
-
 $primary-color:  rgb(171, 211, 174);
 $secondary-color: rgb(143, 188, 143);
 
@@ -10,10 +8,10 @@ $font-titels: "Akaya Kanadaka", system-ui;
 
 $font-text: "Afacad", sans-serif;
 
-@mixin flexbox
+@mixin flexbox-center
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 @mixin groene-border
@@ -53,7 +51,7 @@ body
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    // font-family: $font-text;
+    font-family: $font-text;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,11 +68,10 @@ body
 
         .goodgarden-logo
         {
-            // z-index: inherit;
             position: absolute;
             width: 10vw;
             left: 50%;
-            top: 2.5rem;
+            top: 4.1rem;
             transform: translateX(-50%);
         }
 
@@ -87,6 +84,7 @@ body
         .mainBorder 
         {
             padding: 1.25rem 1.5rem;
+            padding: 1rem 0;
             height: 35rem;
             border: solid 5px $primary-color;
             border-radius: 40px;
@@ -105,6 +103,11 @@ body
                 padding: 0 2.5rem 0 1rem;
                 position: relative;
 
+                h1
+                {
+                    background-color: green;
+                }
+
                 .parent-algemeen-overzicht
                 {
                     @include box-shadow;
@@ -119,7 +122,6 @@ body
                         @include inner-border-radius;
                         font-size: 1.25rem;
                         padding: .5rem 1rem;
-                        // background-color: red;
 
                         .table-informatie-kas
                         {
@@ -131,8 +133,6 @@ body
                                 justify-content: space-between;
                                 text-align: left;
                             }
-
-
                         }
                     }   
                 }
@@ -151,7 +151,7 @@ body
                         font-size: 1.25rem;
                         padding: 0 1rem 2.5rem;
                         height: 225px;
-                        // position: relative;
+                        position: relative;
 
                         h2
                         {
@@ -170,8 +170,13 @@ body
                         }
                     }
                 }
+<<<<<<< HEAD:src/py/static/css/style.scss
             }
             
+=======
+            
+            }
+>>>>>>> main:src/css/style.scss
             .content
             {
                 display: grid;
@@ -191,7 +196,11 @@ body
 
                             td 
                             {
+<<<<<<< HEAD:src/py/static/css/style.scss
                                 article
+=======
+                                article 
+>>>>>>> main:src/css/style.scss
                                 {
                                     height: 7rem;
                                     width: 10rem;
@@ -227,12 +236,21 @@ body
                             }
                         }
                     }
+<<<<<<< HEAD:src/py/static/css/style.scss
 
                     &-rechts
                     {
                         grid-column: 3;
                         // margin-right: 2rem;
 
+=======
+                    
+                    &-rechts
+                    {
+                        grid-column: 3;
+                        margin-right: 2rem;
+
+>>>>>>> main:src/css/style.scss
                         #metingen
                         {
 
@@ -242,7 +260,11 @@ body
                             #main-waardes
                             {
                             display: flex;
+<<<<<<< HEAD:src/py/static/css/style.scss
                             justify-content: space-evenly;
+=======
+                            justify-content: space-between;
+>>>>>>> main:src/css/style.scss
                             padding: .5rem;
                             padding-bottom: 0;
                             width: 100%;
@@ -250,15 +272,20 @@ body
                                 table
                                 {
                                     display: flex;
+<<<<<<< HEAD:src/py/static/css/style.scss
                                     justify-content: space-around;
                                     // width: 100%;
+=======
+                                    justify-content: space-between;
+                                    width: 100%;
+>>>>>>> main:src/css/style.scss
                                 }
                             }
                         }
                     }
                 }
             }
-
+            
             .grid-column-2
             {
                 @include box-shadow;
@@ -278,8 +305,8 @@ body
                         padding: 1.5rem 2rem;
                         display: flex;
                         flex-direction: column;
-                        // align-items: stretch;
-                        // gap: 2.5rem;
+                        align-items: stretch;
+                        gap: 2.5rem;
                         justify-content: space-around;
                         height: 90%;
 

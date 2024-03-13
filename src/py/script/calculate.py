@@ -1,5 +1,6 @@
 # In calculate.py
 
+
 # Doe je berekeningen hier, vervang 42 door je berekende waarde
 calculated_value = 42
 

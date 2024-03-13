@@ -18,11 +18,19 @@ server.post('/submit-form', (req, res) => {
 
   let options = {
     mode: 'text',
-    args: [plant_naam, plantensoort, plant_geteelt],
+    args: [plant_naam, plantensoort, plant_geteelt] // Zet hier een variable bij om de data toe te voegen aan de database
   };
 
-  // The following line was causing issues and has been commented out
-  // ipcRenderer.send('request-update-temp', [/* arguments for Python script */]);
+  // Voer Python script uit met de plant_naam als argument
+  PythonShell.run('./script/db_connect_form.py', options, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.send('Er is een fout opgetreden');
+    } else {
+      console.log('Python script uitvoering resultaten:', results);
+      res.send('Formulier succesvol verwerkt');
+    }
+  });
 });
 
 // Start the server for connecting to the database
