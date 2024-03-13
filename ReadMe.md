@@ -20,6 +20,7 @@ Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "../GoodGarden". A
 
     - pip install mysql-connector-python
     - pip install requests
+    - pip install paho-mqtt
 
 ## Gebruik
 
