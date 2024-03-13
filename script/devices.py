@@ -6,11 +6,11 @@ def on_message(client, userdata, message):
     payload_str = message.payload.decode("utf-8")
     data = json.loads(payload_str)
 
-    device_256 = 0
+    device_256 = None
     last_seen = None
     last_battery_voltage = None
 
-    device_322 = 0
+    device_322 = None
     last_seen = None
     last_battery_voltage = None
 
