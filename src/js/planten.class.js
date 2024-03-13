@@ -72,10 +72,11 @@ class PlantGrid {
                 "id": 9,
                 "plantNaam": "yippie",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             }
         ];
 
+        // Only save objects that have plantGeteelt as 1
         const filteredData = dataHardObject.filter(plantObject => plantObject.plantGeteelt === 1);
 
         // Populate the grid with plant objects
@@ -114,7 +115,7 @@ class PlantGrid {
 
                         td.appendChild(article);
                         itemCount++;
-                    } else if (rowIndex === this.rows -1 && colIndex === this.cols -1 & itemCount <= 7) {
+                    } else if (rowIndex === this.rows -1 && colIndex === this.cols -1 && itemCount <= 7) {
                         // Handle the "Add" button
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
