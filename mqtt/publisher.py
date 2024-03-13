@@ -28,7 +28,8 @@ def publish_to_mqtt(topic, data):
 
     json_data = json.dumps(data)  # Serialiseer de data naar een JSON-string
     client.publish(topic, json_data)
-    print(f"Data published to MQTT topic {topic}.")
+    print(f"\033[92mData published to MQTT topic {topic}.\033[0m")
+
 
 def fetch_and_publish_data():
 
@@ -52,6 +53,8 @@ if __name__ == "__main__":
     client.loop_start()  # Start de niet-blokkerende loop
     while True:
         fetch_and_publish_data()
-        print("Wachten, wachten en nog eens wachten...")
+        print(f"\033[91mWachten, wachten en nog eens wachten... {publish_interval} secondes!\033[0m\n")
+
+
         time.sleep(publish_interval)
-    client.loop_stop()
+        client.loop_stop()

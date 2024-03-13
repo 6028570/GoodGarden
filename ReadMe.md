@@ -1,6 +1,6 @@
 # GoodGarden
 
-Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een semi-monolitische project van te maken. Alles is te vinden binnen deze repository, inclusief de "mqtt".
+Welkom bij ons project genaamd "GoodGarden". Wij hebben besloten om er een semi-monolithic project van te maken. Alles is te vinden binnen deze repository, inclusief de "mqtt" publisher.
 
 ### Vereisten
 
