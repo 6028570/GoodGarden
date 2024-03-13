@@ -36,7 +36,7 @@ class PlantGrid {
                 "id": 3,
                 "plantNaam": "Appel",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             },
             {
                 "id": 4,
@@ -60,7 +60,7 @@ class PlantGrid {
                 "id": 7,
                 "plantNaam": "Groene",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             },
             {
                 "id": 8,
@@ -72,19 +72,20 @@ class PlantGrid {
                 "id": 9,
                 "plantNaam": "yippie",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             }
         ];
 
         const filteredData = dataHardObject.filter(plantObject => plantObject.plantGeteelt === 1);
 
         // Populate the grid with plant objects
-        filteredData.forEach((plantObject, index) => {
+        filteredData.slice(0, 8).forEach((plantObject, index) => {
             const plant = new Plant(plantObject);
-                const col = index % this.cols;
-                const row = Math.floor(index / this.cols);
-                this.grid[row][col] = plant;
+            const col = index % this.cols;
+            const row = Math.floor(index / this.cols);
+            this.grid[row][col] = plant;
         });
+        
 
         // Display the grid in the HTML table with id "planten"
         this.displayGrid();
@@ -113,7 +114,7 @@ class PlantGrid {
 
                         td.appendChild(article);
                         itemCount++;
-                    } if (rowIndex === this.rows -1 && colIndex === this.cols -1 & itemCount <= 7) {
+                    } else if (rowIndex === this.rows -1 && colIndex === this.cols -1 & itemCount <= 7) {
                         // Handle the "Add" button
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
