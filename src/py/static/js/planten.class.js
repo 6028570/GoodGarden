@@ -108,7 +108,7 @@ class PlantGrid {
                         // Handle regular plant items
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
-                        img.src = "images/Icon awesome-apple-alt.png";
+                        img.src = "../static/images/icon_awesome-apple-alt.png";
                         const h2 = article.appendChild(document.createElement("h2"));
                         h2.classList.add("plant-naam");
                         h2.textContent = plant.plantNaam;
@@ -119,7 +119,7 @@ class PlantGrid {
                         // Handle the "Add" button
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
-                        img.src = "images/Toevoegen.png";
+                        img.src = "../static/images/Toevoegen.png";
                         img.id = "toevoegen";
                         img.alt = "Add";
                         article.id = "modalButton";

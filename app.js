@@ -23,7 +23,7 @@ server.post('/submit-form', (req, res) =>
   };
 
   // Execute Python script with plant name as an argument
-  PythonShell.run('./script/db_connect_form.py', options, (err, results) => 
+  PythonShell.run('src/py/script/db_connect_form.py', options, (err, results) => 
   {
     if (err) 
     {
