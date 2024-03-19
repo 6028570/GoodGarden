@@ -2,6 +2,16 @@ const { ipcRenderer } = require("electron");
 const axios = require('axios');
 
 document.addEventListener('DOMContentLoaded', () => {
+    ipcRenderer.send('request-update-temp', ['some', 'arguments']);
+
+    ipcRenderer.on('update-temp-result', (event, newTemperature) => {
+        if (newTemperature === 'error') {
+            console.error('Er is een fout opgetreden bij het ophalen van de nieuwe temperatuur');
+        } else {
+            document.getElementById('bodem-temperatuur').textContent = newTemperature;
+        }
+    });
+
     // Send a message to the main process to execute the Python script
     ipcRenderer.send('run-python-script', ['some', 'arguments']);
 
@@ -58,10 +68,62 @@ document.addEventListener('DOMContentLoaded', () => {
      * --- Function to draw the chart. The important arrays are "data" & "xLabels".
      */
     function drawLineChart() {
+        const data = [20, 50, 60, 45, 50, 100, 70, 60, 65, 0, 85, 0];
+        const xLabels = ["", "", "", "", "", 6, "", "", "", "", "", 12];
+        const yLabels = ["", 20, "", 40, "", 60, "", 80, "", 100]; /*NIET VERANDEREN!!!*/
+
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
 
-        // ... (rest of the function remains unchanged)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const padding = 35; // Increased padding for Y labels
+        const graphWidth = canvas.width - padding * 2;
+        const graphHeight = canvas.height - padding * 2;
+
+        ctx.beginPath();
+        ctx.moveTo(padding, padding);
+        ctx.lineTo(padding, canvas.height - padding);
+        ctx.lineTo(canvas.width - padding, canvas.height - padding);
+        ctx.stroke();
+
+        // Set the color of the line
+        ctx.strokeStyle = "rgb(143, 188, 143)";
+
+        const xIncrement = graphWidth / (xLabels.length - 1);
+        const yIncrement = graphHeight / (yLabels.length - 1);
+
+        // Plot the data
+        ctx.beginPath();
+        ctx.moveTo(padding, canvas.height - padding - (data[0] / 100) * graphHeight);
+
+        for (let i = 1; i < data.length; i++) {
+            const xPos = padding + i * xIncrement;
+            const yPos = canvas.height - padding - (data[i] / 100) * graphHeight;
+            ctx.lineTo(xPos, yPos);
+        }
+        ctx.stroke();
+
+        // Draw Y labels
+        ctx.fillStyle = "black";
+        ctx.textAlign = "right"; // Align text to the right
+        ctx.textBaseline = "middle"; // Center vertically
+
+        for (let i = 0; i < yLabels.length; i++) {
+            if (yLabels[i] !== "") {
+                const yPos = canvas.height - padding - i * yIncrement;
+                ctx.fillText(yLabels[i], padding - 10, yPos);
+            }
+        }
+
+        // Draw X labels
+        ctx.textAlign = "center"; // Center horizontally for X labels
+        for (let i = 0; i < xLabels.length; i++) {
+            if (xLabels[i] !== "") {
+                const xPos = padding + i * xIncrement;
+                ctx.fillText(xLabels[i], xPos, canvas.height - padding + 20);
+            }
+        }
     }
 
     // Call the function to draw the line chart
@@ -79,17 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-// Function to update HTML content with battery data
-function updateBatteryData(batteryData){
-    document.getElementById('deviceNumber').innerText = batteryData.device;
-    document.getElementById('voltage').innerText = batteryData.value;
-    document.getElementById('time').innerText = batteryData.gateway_receive_time;
-    document.getElementById('tevredenheid').innerText = batteryData.timestamp;
+    // Function to update HTML content with battery data
+    function updateBatteryData(batteryData) {
+        document.getElementById('deviceNumber').innerText = batteryData.device;
+        document.getElementById('voltage').innerText = batteryData.value;
+        document.getElementById('time').innerText = batteryData.gateway_receive_time;
+        document.getElementById('tevredenheid').innerText = batteryData.timestamp;
 
-    // Voeg andere eigenschappen toe zoals nodig
-}
-
-
+        // Voeg andere eigenschappen toe zoals nodig
+    }
 
     // Fetch battery data when the page loads
     fetchBatteryData();
