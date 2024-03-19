@@ -34,9 +34,17 @@ def get_data():
     if battery_data is None:
         return jsonify({"error": "Failed to fetch data from database"})
 
-    print(battery_data)
-    
+    # Convert the fetched data into a dictionary
+    data_dict = {
+        "id": battery_data[0],
+        "timestamp": str(battery_data[1]),  # Convert timestamp to string for JSON serialization
+        "gateway_receive_time": str(battery_data[2]),  # Convert timestamp to string for JSON serialization
+        "device": battery_data[3],
+        "value": battery_data[4]
+    }
+
     # Return the data as JSON
+    return jsonify(data_dict)
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000)
