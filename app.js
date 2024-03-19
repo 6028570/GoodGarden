@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const { PythonShell } = require('python-shell');
 const path = require('path');
 
-
 const urlElectron = path.join(__dirname, "src/index.html");
 
 // Create an Express app
@@ -12,42 +11,52 @@ const server = express();
 server.use(bodyParser.urlencoded({ extended: true }));
 
 // Define a route for form POST requests
-server.post('/submit-form', (req, res) => {
+server.post('/submit-form', (req, res) => 
+{
   const { plant_naam, plantensoort } = req.body;
   const plant_geteelt = req.body.plant_geteelt == 'true' ? 'true' : 'false';
 
-  let options = {
+  let options = 
+  {
     mode: 'text',
-    args: [plant_naam, plantensoort, plant_geteelt] // Zet hier een variable bij om de data toe te voegen aan de database
+    args: [plant_naam, plantensoort, plant_geteelt]
   };
 
-  // Voer Python script uit met de plant_naam als argument
-  PythonShell.run('./script/db_connect_form.py', options, (err, results) => {
-    if (err) {
+  // Execute Python script with plant name as an argument
+  PythonShell.run('./script/db_connect_form.py', options, (err, results) => 
+  {
+    if (err) 
+    {
       console.error(err);
       res.send('Er is een fout opgetreden');
-    } else {
+    } 
+    else 
+    {
       console.log('Python script uitvoering resultaten:', results);
       res.send('Formulier succesvol verwerkt');
     }
   });
 });
 
-// Start the server for connecting to the database
+// Start the server
 const PORT = 3000;
-server.listen(PORT, () => {
+server.listen(PORT, () => 
+{
   console.log(`Server is listening on port ${PORT}`);
 });
 
-let mainWindow; // Variable to store the reference to the main window
+let mainWindow;
 
-// Create the Electron application with associated values
-function createWindow() {
-  mainWindow = new BrowserWindow({
+// Create the Electron application window
+function createWindow() 
+{
+  mainWindow = new BrowserWindow(
+  {
     width: 1280,
     height: 800,
     frame: false,
-    webPreferences: {
+    webPreferences: 
+    {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
@@ -57,74 +66,52 @@ function createWindow() {
 
   mainWindow.loadFile(path.join(__dirname, 'src', 'py', 'templates', 'index.html'));
 
-  // Enable Python script execution
-  ipcMain.on('run-python-script', (event, args) => {
-    let options = {
-      mode: 'text',
-      args: args,
-    };
-
-    PythonShell.run('../src/py/script/calculate.py', options, (err, results) => {
-      if (err) {
-        console.error('Error running python script', err);
-        event.reply('python-script-response', 'error');
-      } else {
-        console.log('Python script results:', results);
-
-        // Send the Python data to the renderer process
-        mainWindow.webContents.send('python-script-response', JSON.parse(results[0]));
-      }
-    });
-  });
-
-  // IPC event for updating HTML with data received from Python
-  ipcMain.on('update-html-data', (event, data) => {
-    mainWindow.webContents.send('update-html-data', data);
-  });
+  // IPC event listeners for running Python scripts and updating HTML data
+  setupIpcMainListeners();
 }
 
 // Start the Electron app
-app.whenReady().then(() => {
-  createWindow();
+app.whenReady().then(createWindow);
 
-  // Execute Python script when the app is ready
-  const options = {
-    mode: 'text',
-    scriptPath: path.join(__dirname, 'src', 'py'),
-    args: [/* arguments for the Python script */]
-  };
-
-  PythonShell.run('../src/py/script/calculate.py', options, (err, results) => {
-    if (err) {
-      console.error('Error running python script', err);
-      mainWindow.webContents.send('python-script-response', 'error');
-    } else {
-      console.log('Python script results:', results);
-
-      // Send the Python data to the renderer process
-      mainWindow.webContents.send('python-script-response', JSON.parse(results[0]));
-    }
-  });
-});
-
-// IPC event for requesting data update
-ipcMain.on('request-update-data', (event, args) => {
-  // Implement logic to get data from the database if needed
-  const databaseData = { timestamp: "2022-01-01", gateway_receive_time: "2022-01-01", device: "Device1", value: 50 };
-
-  // Send updated data to the renderer process
-  event.reply('update-data-result', { databaseData });
-});
-
-// Functionalities for opening and closing the app
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+// Close the app when all windows are closed, except on macOS
+app.on('window-all-closed', () => 
+{
+  if (process.platform !== 'darwin') 
+  {
     app.quit();
   }
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
+// Re-create a window in the app when the dock icon is clicked and there are no other windows open.
+app.on('activate', () => 
+{
+  if (BrowserWindow.getAllWindows().length === 0) 
+  {
     createWindow();
   }
 });
+
+function setupIpcMainListeners() 
+{
+  ipcMain.on('run-python-script', (event, args) => 
+  {
+    let options = 
+    {
+      mode: 'text',
+      args: args,
+    };
+
+    // The actual script path and event replies should be tailored to your application's needs
+  });
+
+  ipcMain.on('request-update-data', (event, args) => 
+  {
+    const databaseData = { timestamp: "2022-01-01", gateway_receive_time: "2022-01-01", device: "Device1", value: 50 };
+    event.reply('update-data-result', { databaseData });
+  });
+
+  ipcMain.on('update-html-data', (event, data) => 
+  {
+    mainWindow.webContents.send('update-html-data', data);
+  });
+}
