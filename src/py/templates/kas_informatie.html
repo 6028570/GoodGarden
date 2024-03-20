@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kas informatie / Planten" />
+    <meta name="author" content="B. Diker, A. Oomen" />
+    <meta name="keywords" content="planten / kas" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="../static/js/main.js" defer></script>
+    <title>Informatie Kas</title>
+  </head>
+  <body>
+    <section class="mainContainer">
+      <article>
+        <a href="index.html">
+          <img src="../static/images/logo.png" class="goodgarden-logo">
+        </a>
+      </article>
+      <section class="mainBorder informatie-kas-main-container">
+        <article>
+          <h1 class="pagina-titel">Informatie Kas</h1>
+          <section id="sectie-1">
+            <article class="parent-algemeen-overzicht">
+              <article class="algemeen-overzicht">
+                <table class="table-informatie-kas">
+                  <tr class="tr-informatie-kas">
+                      <td>Device</td>
+                      <td id="deviceNumber"></td> <!-- Update this ID -->
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                      <td>Batterij Voltage</td>
+                      <td id="voltage"></td> <!-- Update this ID -->
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                      <td>Tijden</td>
+                      <td id="time"></td> <!-- Update this ID -->
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                      <td>Zulu</td>
+                      <td id="zulu"></td> <!-- Update this ID -->
+                  </tr>
+              </table>
+              </article>
+            </article>
+            <article class="grafiek">
+              <article class="grafiek-innerbox">
+                <h2>Zonlicht</h2>
+                <canvas
+                  id="myCanvas"
+                  class="canvas-informatie-kas"
+                  width="275"
+                  height="275"
+                ></canvas>
+              </article>
+            </article>
+          </section>
+        </article>
+        <article class="grid-column-2">
+          <article class="grid-2-child">
+            <section class="parent-table">
+              <table class="kas-table-1">
+                <tr>
+                  <td>Aantal geplant:</td>
+                  <td id="totale_planten">Loading...</td>
+                </tr>
+                <tr>
+                  <td>Succesvolle Oogst:</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>Gefaalde Oogst:</td>
+                  <td>2</td>
+                </tr>
+              </table>
+              <table class="kas-table-2">
+                <tr>
+                  <td>Warmste Maand:</td>
+                  <td>n.v.t.</td>
+                </tr>
+                <tr>
+                  <td>koudste Maand:</td>
+                  <td>December</td>
+                </tr>
+                <tr>
+                  <td>Gemiddelde Bodemtemp.:</td>
+                  <td id="bodem-temperatuur">2˚C</td>
+                </tr>
+                <tr>
+                  <td>Gemiddelde Uren Zonlicht:</td>
+                  <td id="battery_voltage">2u</td>
+                </tr>
+              </table>
+              <table class="kas-table-3">
+                <tr>
+                  <td>Laatste Irrigatie:</td>
+                  <td>2u</td>
+                </tr>
+                <tr>
+                  <td>Aankomende Irrigatie:</td>
+                  <td>2u</td>
+                </tr>
+                <tr>
+                  <td>Laatste Bemesting</td>
+                  <td>2d</td>
+                </tr>
+                <tr>
+                  <td>Aankomende Bemesting:</td>
+                  <td>2w</td>
+                </tr>
+              </table>
+            </section>
+          </article>
+        </article>
+      </section>
+    </section>
+    <script>
+      // fetch('get_data.php')
+      //     .then(response => response.json())
+      //     .then(data => {
+      //         document.getElementById('totale_planten').innerHTML = data.totale_planten;
+      //     })
+      //     .catch(error => console.error('Error:', error));
+    </script>
+  </body>
+</html>

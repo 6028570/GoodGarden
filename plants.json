@@ -1,0 +1,32 @@
+[
+    {
+        "id": 47,
+        "plant_naam": "Tomaten",
+        "plantensoort": "Groente",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 49,
+        "plant_naam": "Komkommer",
+        "plantensoort": "Groente",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 50,
+        "plant_naam": "Appel",
+        "plantensoort": "Fruit",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 51,
+        "plant_naam": "Sla",
+        "plantensoort": "Groente",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 52,
+        "plant_naam": "Wietplant",
+        "plantensoort": "Onkruid",
+        "plant_geteelt": 0
+    }
+]
