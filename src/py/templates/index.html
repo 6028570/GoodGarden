@@ -3,114 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Document</title>
+    <meta name="description" content="Dashboard / Planten">
+    <meta name="author" content="B. Diker, A. Oomen">
+    <meta name="keywords" content="planten / kas">
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/main.js" defer></script>
-    <!-- <script src="../script/main.py"></script> -->
+    <script src="../static/js/planten.class.js"></script>
 </head>
 <body>
     <section class="mainContainer">
+        <article>
+          <a href="index.html">
+            <img src="../static/images/logo.png" class="goodgarden-logo">
+          </a>
+        </article>
         <section class="mainBorder">
             <section class="content">
                 <section class="kant-links">
                     <table id="planten">
-                        <tr>
-                            <td>
-                                <a href="../templates/kas_informatie.html">
-                                <article class="article-1">
-                                    <img src="../static/images/Icon awesome-apple-alt.png"alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </a>
-                            </td>
+                        <!-- <tr>
                             <td>
                                 <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
                                     <h2>Tomaat</h2>
                                 </article>
                             </td>
-                        </tr>
-                        <!-- Second Row -->
-                        <tr>
-                            <td>
-                                <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </td>
-                            <td>
-                                <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </td>
-                        </tr>
-                        <!-- Third Row -->
-                        <tr>
-                            <td>
-                                <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>          
-                        </td>
-                            <td>
-                                <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </td>
-                        </tr>
-                        <!-- Fourth Row -->
-                        <tr>
-                            <td>
-                                <article>
-                                    <img src="../static/images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </td>
-                            <td>
-                                <article id="modalButton" onclick="openModal()">
-                                    <img id="toevoegen"src="../static/images/toevoegen.png" alt="">
-                                </article>
-                            </td>
-                        </tr>
+                        </tr> -->
                     </table>
-                    <div id="myModal" class="modal">
-                        <!-- Modal content -->
-                        <span class="close">&times;</span>
-                        <form action="http://localhost:3000/submit-form" method="post">
-                            <!-- Form content -->
-                        </form>
-                    </div>
+                    <div class="formulier">
+                      <div id="myModal" class="modal" style="display: none;">
+                          <h1 id="plant-id">Plant Toevoegen</h1>
+                          <form action="http://localhost:3000/submit-form" method="post">
+                              <label for="plantNaam">Naam van de plant</label><br>
+                              <input type="text" name="plant_naam" id="plantNaam"><br>
+              
+                              <label for="plantensoort">Soort van de plant</label><br>
+                              <input type="text" name="plantensoort" id="plantensoort"><br>
+              
+                              <label for="aanwezig">Aanwezig in de kas</label><br>
+                              <select name="aanwezig_in_kas">
+                                  <option value="ja">Ja</option>
+                                  <option value="nee">Nee</option>
+                              </select><br>
+              
+                              <label for="ontvangenMeldingen">Meldingen ontvangen</label><br>
+                              <select name="ontvangen_meldingen">
+                                  <option value="ja">Ja</option>
+                                  <option value="nee">Nee</option>
+                              </select><br>
+              
+                              <section class="knop-container">
+                                  <br><button class="annulatie-knop" type="button" onclick="closeOverlay()">Annuleren</button>
+                                  <input type="submit" value="Submit">
+                              </section>
+                          </form>
+                      </div>
+                  </div>
+                  <div id="overlay" onclick="closeOverlay()"></div>
                 </section>
                 <!-- White space -->
                 <section>
-                    <p></p>
                 </section>
                 <section class="kant-rechts">
-                    <section id="metingen">
-                        <article id="main-waardes">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <p>Waardes</p>
-                                    </td>
-                                    <td>
-                                        <p>Huidig</p>
-                                    </td>
-                                    <td>
-                                        <p>24u gemiddelde</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </article>
-                        <div class="divider">
-                        </div>
-                        <article>
-                            
-                        </article>
-                    </section>
+                    <section id="sectie-1">
+            <article class="parent-algemeen-overzicht">
+              <article class="algemeen-overzicht">
+                <a href="kas_informatie.html">
+                <table class="table-informatie-kas">
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen tot Oogst</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen in Kas</td>
+                    <td>2</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Tevredenheid</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Aandachtspunten</td>
+                    <td>1</td>
+                  </tr>
+                </table>
+                <a/>
+              </article>
+            </article>
+            <article class="grafiek">
+              <article class="grafiek-innerbox">
+                <h2>Zonlicht</h2>
+                <canvas
+                  id="myCanvas" class="canvas-informatie-kas" width="275" height="275"></canvas>
+              </article>
+            </article>
+          </section>
                 </section>
             </section>
         </section>

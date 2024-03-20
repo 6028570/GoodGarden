@@ -87,44 +87,56 @@ class PlantGrid {
             this.grid[row][col] = plant;
         });
         
-
         // Display the grid in the HTML table with id "planten"
         this.displayGrid();
     }
 
-    displayGrid() {
+    displayGrid()
+    {
         const plantenTable = document.getElementById("planten");
 
         let itemCount = 0; // Counter for the number of items in the grid
 
-        this.grid.forEach((row, rowIndex) => {
+        this.grid.forEach((row, rowIndex) => 
+        {
             const tr = document.createElement("tr");
 
-            row.forEach((plant, colIndex) => {
+            row.forEach((plant, colIndex) => 
+            {
                 const td = document.createElement("td");
 
-                if (itemCount < 8) {
-                     if (plant) {
+                if (itemCount < 8)
+                {
+                    if (plant)
+                    {
                         // Handle regular plant items
+                        const link = document.createElement("a");
+                        link.href = `planteninfo.html?id=${plant.id}`; // Link naar de planteninfo pagina met plant id als query parameter
+
                         const article = document.createElement("article");
+                        article.classList.add("plant-container");
+                        link.appendChild(article); // Voeg het artikel toe aan de link
+
                         const img = article.appendChild(document.createElement("img"));
-                        img.src = "images/Icon awesome-apple-alt.png";
+                        img.src = "../static/images/icon_awesome-apple-alt.png";
                         const h2 = article.appendChild(document.createElement("h2"));
                         h2.classList.add("plant-naam");
                         h2.textContent = plant.plantNaam;
 
-                        td.appendChild(article);
+                        td.appendChild(link); // Voeg de link toe aan de td
                         itemCount++;
-                    } else if (rowIndex === this.rows -1 && colIndex === this.cols -1 && itemCount <= 7) {
-                        // Handle the "Add" button
+                    }
+                    else if (rowIndex === this.rows - 1 && colIndex === this.cols - 1 && itemCount <= 7)
+                    {
+                    // Handle the "Add" button
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
-                        img.src = "images/Toevoegen.png";
+                        img.src = "../static/images/Toevoegen.png";
                         img.id = "toevoegen";
                         img.alt = "Add";
                         article.id = "modalButton";
                         article.onclick = openModal;
-
+                
                         td.appendChild(article);
                         itemCount++;
                     }
@@ -136,6 +148,7 @@ class PlantGrid {
             plantenTable.appendChild(tr);
         });
     }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
