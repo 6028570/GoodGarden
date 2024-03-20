@@ -1,6 +1,38 @@
 const { ipcRenderer } = require("electron");
+const axios = require('axios');
+
+// Function to open the modal
+function openModal() {
+    const modal = document.getElementById("myModal");
+    const button = document.getElementById("modalButton");
+    const close = document.getElementsByClassName("close")[0];
+
+    if (modal && button && close) { // Check if elements are found
+        // Toon de modal wanneer op de knop wordt geklikt
+        button.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // Sluit de modal wanneer op het 'sluiten' icoon wordt geklikt
+        close.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Sluit de modal wanneer buiten de modal wordt geklikt
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    } else {
+        console.error("Modal elements not found");
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Call openModal when DOM content is loaded
+    openModal();
+
     // Send a message to the main process to execute the Python script
     ipcRenderer.send('run-python-script', ['some', 'arguments']);
 
@@ -23,60 +55,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger an event to request data update
     ipcRenderer.send('request-update-data');
 
-    // Function to open the modal
-    function openModal() {
-        const modal = document.getElementById("myModal");
-        const button = document.getElementById("modalButton");
-        const close = document.getElementsByClassName("close")[0];
+    // Fetch battery data when the page loads
+    fetchBatteryData();
+});
 
-    // Toon de modal wanneer op de knop wordt geklikt
-    button.onclick = function()
-    {
-        modal.style.display = "block";
-    }
+// Function to draw the chart
+function drawLineChart() {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
 
-    // Sluit de modal wanneer op het 'sluiten' icoon wordt geklikt
-    close.onclick = function() 
-    {
-        modal.style.display = "none";
-    }
-
-    // Sluit de modal wanneer buiten de modal wordt geklikt
-    window.onclick = function(event) 
-    {
-        if (event.target == modal) 
-        {
-            modal.style.display = "none";
-        }
-    }
+    // ... (rest of the function remains unchanged)
 }
 
-    /**
-     * --- Function to draw the chart. The important arrays are "data" & "xLabels".
-     */
-    function drawLineChart() {
-        const canvas = document.getElementById("myCanvas");
-        const ctx = canvas.getContext("2d");
-
-        // ... (rest of the function remains unchanged)
-    }
-
-drawLineChart();
-
-    // Function to fetch battery data from Flask API
-    function fetchBatteryData() {
-        axios.get('http://127.0.0.1:5000')
-            .then(response => {
-                const batteryData = response.data;
-                updateBatteryData(batteryData);
-            })
-            .catch(error => {
-                console.error('Error fetching battery data:', error);
-            });
-    }
+// Function to fetch battery data from Flask API
+function fetchBatteryData() {
+    axios.get('http://127.0.0.1:5000')
+        .then(response => {
+            const batteryData = response.data;
+            updateBatteryData(batteryData);
+        })
+        .catch(error => {
+            console.error('Error fetching battery data:', error);
+        });
+}
 
 // Function to update HTML content with battery data
-function updateBatteryData(batteryData){
+function updateBatteryData(batteryData) {
     document.getElementById('deviceNumber').innerText = batteryData.device;
     document.getElementById('voltage').innerText = batteryData.value;
     document.getElementById('time').innerText = batteryData.gateway_receive_time;
@@ -84,9 +88,3 @@ function updateBatteryData(batteryData){
 
     // Voeg andere eigenschappen toe zoals nodig
 }
-
-
-
-    // Fetch battery data when the page loads
-    fetchBatteryData();
-});
