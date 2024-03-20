@@ -9,6 +9,22 @@ p, td {
   font-family: "Afacad", sans-serif;
 }
 
+.containers-articles, body .mainContainer .mainBorder .content .kant-rechts #sensor-2, body .mainContainer .mainBorder .content .kant-links #sensor-1, body .mainContainer .mainBorder .content .kant-links #planten td article {
+  height: 7rem;
+  width: 10rem;
+  padding: 0.6rem;
+  margin: 0.1rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px rgb(171, 211, 174);
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
 body {
   background-image: url("../images/achtergrond.png");
   background-repeat: no-repeat;
@@ -117,20 +133,6 @@ body .mainContainer .mainBorder .content .kant-links #planten {
   width: 100%;
   border-collapse: collapse;
 }
-body .mainContainer .mainBorder .content .kant-links #planten td article {
-  height: 7rem;
-  width: 10rem;
-  padding: 0.6rem;
-  margin: 0.1rem;
-  margin-left: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: solid 3px rgb(171, 211, 174);
-  border-radius: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 body .mainContainer .mainBorder .content .kant-links #planten td article #toevoegen {
   height: 5rem;
   width: 5rem;
@@ -140,6 +142,12 @@ body .mainContainer .mainBorder .content .kant-links #planten td article h2 {
 }
 body .mainContainer .mainBorder .content .kant-links #planten td article:hover {
   background-color: lightgray;
+}
+body .mainContainer .mainBorder .content .kant-links #sensor-1 {
+  border: none;
+  border-radius: 40px 0px 0px 40px;
+  width: 30vw;
+  margin-top: 10vh;
 }
 body .mainContainer .mainBorder .content .kant-rechts {
   grid-column: 3;
@@ -160,6 +168,11 @@ body .mainContainer .mainBorder .content .kant-rechts #metingen #main-waardes ta
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+body .mainContainer .mainBorder .content .kant-rechts #sensor-2 {
+  border-radius: 0px 40px 40px 0px;
+  width: 30vw;
+  margin-top: 10vh;
 }
 body .mainContainer .mainBorder .grid-column-2 {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

@@ -60,7 +60,7 @@ class PlantGrid {
                 "id": 7,
                 "plantNaam": "Groene",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             },
             {
                 "id": 8,
@@ -72,7 +72,7 @@ class PlantGrid {
                 "id": 9,
                 "plantNaam": "yippie",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             }
         ];
 
