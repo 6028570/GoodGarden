@@ -36,25 +36,25 @@ class PlantGrid {
                 "id": 3,
                 "plantNaam": "Appel",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             },
             {
                 "id": 4,
                 "plantNaam": "KwamKwammer",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             },
             {
                 "id": 5,
                 "plantNaam": ":p",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             },
             {
                 "id": 6,
                 "plantNaam": ":3",
                 "plantensoort": "Groente",
-                "plantGeteelt": 1
+                "plantGeteelt": 0
             },
             {
                 "id": 7,
@@ -66,13 +66,13 @@ class PlantGrid {
                 "id": 8,
                 "plantNaam": "test",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             },
             {
                 "id": 9,
                 "plantNaam": "yippie",
                 "plantensoort": "Groente",
-                "plantGeteelt": 0
+                "plantGeteelt": 1
             }
         ];
 
