@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "npm-run-all --parallel start-flask start-electron",
-    "start-electron": "wait-on http://localhost:5000 && electron app.js",
+    "start-electron": "wait-on http://localhost:5000/battery_voltage_events && electron app.js",
     "start-flask": "python app.py"
   },
   "author": "",

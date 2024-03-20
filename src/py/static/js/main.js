@@ -69,7 +69,7 @@ function drawLineChart() {
 
 // Function to fetch battery data from Flask API
 function fetchBatteryData() {
-    axios.get('http://127.0.0.1:5000')
+    axios.get('http://127.0.0.1:5000/battery_voltage_events') 
         .then(response => {
             const batteryData = response.data;
             updateBatteryData(batteryData);
@@ -79,12 +79,14 @@ function fetchBatteryData() {
         });
 }
 
+
 // Function to update HTML content with battery data
 function updateBatteryData(batteryData) {
-    document.getElementById('deviceNumber').innerText = batteryData.device;
-    document.getElementById('voltage').innerText = batteryData.value;
-    document.getElementById('time').innerText = batteryData.gateway_receive_time;
-    document.getElementById('tevredenheid').innerText = batteryData.timestamp;
+    document.getElementById('deviceNumber').innerText = batteryData.device || 'Niet beschikbaar';
+    document.getElementById('voltage').innerText = batteryData.value || 'Niet beschikbaar';
+    document.getElementById('time').innerText = batteryData.gateway_receive_time || 'Niet beschikbaar';
+    document.getElementById('tevredenheid').innerText = batteryData.timestamp || 'Niet beschikbaar';
 
-    // Voeg andere eigenschappen toe zoals nodig
 }
+
+
