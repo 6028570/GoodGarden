@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/css/style.css">
+    <script src="../src/js/main.js" defer></script>
+    <script src="../src/js/planten.class.js"></script>
+</head>
+<body>
+    <section class="mainContainer">
+        <article>
+            <img src="../src/images/logo.png" class="goodgarden-logo">
+          </article>
+        <section class="mainBorder">
+            <section class="content">
+                <section class="kant-links">
+                    <table id="planten">
+                        <tr>
+                            <td>
+                                <a href="../src/kas_informatie.html">
+                                <article class="article-1">
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2 class="plant-naam"></h2>
+                                </article>
+                            </a>
+                            </td>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2 class="plant-naam">Tomaat</h2>
+                                </article>
+                            </td>
+                        </tr>
+                        <!-- Second Row -->
+                        <tr>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2>Tomaat</h2>
+                                </article>
+                            </td>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2>Tomaat</h2>
+                                </article>
+                            </td>
+                        </tr>
+                        <!-- Third Row -->
+                        <tr>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2>Tomaat</h2>
+                                </article>          
+                        </td>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2>Tomaat</h2>
+                                </article>
+                            </td>
+                        </tr>
+                        <!-- Fourth Row -->
+                        <tr>
+                            <td>
+                                <article>
+                                    <img src="images/Icon awesome-apple-alt.png" alt="">
+                                    <h2>Tomaat</h2>
+                                </article>
+                            </td>
+                            <td>
+                                <article id="modalButton" onclick="openModal()">
+                                    <img id="toevoegen"src="images/Toevoegen.png" alt="">
+                                </article>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
+                
+                            <input type="text" name="plant_naam" id="plantNaam">
+                            <label for="plantNaam">Naam van de plant</label>
+                
+                            <input type="text" name="plantensoort" id="plantensoort">
+                            <label for="plantensoort">Soort van de plant</label>
+                
+                            <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
+                            <label for="aanwezig">Aanwezig</label>
+                
+                            <input type="radio" name="plant_geteelt" id="afwezig" value="false">
+                            <label for="afwezig">Afwezig</label>
+                
+                            <input type="submit" value="Submit">
+                        </form>
+                
+                    </div>
+                    <div id="overlay" onclick="closeOverlay"></div>
+                </section>
+                <!-- White space -->
+                <section>
+                </section>
+                <section class="kant-rechts">
+                    <section id="sectie-1">
+            <article class="parent-algemeen-overzicht">
+              <article class="algemeen-overzicht">
+                <table class="table-informatie-kas">
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen tot Oogst</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen in Kas</td>
+                    <td>2</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Tevredenheid</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Aandachtspunten</td>
+                    <td>1</td>
+                  </tr>
+                </table>
+              </article>
+            </article>
+            <article class="grafiek">
+              <article class="grafiek-innerbox">
+                <h2>Zonlicht</h2>
+                <canvas
+                  id="myCanvas" class="canvas-informatie-kas" width="275" height="275"></canvas>
+              </article>
+            </article>
+          </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+
+</html>
