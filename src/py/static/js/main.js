@@ -25,22 +25,18 @@ function openModal()
     {
         modal.style.display = "block";
     }
-
-    // Sluit de modal wanneer op het 'sluiten' icoon wordt geklikt
-    close.onclick = function() 
-    {
-        modal.style.display = "none";
-    }
-
-    // Sluit de modal wanneer buiten de modal wordt geklikt
-    window.onclick = function(event) 
-    {
-        if (event.target == modal) 
-        {
+    
+        
+    
+        // Sluit de modal wanneer op de annuleerknop wordt geklikt
+        cancelButton.onclick = function() {
             modal.style.display = "none";
         }
     }
-}
+
+    
+ 
+
 
 /**
  * --- Functie om de grafiek te tekenen. Enigste belangrijke is de eerste 2 "const" arrays "data" & "xLabels".
@@ -114,6 +110,21 @@ function drawLineChart()
 
 drawLineChart();
 
+function closeOverlay() {
+    const overlay = document.getElementById('myModal'); // Assuming your overlay has an ID of 'myModal'
+    overlay.style.display = 'none'; // Hide the overlay
+}
+
+var modal = document.getElementById("myModal");
+    var submitBtn = document.getElementById("submitBtn");
+
+    // Wanneer er op de knop wordt geklikt
+    submitBtn.onclick = function() {
+        // Sluit de modal
+        modal.style.display = "none";
+        // Voorkom standaardgedrag van de knop (bijvoorbeeld het indienen van een formulier)
+        return false;
+    }
 
 /////////////////////////////////
 

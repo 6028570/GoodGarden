@@ -1,5 +1,7 @@
 $primary-color: rgb(171, 211, 174);
 $secondary-color: rgb(143, 188, 143);
+$button-bg-color: #3498db; // background color
+$button-text-color: #ffffff; 
 
 @import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
@@ -437,7 +439,7 @@ body
 }
 
 #myModal input[type="submit"] {
-  background-color: white;
+  background: linear-gradient(45deg, #abd3ae, #6ebf7d);
 }
 
 #myModal button {
@@ -453,8 +455,9 @@ body
   background: linear-gradient(45deg, #ffcc00, #ff6600);
 }
 
+
+
 #myModal button:hover {
-  background: linear-gradient(45deg, #abd3ae, #fff);
   color: #000;
 }
 

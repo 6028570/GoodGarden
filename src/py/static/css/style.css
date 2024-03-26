@@ -310,7 +310,7 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
 }
 
 #myModal input[type=submit] {
-  background-color: white;
+  background: linear-gradient(45deg, #abd3ae, #6ebf7d);
 }
 
 #myModal button {
@@ -327,7 +327,6 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
 }
 
 #myModal button:hover {
-  background: linear-gradient(45deg, #abd3ae, #fff);
   color: #000;
 }
 
