@@ -22,5 +22,35 @@
         "plant_naam": "Sla",
         "plantensoort": "Groente",
         "plant_geteelt": 1
+    },
+    {
+        "id": 52,
+        "plant_naam": "Wietplant",
+        "plantensoort": "Onkruid",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 53,
+        "plant_naam": "Patat",
+        "plantensoort": "Aarde",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 54,
+        "plant_naam": "asfasfas",
+        "plantensoort": "fasfasfsaf",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 55,
+        "plant_naam": "sadfadsfdsf",
+        "plantensoort": "sdfdsafdsfdf",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 56,
+        "plant_naam": "asdasd",
+        "plantensoort": "asdasdasdasdasd",
+        "plant_geteelt": 1
     }
 ]

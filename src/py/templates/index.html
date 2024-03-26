@@ -31,10 +31,10 @@
                             </td>
                         </tr> -->
                     </table>
-                    <div class="formulier">
+                    <!-- <div class="formulier">
                       <div id="myModal" class="modal" style="display: none;">
                           <h1 id="plant-id">Plant Toevoegen</h1>
-                          <form action="http://localhost:3000/submit-form" method="post">
+                          <form action="http://localhost:3000/submit-form" method="post"onsubmit="return addplant()">
                               <label for="plantNaam">Naam van de plant</label><br>
                               <input type="text" name="plant_naam" id="plantNaam"><br>
               
@@ -43,14 +43,14 @@
               
                               <label for="aanwezig">Aanwezig in de kas</label><br>
                               <select name="aanwezig_in_kas">
-                                  <option value="ja">Ja</option>
-                                  <option value="nee">Nee</option>
+                                  <option value="true">Ja</option>
+                                  <option value="false">Nee</option>
                               </select><br>
               
                               <label for="ontvangenMeldingen">Meldingen ontvangen</label><br>
                               <select name="ontvangen_meldingen">
-                                  <option value="ja">Ja</option>
-                                  <option value="nee">Nee</option>
+                                  <option value="true">Ja</option>
+                                  <option value="false">Nee</option>
                               </select><br>
               
                               <section class="knop-container">
@@ -60,7 +60,28 @@
                           </form>
                       </div>
                   </div>
-                  <div id="overlay" onclick="closeOverlay()"></div>
+                  <div id="overlay" onclick="closeOverlay()"></div> -->
+                  <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
+           
+                        <input type="text" name="plant_naam" id="plantNaam">
+                        <label for="plantNaam">Naam van de plant</label>
+           
+                        <input type="text" name="plantensoort" id="plantensoort">
+                        <label for="plantensoort">Soort van de plant</label>
+           
+                        <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
+                        <label for="aanwezig">Aanwezig</label>
+           
+                        <input type="radio" name="plant_geteelt" id="afwezig" value="false">
+                        <label for="afwezig">Afwezig</label>
+           
+                        <input type="submit" value="Submit">
+                    </form>
+           
+                </div>
+                <div id="overlay" onclick="closeOverlay"></div>
                 </section>
                 <!-- White space -->
                 <section>
