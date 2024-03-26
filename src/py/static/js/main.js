@@ -88,5 +88,34 @@ function updateBatteryData(batteryData) {
     document.getElementById('tevredenheid').innerText = batteryData.timestamp || 'Niet beschikbaar';
 
 }
+// Functie om plantgegevens op te halen van Flask API
+function fetchPlantData(plantName) {
+    axios.get(`http://127.0.0.1:5000/plants?name=${plantName}`) 
+        .then(response => {
+            const plantData = response.data;
+            updatePlantData(plantData);
+        })
+        .catch(error => {
+            console.error('Error fetching plant data:', error);
+            // Toon een foutmelding of negeer als de plant niet gevonden is
+        });
+}
+
+// Functie om HTML-inhoud bij te werken met plantgegevens
+function updatePlantData(plantData) {
+    // Update de HTML-inhoud met de ontvangen plantgegevens
+    document.getElementById('plant_name').innerText = plantData.name || 'Niet beschikbaar';
+    document.getElementById('plant_type').innerText = plantData.type || 'Niet beschikbaar';
+    document.getElementById('plant_description').innerText = plantData.description || 'Niet beschikbaar';
+    document.getElementById('plant_light').innerText = plantData.light || 'Niet beschikbaar';
+    document.getElementById('plant_humidity').innerText = plantData.humidity || 'Niet beschikbaar';
+}
+
+// Event listener voor het invoerveld waarin de plantnaam wordt ingevoerd
+document.getElementById('plant_input').addEventListener('input', function(event) {
+    const plantName = event.target.value;
+    fetchPlantData(plantName);
+});
+
 
 

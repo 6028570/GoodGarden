@@ -32,26 +32,24 @@
                         </tr> -->
                     </table>
                     <div id="myModal" class="modal">
-                        <span class="close">&times;</span>
-                        <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
-                
-                            <input type="text" name="plant_naam" id="plantNaam">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <form id="plantForm" onsubmit="return addPlant()">
+                            <input type="text" name="plant_naam" id="plantNaam" placeholder="Naam van de plant">
                             <label for="plantNaam">Naam van de plant</label>
-                
-                            <input type="text" name="plantensoort" id="plantensoort">
+                    
+                            <input type="text" name="plantensoort" id="plantensoort" placeholder="Soort van de plant">
                             <label for="plantensoort">Soort van de plant</label>
-                
+                    
                             <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
                             <label for="aanwezig">Aanwezig</label>
-                
+                    
                             <input type="radio" name="plant_geteelt" id="afwezig" value="false">
                             <label for="afwezig">Afwezig</label>
-                
+                    
                             <input type="submit" value="Submit">
                         </form>
-                
                     </div>
-                    <div id="overlay" onclick="closeOverlay"></div>
+                    <div id="overlay" onclick="closeModal()"></div>                    
                 </section>
                 <!-- White space -->
                 <section>

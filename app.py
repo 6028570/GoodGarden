@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, redirect, url_for
 import mysql.connector
 
 app = Flask(__name__)
@@ -72,6 +72,28 @@ def get_care_schedules_data():
         print("Fout bij het ophalen van care schedule gegevens uit de database:", e)
         return None
 
+# Functie om een nieuwe plant toe te voegen aan de database
+def add_plant_to_database(plant_naam, plantensoort, plant_geteelt):
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='goodgarden'
+        )
+        cursor = connection.cursor()
+
+        # Query om een nieuwe plant toe te voegen aan de plants-tabel
+        query = "INSERT INTO plants (name, type, beschrijving, licht, vochtigheid) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(query, (plant_naam, plantensoort, '', '', ''))  # Beschrijving, licht en vochtigheid kunnen leeg blijven
+        connection.commit()
+
+        connection.close()
+        return True
+    except Exception as e:
+        print("Fout bij het toevoegen van de plant aan de database:", e)
+        return False
+
 @app.route('/battery_voltage_events', methods=['GET'])
 def get_battery_voltage_events():
     battery_voltage_data = get_battery_voltage_data()
@@ -106,6 +128,24 @@ def get_care_schedules():
         return jsonify({"error": "Kan verzorgingsschema-gegevens niet ophalen uit de database"})
 
     return jsonify(care_schedules_data)
+
+# Flask route om het formulier voor het toevoegen van een nieuwe plant te verwerken
+@app.route('/add_plant', methods=['POST'])
+def add_plant():
+    if request.method == 'POST':
+        try:
+            plant_naam = request.form['plant_naam']  # Hier wordt de plantnaam uit het formulier gehaald
+            plantensoort = request.form['plantensoort']
+            plant_geteelt = request.form['plant_geteelt']
+
+            # Voeg de nieuwe plant toe aan de database
+            if add_plant_to_database(plant_naam, plantensoort, plant_geteelt):
+                return redirect(url_for('get_plants'))  # Redirect naar de pagina met de lijst van planten
+            else:
+                return jsonify({"error": "Fout bij het toevoegen van de plant aan de database"}), 500
+        except Exception as e:
+            print("Fout bij het toevoegen van de plant:", e)
+            return jsonify({"error": "Fout bij het toevoegen van de plant"}), 500
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000)
