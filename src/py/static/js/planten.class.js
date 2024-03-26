@@ -96,6 +96,7 @@ class PlantGrid {
 
             plantenTable.appendChild(tr);
         });
+    
     }
 }
 
