@@ -138,13 +138,16 @@ function fetchBatteryData() {
         });
 }
  
-// Function to update HTML content with battery data
 function updateBatteryData(batteryData) {
-    document.getElementById('deviceNumber-322').innerHTML = batteryData.device_id;
-    document.getElementById('voltage').innerHTML = batteryData.label;
-    document.getElementById('time').innerHTML = batteryData.last_seen;
-    document.getElementById('tevredenheid').innerHTML = batteryData.last_battery_voltage;
+    document.getElementById('deviceNumber-322').innerHTML = batteryData[1].device_id;
+    document.getElementById('voltage-322').innerHTML = batteryData[1].label;
+    document.getElementById('time-322').innerHTML = batteryData[1].last_seen;
+    document.getElementById('tevredenheid-322').innerHTML = batteryData[1].last_battery_voltage;
+
+    document.getElementById('deviceNumber-256').innerHTML = batteryData[0].device_id;
+    document.getElementById('voltage-256').innerHTML = batteryData[0].label;
+    document.getElementById('time-256').innerHTML = batteryData[0].last_seen;
+    document.getElementById('tevredenheid-256').innerHTML = batteryData[0].last_battery_voltage;
  
-    // Voeg andere eigenschappen toe zoals nodig
     console.log(batteryData);
 }

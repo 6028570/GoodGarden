@@ -16,7 +16,6 @@ def database_connect():
         print("Database connection failed:", e)
         return None
 
-
 # Function to get data from the MySQL database
 def get_database_data():
 
@@ -27,34 +26,26 @@ def get_database_data():
         cursor = mydb.cursor()
 
         # Query to retrieve the latest battery voltage data
-        query = "SELECT label, last_seen, last_battery_voltage, device_id FROM devices ORDER BY device_id DESC LIMIT 1"
+        query = "SELECT label, last_seen, last_battery_voltage, device_id FROM devices"
         cursor.execute(query)
         battery_data = cursor.fetchone()
         mydb.close()
         return battery_data
-    
-# def devices_data():
-
 
 @app.route('/', methods=['GET'])
 def get_data():
-    # Get data from the database
-    battery_data = get_database_data()
+    battery_data_322 = get_database_data()
 
-    if battery_data is None:
+    if battery_data_322 is None:
         return jsonify({"error": "Failed to fetch data from database"})
 
-    # Convert the fetched data into a dictionary
     data_dict = {
-        "label": battery_data[0],
-        "last_seen": battery_data[1],
-        "last_battery_voltage": battery_data[2],
-        "device_id": battery_data[3]
+        "label": battery_data_322[0],
+        "last_seen": battery_data_322[1],
+        "last_battery_voltage": battery_data_322[2],
+        "device_id": battery_data_322[3]
     }
 
-    print(data_dict)
-
-    # Return the data as JSON
     return jsonify(data_dict)
 
 if __name__ == "__main__":
