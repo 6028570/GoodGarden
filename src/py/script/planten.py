@@ -47,3 +47,5 @@ def fetch_plant_and_write_to_json():
 
 # Call the function to fetch data and write to JSON
 fetch_plant_and_write_to_json()
+# if __name__ == "__main__":
+#     fetch_plant_and_write_to_json()

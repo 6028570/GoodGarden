@@ -31,36 +31,6 @@
                             </td>
                         </tr> -->
                     </table>
-                    <!-- <div class="formulier">
-                      <div id="myModal" class="modal" style="display: none;">
-                          <h1 id="plant-id">Plant Toevoegen</h1>
-                          <form action="http://localhost:3000/submit-form" method="post"onsubmit="return addplant()">
-                              <label for="plantNaam">Naam van de plant</label><br>
-                              <input type="text" name="plant_naam" id="plantNaam"><br>
-              
-                              <label for="plantensoort">Soort van de plant</label><br>
-                              <input type="text" name="plantensoort" id="plantensoort"><br>
-              
-                              <label for="aanwezig">Aanwezig in de kas</label><br>
-                              <select name="aanwezig_in_kas">
-                                  <option value="true">Ja</option>
-                                  <option value="false">Nee</option>
-                              </select><br>
-              
-                              <label for="ontvangenMeldingen">Meldingen ontvangen</label><br>
-                              <select name="ontvangen_meldingen">
-                                  <option value="true">Ja</option>
-                                  <option value="false">Nee</option>
-                              </select><br>
-              
-                              <section class="knop-container">
-                                  <br><button class="annulatie-knop" type="button" onclick="closeOverlay()">Annuleren</button>
-                                  <input type="submit" value="Submit">
-                              </section>
-                          </form>
-                      </div>
-                  </div>
-                  <div id="overlay" onclick="closeOverlay()"></div> -->
                   <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
@@ -82,18 +52,15 @@
            
                 </div>
                 <div id="overlay" onclick="closeOverlay"></div>
-                </section>
-                <!-- White space -->
-                <section>
-                </section>
-                <section class="kant-rechts">
-                    <section id="sectie-1">
-            <article class="parent-algemeen-overzicht">
+        </section>
+        <section class="kant-rechts">
+          <section id="sectie-1">
+            <!-- <article class="parent-algemeen-overzicht">
               <article class="algemeen-overzicht">
                 <a href="kas_informatie.html">
                 <table class="table-informatie-kas">
                   <tr class="tr-informatie-kas">
-                    <td>Dagen tot Oogst</td>
+                    <td>Planten aanwezig in kas:</td>
                     <td>12</td>
                   </tr>
                   <tr class="tr-informatie-kas">
@@ -111,16 +78,59 @@
                 </table>
                 <a/>
               </article>
+            </article> -->
+<!-- SENSOR 1 -->
+            <article class="parent-algemeen-overzicht">
+              <article class="algemeen-overzicht">
+                <a href="sensoren.html">
+                <table class="table-informatie-kas">
+                  <tr class="tr-informatie-kas">
+                    <td>Sensor:</td>
+                    <td id="deviceNumber-322">12</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Locatie:</td>
+                    <td id="voltage">2</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Batterijvoltage:</td>
+                    <td id="time">80%</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen resterend:</td>
+                    <td id="tevredenheid">1</td>
+                  </tr>
+                </table>
+                <a/>
+              </article>
             </article>
-            <article class="grafiek">
-              <article class="grafiek-innerbox">
-                <h2>Zonlicht</h2>
-                <canvas
-                  id="myCanvas" class="canvas-informatie-kas" width="275" height="275"></canvas>
+<!-- SENSOR 2 -->
+            <article class="parent-algemeen-overzicht">
+              <article class="algemeen-overzicht">
+                <a href="sensoren.html">
+                <table class="table-informatie-kas">
+                  <tr class="tr-informatie-kas">
+                    <td>Sensor:</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Locatie:</td>
+                    <td>2</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Batterijvoltage:</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr class="tr-informatie-kas">
+                    <td>Dagen resterend:</td>
+                    <td>1</td>
+                  </tr>
+                </table>
+                <a/>
               </article>
             </article>
           </section>
-                </section>
+        </section>
             </section>
         </section>
     </section>

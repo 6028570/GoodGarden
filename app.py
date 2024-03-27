@@ -3,8 +3,7 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# Function to get data from the MySQL database
-def get_database_data():
+def database_connect():
     try:
         connection = mysql.connector.connect(
             host='localhost',
@@ -12,19 +11,30 @@ def get_database_data():
             password='',
             database='goodgarden'
         )
-        cursor = connection.cursor()
+        return connection
+    except Exception as e:
+        print("Database connection failed:", e)
+        return None
+
+
+# Function to get data from the MySQL database
+def get_database_data():
+
+    mydb = database_connect()
+
+    if mydb and mydb.is_connected():
+
+        cursor = mydb.cursor()
 
         # Query to retrieve the latest battery voltage data
-        query = "SELECT id, timestamp, gateway_receive_time, device, value FROM battery_voltage_events ORDER BY timestamp DESC LIMIT 1"
+        query = "SELECT label, last_seen, last_battery_voltage, device_id FROM devices ORDER BY device_id DESC LIMIT 1"
         cursor.execute(query)
         battery_data = cursor.fetchone()
-
-        connection.close()
-
+        mydb.close()
         return battery_data
-    except Exception as e:
-        print("Error fetching data from database:", e)
-        return None
+    
+# def devices_data():
+
 
 @app.route('/', methods=['GET'])
 def get_data():
@@ -36,12 +46,13 @@ def get_data():
 
     # Convert the fetched data into a dictionary
     data_dict = {
-        "id": battery_data[0],
-        "timestamp": str(battery_data[1]),  # Convert timestamp to string for JSON serialization
-        "gateway_receive_time": str(battery_data[2]),  # Convert timestamp to string for JSON serialization
-        "device": battery_data[3],
-        "value": battery_data[4]
+        "label": battery_data[0],
+        "last_seen": battery_data[1],
+        "last_battery_voltage": battery_data[2],
+        "device_id": battery_data[3]
     }
+
+    print(data_dict)
 
     # Return the data as JSON
     return jsonify(data_dict)
