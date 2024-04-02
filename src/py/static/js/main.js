@@ -138,16 +138,21 @@ function fetchBatteryData() {
         });
 }
  
-function updateBatteryData(batteryData) {
-    document.getElementById('deviceNumber-322').innerHTML = batteryData[1].device_id;
-    document.getElementById('voltage-322').innerHTML = batteryData[1].label;
-    document.getElementById('time-322').innerHTML = batteryData[1].last_seen;
-    document.getElementById('tevredenheid-322').innerHTML = batteryData[1].last_battery_voltage;
-
-    document.getElementById('deviceNumber-256').innerHTML = batteryData[0].device_id;
-    document.getElementById('voltage-256').innerHTML = batteryData[0].label;
-    document.getElementById('time-256').innerHTML = batteryData[0].last_seen;
-    document.getElementById('tevredenheid-256').innerHTML = batteryData[0].last_battery_voltage;
- 
+function updateBatteryData(batteryData) 
+{
+    if(batteryData[1].device_id == 322)
+    {
+        document.getElementById('deviceNumber-322').innerHTML = batteryData[1].device_id;
+        document.getElementById('voltage-322').innerHTML = batteryData[1].label;
+        document.getElementById('time-322').innerHTML = batteryData[1].last_seen;
+        document.getElementById('tevredenheid-322').innerHTML = batteryData[1].last_battery_voltage;
+    }
+    if (batteryData[0].device_id == 256)
+    {
+        document.getElementById('deviceNumber-256').innerHTML = batteryData[0].device_id;
+        document.getElementById('voltage-256').innerHTML = batteryData[0].label;
+        document.getElementById('time-256').innerHTML = batteryData[0].last_seen;
+        document.getElementById('tevredenheid-256').innerHTML = batteryData[0].last_battery_voltage;
+    }
     console.log(batteryData);
 }
