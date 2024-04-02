@@ -156,3 +156,28 @@ function updateBatteryData(batteryData)
     }
     console.log(batteryData);
 }
+
+const apiKey = "9516081f15727d063c9e2f08454a2fe9";
+const city = "Leiden";
+ 
+// Maak de URL voor de API-aanroep
+const apiUrl = `https://weerlive.nl/api/weerlive_api_v2.php?key=${apiKey}&locatie=${city}`;
+ 
+// Doe een GET-verzoek naar de API
+fetch(apiUrl)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Network response was not ok.');
+  })
+  .then(data => {
+    // Verwerk de ontvangen weerdata
+    console.log(data);
+    const weatherIcon = data.live_weather.image;
+    const weatherImageUrl = `https://www.weerlive.nl/delen.php?size=klein&weer=${weatherIcon}`;
+    document.getElementById('weatherImage').src = weatherImageUrl;
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
