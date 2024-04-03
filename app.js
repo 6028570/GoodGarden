@@ -1,50 +1,68 @@
+// Importeert de benodigde Electron modules om een desktopapplicatie te creëren.
 const { app, BrowserWindow, ipcMain } = require("electron");
+
+// Express framework om een HTTP-server op te zetten.
 const express = require("express");
+
+// Body-parser middleware om inkomende request bodies te parsen.
 const bodyParser = require("body-parser");
+
+// PythonShell om Python scripts binnen een NodeJS applicatie uit te voeren.
 const { PythonShell } = require("python-shell");
+
+// Path module voor het werken met bestandspaden.
 const path = require("path");
 
+// Definieert het pad naar de index.html van de Electron app.
 const urlElectron = path.join(__dirname, "src/index.html");
 
+// Initialiseert de Express app.
 const server = express();
+
+// Configureert de express server om URL-encoded data te accepteren.
 server.use(bodyParser.urlencoded({ extended: true }));
 
-// Define a route for form POST requests
-server.post("/submit-form", (req, res) => {
+// Handler voor het "/submit-form" endpoint. Verwerkt formulierinzendingen.
+server.post("/submit-form", (req, res) =>
+{
+  // Extracts form data from the request body.
   const { plant_naam, plantensoort } = req.body;
   const plant_geteelt = req.body.plant_geteelt == "true" ? "true" : "false";
 
+  // Configuratieopties voor het uitvoeren van het Python script.
   let options = {
     mode: "text",
     args: [plant_naam, plantensoort, plant_geteelt],
   };
 
-  // Execute Python script with plant name as an argument
-  PythonShell.run(
-    "src/py/script/db_connect_form.py",
-    options,
-    (err, results) => {
-      if (err) {
-        console.error(err);
-        res.send("Er is een fout opgetreden");
-      } else {
-        console.log("Python script uitvoering resultaten:", results);
-        res.send("Formulier succesvol verwerkt");
-      }
+  // Voert een Python script uit en handelt de response af.
+  PythonShell.run("src/py/script/db_connect_form.py", options, (err, results) =>
+  {
+    if (err)
+    {
+      console.error(err);
+      res.send("Er is een fout opgetreden");
     }
-  );
+    else
+    {
+      console.log("Python script uitvoering resultaten:", results);
+      res.send("Formulier succesvol verwerkt");
+    }
+  });
 });
 
-// Start the server
+// Definieert de poort waarop de server luistert.
 const PORT = 3000;
-server.listen(PORT, () => {
+server.listen(PORT, () => 
+{
   console.log(`Server is listening on port ${PORT}`);
 });
 
-let mainWindow;
+let mainWindow; // Referentie naar het hoofdvenster van de Electron app.
 
-// Create the Electron application window
-function createWindow() {
+// Creëert het hoofdvenster van de Electron app.
+function createWindow() 
+{
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
@@ -58,42 +76,51 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadFile(
-    path.join(__dirname, "src", "py", "templates", "index.html")
-  );
+  mainWindow.loadFile(path.join(__dirname, "src", "py", "templates", "index.html"));
 
-  // IPC event listeners for running Python scripts and updating HTML data
+  // Stelt IPC Main Listeners in voor communicatie tussen hoofdproces en renderproces.
   setupIpcMainListeners();
 }
 
-// Start the Electron app
+// Wanneer de app klaar is, wordt het hoofdvenster gecreëerd.
 app.whenReady().then(createWindow);
 
-// Close the app when all windows are closed, except on macOS
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+// Sluit de app af wanneer alle vensters gesloten zijn (behalve op macOS).
+app.on("window-all-closed", () => 
+{
+  if (process.platform !== "darwin") 
+  {
     app.quit();
   }
 });
 
-// Re-create a window in the app when the dock icon is clicked and there are no other windows open.
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
+// Creëert het hoofdvenster opnieuw wanneer het app icoon wordt aangeklikt en er zijn geen vensters open.
+app.on("activate", () => 
+{
+  if (BrowserWindow.getAllWindows().length === 0) 
+  {
     createWindow();
   }
 });
 
-function setupIpcMainListeners() {
-  ipcMain.on("run-python-script", (event, args) => {
+//
+
+// Configureert IPC (Inter-Process Communication) luisteraars.
+function setupIpcMainListeners() 
+{
+  // IPC luisteraar voor het uitvoeren van een Python script.
+  ipcMain.on("run-python-script", (event, args) => 
+  {
     let options = {
       mode: "text",
       args: args,
     };
-
-    // The actual script path and event replies should be tailored to your application's needs
+    // Hier zou je PythonShell.run met deze opties aanroepen.
   });
 
-  ipcMain.on("request-update-data", (event, args) => {
+  // IPC luisteraar voor het aanvragen van data update.
+  ipcMain.on("request-update-data", (event, args) => 
+  {
     const databaseData = {
       timestamp: "2022-01-01",
       gateway_receive_time: "2022-01-01",
@@ -103,7 +130,9 @@ function setupIpcMainListeners() {
     event.reply("update-data-result", { databaseData });
   });
 
-  ipcMain.on("update-html-data", (event, data) => {
+  // IPC luisteraar voor het bijwerken van HTML data via het renderproces.
+  ipcMain.on("update-html-data", (event, data) => 
+  {
     mainWindow.webContents.send("update-html-data", data);
   });
 }

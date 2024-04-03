@@ -20,9 +20,6 @@ Zorg dat je in de hoofdmap "GoodGarden" zit. Kijk in je path: "../GoodGarden". A
      npm install --save-dev npm-run-all
      npm install wait-on --save-dev
      npm install concurrently --save-dev
-
-
-
      
      pip install mysql-connector-python
      pip install requests

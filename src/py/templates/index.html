@@ -21,90 +21,62 @@
         <section class="mainBorder">
             <section class="content">
                 <section class="kant-links">
-                    <table id="planten">
-                        <!-- <tr>
-                            <td>
-                                <article>
-                                    <img src="images/Icon awesome-apple-alt.png" alt="">
-                                    <h2>Tomaat</h2>
-                                </article>
-                            </td>
-                        </tr> -->
-                    </table>
+                  <table id="planten">
+                  </table>
+                  <!-- Modal voor het toevoegen van nieuwe planten -->
                   <div id="myModal" class="modal">
-                    <span class="close">&times;</span>
-                    <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
-           
-                        <input type="text" name="plant_naam" id="plantNaam">
-                        <label for="plantNaam">Naam van de plant</label>
-           
-                        <input type="text" name="plantensoort" id="plantensoort">
-                        <label for="plantensoort">Soort van de plant</label>
-           
-                        <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
-                        <label for="aanwezig">Aanwezig</label>
-           
-                        <input type="radio" name="plant_geteelt" id="afwezig" value="false">
-                        <label for="afwezig">Afwezig</label>
-           
-                        <input type="submit" value="Submit">
-                    </form>
-           
-                </div>
+                      <!-- Sluitknop voor de modal -->
+                      <span class="close">&times;</span>
+                      <!-- Formulier voor het toevoegen van nieuwe planten -->
+                      <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
+                          <!-- Velden voor het invullen van plantinformatie -->
+                          <input type="text" name="plant_naam" id="plantNaam">
+                          <label for="plantNaam">Naam van de plant</label>
+         
+                          <input type="text" name="plantensoort" id="plantensoort">
+                          <label for="plantensoort">Soort van de plant</label>
+         
+                          <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
+                          <label for="aanwezig">Aanwezig</label>
+         
+                          <input type="radio" name="plant_geteelt" id="afwezig" value="false">
+                          <label for="afwezig">Afwezig</label>
+         
+                          <input type="submit" value="Submit">
+                      </form>
+                  </div>
                 <div id="overlay" onclick="closeOverlay"></div>
         </section>
         <section class="kant-rechts">
+          <!-- Sectie voor sensorinformatie -->
           <section id="sectie-1">
-            <!-- <article class="parent-algemeen-overzicht">
-              <article class="algemeen-overzicht">
-                <a href="kas_informatie.html">
-                <table class="table-informatie-kas">
-                  <tr class="tr-informatie-kas">
-                    <td>Planten aanwezig in kas:</td>
-                    <td>12</td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Dagen in Kas</td>
-                    <td>2</td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Tevredenheid</td>
-                    <td>80%</td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Aandachtspunten</td>
-                    <td>1</td>
-                  </tr>
-                </table>
-                <a/>
-              </article>
-            </article> -->
-<!-- SENSOR 1 -->
-            <article class="parent-algemeen-overzicht">
-              <article class="algemeen-overzicht">
-                <a href="sensoren.html">
-                <table class="table-informatie-kas">
-                  <tr class="tr-informatie-kas">
-                    <td>Sensor:</td>
-                    <td id="deviceNumber-322"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Locatie:</td>
-                    <td id="voltage-322"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Batterijvoltage:</td>
-                    <td id="tevredenheid-322"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Dagen resterend:</td>
-                    <td id="time-322"></td>
-                  </tr>
-                </table>
-                <a/>
+              <!-- Container voor algemene overzichtinformatie -->
+              <article class="parent-algemeen-overzicht">
+                  <article class="algemeen-overzicht">
+                      <!-- Link naar pagina met meer details over de sensoren -->
+                    <a href="sensoren.html">
+                      <!-- Tabel met sensorinformatie -->
+                      <table class="table-informatie-kas">
+                        <tr class="tr-informatie-kas">
+                          <td>Sensor:</td>
+                          <td id="deviceNumber-322"></td>
+                        </tr>
+                        <tr class="tr-informatie-kas">
+                          <td>Locatie:</td>
+                          <td id="voltage-322"></td>
+                        </tr>
+                        <tr class="tr-informatie-kas">
+                          <td>Batterijvoltage:</td>
+                          <td id="tevredenheid-322"></td>
+                        </tr>
+                        <tr class="tr-informatie-kas">
+                          <td>Dagen resterend:</td>
+                          <td id="time-322"></td>
+                        </tr>
+                      </table>
+                    <a/>
               </article>
             </article>
-<!-- SENSOR 2 -->
             <article class="parent-algemeen-overzicht">
               <article class="algemeen-overzicht">
                 <a href="sensoren.html">
@@ -133,7 +105,7 @@
         </section>
             </section>
         </section>
-    </section>
+  </section>
 </body>
 
 </html>

@@ -49,9 +49,6 @@ def on_message(client, userdata, message):
 
     print(f"\033[92mMessage received on topic\033[0m {message.topic}: {data}")
 
-# def berekenAlgo(data):
-
-
 if __name__ == "__main__":
     topic = "goodgarden/devices"
     subscribe.callback(on_message, topic)

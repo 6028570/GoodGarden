@@ -17,32 +17,37 @@
           <img src="../static/images/logo.png" class="goodgarden-logo">
         </a>
       </article>
+      <!-- De container die de inhoud van de informatiepagina bevat -->
       <section class="mainBorder informatie-kas-main-container">
         <article>
           <h1 class="pagina-titel">Informatie Kas</h1>
+          <!-- Sectie met overzicht van de kas gegevens -->
           <section id="sectie-1">
+            <!-- Weergave van sensor data en kascondities -->
             <article class="parent-algemeen-overzicht">
               <article class="algemeen-overzicht">
+                 <!-- Tabel voor het weergeven van sensorgegevens -->
                 <table class="table-informatie-kas">
                   <tr class="tr-informatie-kas">
                       <td>Device</td>
-                      <td id="deviceNumber"></td> <!-- Update this ID -->
+                      <td id="deviceNumber"></td>
                   </tr>
                   <tr class="tr-informatie-kas">
                       <td>Batterij Voltage</td>
-                      <td id="voltage"></td> <!-- Update this ID -->
+                      <td id="voltage"></td>
                   </tr>
                   <tr class="tr-informatie-kas">
                       <td>Tijden</td>
-                      <td id="time"></td> <!-- Update this ID -->
+                      <td id="time"></td>
                   </tr>
                   <tr class="tr-informatie-kas">
                       <td>Zulu</td>
-                      <td id="zulu"></td> <!-- Update this ID -->
+                      <td id="zulu"></td>
                   </tr>
               </table>
               </article>
             </article>
+            <!-- Weergave van zonlichtdata in een grafiek -->
             <article class="grafiek">
               <article class="grafiek-innerbox">
                 <h2>Zonlicht</h2>
@@ -56,10 +61,13 @@
             </article>
           </section>
         </article>
+        <!-- Sectie met aanvullende informatie over de kas in tabelvorm -->
         <article class="grid-column-2">
           <article class="grid-2-child">
             <section class="parent-table">
+              <!-- Verschillende tabellen voor gedetailleerde informatie -->
               <table class="kas-table-1">
+                 <!-- Rijen met specifieke kas informatie, zoals aantal geplante en geoogste planten -->
                 <tr>
                   <td>Aantal geplant:</td>
                   <td id="totale_planten">Loading...</td>
@@ -74,6 +82,7 @@
                 </tr>
               </table>
               <table class="kas-table-2">
+                 <!-- Rijen met klimaat- en bodemcondities -->
                 <tr>
                   <td>Warmste Maand:</td>
                   <td>n.v.t.</td>
@@ -92,6 +101,7 @@
                 </tr>
               </table>
               <table class="kas-table-3">
+                <!-- Rijen met irrigatie- en bemestingschema's -->
                 <tr>
                   <td>Laatste Irrigatie:</td>
                   <td>2u</td>
@@ -115,12 +125,6 @@
       </section>
     </section>
     <script>
-      // fetch('get_data.php')
-      //     .then(response => response.json())
-      //     .then(data => {
-      //         document.getElementById('totale_planten').innerHTML = data.totale_planten;
-      //     })
-      //     .catch(error => console.error('Error:', error));
     </script>
   </body>
 </html>

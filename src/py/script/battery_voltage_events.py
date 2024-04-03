@@ -214,6 +214,7 @@ if __name__ == "__main__":
         # Update gegevens
         record_id = int(input("Enter record ID to update: "))
         # Call the update_data function without additional arguments
+        # Roep de update_data function aan zonder arguments
         update_data(record_id)
     elif operation_choice == "D":
         # Verwijder gegevens
