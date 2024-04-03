@@ -372,7 +372,7 @@ body
   height: auto;
   border: solid 2px #abd3ae;
   border-radius: 10px;
-}
+
 .modal .close {
   color: #aaa;
   float: right;
@@ -474,6 +474,7 @@ body
   text-decoration: none;
   cursor: pointer;
 }
+}
 
 .switch-container {
   display: flex;
@@ -485,7 +486,7 @@ body
   display: inline-block;
   width: 60px;
   height: 30px;
-}
+
 
 .switch input {
   opacity: 0;
@@ -535,3 +536,64 @@ input:checked + .slider:before {
   {
     background-color: white;
   }
+
+  .switch-container {
+    position: absolute;
+  }
+}
+
+.pagina-container {
+  position: relative;
+  align-items: end;
+
+
+  
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(300%, -310%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: red;
+  border-radius: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.close-button:hover {
+  background-color: #cc0000; 
+}
+}
+.container {
+  position: relative;
+  align-items: end;
+
+
+.back-button {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  transform: translate(300%, -310%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: #ffcc00;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.back-button:hover{
+  background-color: #ff6600;
+}}
+
+
+

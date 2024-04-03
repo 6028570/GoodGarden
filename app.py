@@ -48,3 +48,31 @@ def get_data():
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000)
+
+
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///schakelaar.db'  # SQLite-database wordt gebruikt voor dit voorbeeld
+db = SQLAlchemy(app)
+
+class Schakelaar(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.Boolean, default=False)
+
+@app.route('/')
+def index():
+    schakelaar = Schakelaar.query.first()
+    return render_template('index.html', schakelaar=schakelaar)
+
+@app.route('/toggle', methods=['POST'])
+def toggle():
+    schakelaar = Schakelaar.query.first()
+    schakelaar.status = not schakelaar.status
+    db.session.commit()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run(debug=True)

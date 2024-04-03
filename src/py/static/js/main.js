@@ -126,5 +126,10 @@ var modal = document.getElementById("myModal");
         return false;
     }
 
+    function closeApplication() {
+        if (confirm("Weet je zeker dat je de applicatie wilt sluiten?")) {
+            window.close();
+        }}
+
 /////////////////////////////////
 

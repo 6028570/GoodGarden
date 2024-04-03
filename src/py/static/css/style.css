@@ -242,23 +242,20 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border: solid 2px #abd3ae;
   border-radius: 10px;
 }
-
-.modal .close {
+.modal .modal .close {
   color: #aaa;
   float: right;
   font-size: 1.75rem;
   font-weight: bold;
 }
-
-.modal .close:hover,
-.modal .close:active {
+.modal .modal .close:hover,
+.modal .modal .close:active {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-
-#myModal select,
-#myModal input {
+.modal #myModal select,
+.modal #myModal input {
   width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 15px;
@@ -266,79 +263,66 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border-radius: 5px;
   box-sizing: border-box;
 }
-
-#myModal .knop {
+.modal #myModal .knop {
   display: flex;
   justify-content: space-between;
 }
-
-#myModal button {
+.modal #myModal button {
   width: 48%;
   padding: 10px;
   box-sizing: border-box;
   height: 40px;
 }
-
-#myModal .knop-container {
+.modal #myModal .knop-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
-
-#myModal .knop-container input,
-#myModal .knop-container button {
+.modal #myModal .knop-container input,
+.modal #myModal .knop-container button {
   flex: 1;
   margin: 0 5px;
   padding: 10px;
   box-sizing: border-box;
 }
-
-#myModal input[type=text],
-#myModal select {
+.modal #myModal input[type=text],
+.modal #myModal select {
   border: 2px solid #abd3ae;
   padding: 10px;
   border-radius: 17px;
   box-sizing: border-box;
 }
-
-#myModal input[type=submit],
-#myModal button {
+.modal #myModal input[type=submit],
+.modal #myModal button {
   color: #fff;
   border: none;
   border-radius: 15px;
   cursor: pointer;
 }
-
-#myModal input[type=submit] {
+.modal #myModal input[type=submit] {
   background: linear-gradient(45deg, #abd3ae, #6ebf7d);
 }
-
-#myModal button {
+.modal #myModal button {
   background-color: white;
   color: black;
 }
-
-.toevoeging {
+.modal .toevoeging {
   background: linear-gradient(45deg, #abd3ae, #2ecc71);
 }
-
-.annulatie-knop {
+.modal .annulatie-knop {
   background: linear-gradient(45deg, #ffcc00, #ff6600);
 }
-
-#myModal button:hover {
+.modal #myModal button:hover {
   color: #000;
 }
-
-.modal .close {
+.modal .modal .close {
   color: #aaa;
   float: right;
   font-size: 1.75rem;
   font-weight: bold;
 }
-
-.modal .close:hover,
-.modal .close:active {
+.modal .modal .close:hover,
+.modal .modal .close:active {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -355,14 +339,12 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   width: 60px;
   height: 30px;
 }
-
-.switch input {
+.switch .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
-.slider {
+.switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -373,8 +355,7 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border-radius: 34px;
   transition: 0.4s;
 }
-
-.slider:before {
+.switch .slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -385,21 +366,68 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border-radius: 50%;
   transition: 0.4s;
 }
-
-input:checked + .slider {
+.switch input:checked + .slider {
   background-color: #2ecc71;
 }
-
-input:checked + .slider:before {
+.switch input:checked + .slider:before {
   transform: translateX(26px);
 }
-
-.rechterkant {
+.switch .rechterkant {
   display: flex;
   justify-content: end;
 }
-
-.plant-container,
-#modalButton {
+.switch .plant-container,
+.switch #modalButton {
   background-color: white;
+}
+.switch .switch-container {
+  position: absolute;
+}
+
+.pagina-container {
+  position: relative;
+  align-items: end;
+}
+.pagina-container .close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(300%, -310%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: red;
+  border-radius: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+.pagina-container .close-button:hover {
+  background-color: #cc0000;
+}
+
+.container {
+  position: relative;
+  align-items: end;
+}
+.container .back-button {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  transform: translate(300%, -310%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: #ffcc00;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+.container .back-button:hover {
+  background-color: #ff6600;
 }/*# sourceMappingURL=style.css.map */

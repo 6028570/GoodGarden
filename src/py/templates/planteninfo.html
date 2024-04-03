@@ -10,12 +10,20 @@
     <script src="../static/js/main.js" defer></script>
     <title>Informatie Kas</title>
   </head>
-  <body>
+
     <section class="mainContainer">
+      <div class="pagina-container">
+        <div class="close-button" onclick="closeApplication()">&times;</div>
+    </div>
+      <div class="container">
+        <a href="index.html" class="back-button">&#8592;</a>
+    </div>
+      <body>
       <article>
         <a href="index.html">
           <img src="../static/images/logo.png" class="goodgarden-logo">
         </a>
+        
       </article>
       <section class="mainBorder informatie-kas-main-container">
         <article>
@@ -27,26 +35,26 @@
                   <tr class="tr-informatie-kas">
                     <td>Aanwezig in kas</td>
                     <div class="switch-container">
-                      <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider"></span>
-                      </label>
+                      <form action="{{ url_for('toggle') }}" method="POST">
+                        <label class="switch">
+                            <input type="checkbox" name="schakelaar" {% if schakelaar.status %}checked{% endif %}>
+                            <span class="slider"></span>
                     </div>
                   </tr>
                     <td>Dagen tot Oogst</td>
-                    <td>12</td>
+                    <td class="info-rechts1">12</td>
                   </tr>
                   <tr class="tr-informatie-kas">
                     <td>Dagen in Kas</td>
-                    <td>2</td>
+                    <td class="info-rechts1">2 </td>
                   </tr>
                   <tr class="tr-informatie-kas">
                     <td>Tevredenheid</td>
-                    <td>80%</td>
+                    <td class="info-rechts1">80%</td>
                   </tr>
                   <tr class="tr-informatie-kas">
                     <td>Aandachtspunten</td>
-                    <td>1</td>
+                    <td class="info-rechts1">1</td>
                   </tr>
                 </table>
               </article>
