@@ -97,6 +97,7 @@ app.on("window-all-closed", () =>
 // Creëert het hoofdvenster opnieuw wanneer het app icoon wordt aangeklikt en er zijn geen vensters open.
 app.on("activate", () => 
 {
+
   if (BrowserWindow.getAllWindows().length === 0) 
   {
     createWindow();
@@ -104,6 +105,7 @@ app.on("activate", () =>
 });
 
 //
+
 
 // Configureert IPC (Inter-Process Communication) luisteraars.
 function setupIpcMainListeners() 

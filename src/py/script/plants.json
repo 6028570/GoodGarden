@@ -1,50 +1,26 @@
 [
     {
-        "id": 47,
-        "plant_naam": "Tomaten",
+        "id": 3,
+        "plant_naam": "Tomatenplant",
         "plantensoort": "Groente",
         "plant_geteelt": 1
     },
     {
-        "id": 49,
-        "plant_naam": "Komkommer",
-        "plantensoort": "Groente",
-        "plant_geteelt": 1
-    },
-    {
-        "id": 50,
-        "plant_naam": "Appel",
-        "plantensoort": "Fruit",
-        "plant_geteelt": 0
-    },
-    {
-        "id": 51,
+        "id": 4,
         "plant_naam": "Sla",
         "plantensoort": "Groente",
-        "plant_geteelt": 0
-    },
-    {
-        "id": 53,
-        "plant_naam": "Patat",
-        "plantensoort": "Aarde",
-        "plant_geteelt": 0
-    },
-    {
-        "id": 54,
-        "plant_naam": "asfasfas",
-        "plantensoort": "fasfasfsaf",
-        "plant_geteelt": 0
-    },
-    {
-        "id": 55,
-        "plant_naam": "sadfadsfdsf",
-        "plantensoort": "sdfdsafdsfdf",
         "plant_geteelt": 1
     },
     {
-        "id": 56,
-        "plant_naam": "asdasd",
-        "plantensoort": "asdasdasdasdasd",
+        "id": 5,
+        "plant_naam": "Peterselie",
+        "plantensoort": "Kruiden",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 6,
+        "plant_naam": "Aardbei",
+        "plantensoort": "Fruit",
         "plant_geteelt": 1
     }
 ]

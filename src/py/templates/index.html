@@ -12,24 +12,27 @@
     <script src="../static/js/planten.class.js"></script>
 </head>
 <body>
-    <section class="mainContainer">
+      <section class="mainContainer">
+        <div class="pagina-container">
+          <div class="close-button" onclick="closeApplication()">&times;</div>
+      </div>
         <article>
           <a href="index.html">
             <img src="../static/images/logo.png" class="goodgarden-logo">
           </a>
         </article>
         <section class="mainBorder">
-            <section class="content">
-                <section class="kant-links">
+          <section class="content">
+            <section class="kant-links">
                   <table id="planten">
                   </table>
                   <!-- Modal voor het toevoegen van nieuwe planten -->
-                  <div id="myModal" class="modal">
-                      <!-- Sluitknop voor de modal -->
-                      <span class="close">&times;</span>
-                      <!-- Formulier voor het toevoegen van nieuwe planten -->
+                  <!-- <div id="myModal" class="modal">
+                      Sluitknop voor de modal -->
+                      <!-- <span class="close">&times;</span>
+
                       <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
-                          <!-- Velden voor het invullen van plantinformatie -->
+    
                           <input type="text" name="plant_naam" id="plantNaam">
                           <label for="plantNaam">Naam van de plant</label>
          
@@ -44,68 +47,124 @@
          
                           <input type="submit" value="Submit">
                       </form>
-                  </div>
+                  </div>  -->
+                  <div class="formulier">
+                    <div id="myModal" class="modal" style="display: none;">
+                      <!-- <article class="modal-header"> -->
+                        <h1 id="plant-id">Plant Toevoegen</h1>
+                        <span class="close">&times;</span>
+                      <!-- </article> -->
+                        <form action="http://localhost:3000/submit-form" method="post">
+                            <label for="plantNaam">Naam van de plant</label><br>
+                            <input type="text" name="plant_naam" id="plantNaam"><br>
+            
+                            <label for="plantensoort">Soort van de plant</label><br>
+                            <input type="text" name="plantensoort" id="plantensoort"><br>
+            
+                            <label for="aanwezig">Aanwezig in de kas</label><br>
+                            <select name="aanwezig_in_kas">
+                                <option value="ja">Ja</option>
+                                <option value="nee">Nee</option>
+                            </select><br>
+            
+                            <label for="ontvangenMeldingen">Meldingen ontvangen</label><br>
+                            <select name="ontvangen_meldingen">
+                                <option value="ja">Ja</option>
+                                <option value="nee">Nee</option>
+                            </select><br>
+            
+                            <section class="knop-container">
+                                <br><button class="annulatie-knop" type="button" onclick="closeOverlay()">Annuleren</button>
+                                <input type="submit" value="Submit">
+                            </section>
+                        </form>
+                    </div>
+                </div>
                 <div id="overlay" onclick="closeOverlay"></div>
-        </section>
-        <section class="kant-rechts">
-          <!-- Sectie voor sensorinformatie -->
-          <section id="sectie-1">
-              <!-- Container voor algemene overzichtinformatie -->
-              <article class="parent-algemeen-overzicht">
-                  <article class="algemeen-overzicht">
-                      <!-- Link naar pagina met meer details over de sensoren -->
-                    <a href="sensoren.html">
-                      <!-- Tabel met sensorinformatie -->
-                      <table class="table-informatie-kas">
-                        <tr class="tr-informatie-kas">
-                          <td>Sensor:</td>
-                          <td id="deviceNumber-322"></td>
-                        </tr>
-                        <tr class="tr-informatie-kas">
-                          <td>Locatie:</td>
-                          <td id="voltage-322"></td>
-                        </tr>
-                        <tr class="tr-informatie-kas">
-                          <td>Batterijvoltage:</td>
-                          <td id="tevredenheid-322"></td>
-                        </tr>
-                        <tr class="tr-informatie-kas">
-                          <td>Dagen resterend:</td>
-                          <td id="time-322"></td>
-                        </tr>
-                      </table>
-                    <a/>
-              </article>
-            </article>
-            <article class="parent-algemeen-overzicht">
-              <article class="algemeen-overzicht">
-                <a href="sensoren.html">
-                <table class="table-informatie-kas">
-                  <tr class="tr-informatie-kas">
-                    <td>Sensor:</td>
-                    <td id="deviceNumber-256"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Locatie:</td>
-                    <td id="voltage-256"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Batterijvoltage:</td>
-                    <td id="tevredenheid-256"></td>
-                  </tr>
-                  <tr class="tr-informatie-kas">
-                    <td>Dagen resterend:</td>
-                    <td id="time-256"></td>
-                  </tr>
-                </table>
-                <a/>
-              </article>
-            </article>
+            </section>
+            <section class="kant-rechts">
+                <!-- Sectie voor sensorinformatie -->
+                <section id="sectie-1">
+                  <article class="parent-algemeen-overzicht">
+                    <article class="algemeen-overzicht">
+                      <a href="pomp_informatie.html" id="kas-informatie">
+                        <table class="table-informatie-kas">
+                          <tr class="tr-informatie-pomp">
+                            <td>Pomp Status:</td>
+                            <td id="">Uitstekend!</td>
+                          </tr>
+                          <tr class="tr-informatie-pomp">
+                            <td>Volgende Irrigatie:</td>
+                            <td id="">24:00</td>
+                          </tr>
+                          <tr class="tr-informatie-pomp">
+                            <td>Laatste Irrigatie:</td>
+                            <td id="">18:00</td>
+                          </tr>
+                          <tr class="tr-informatie-pomp">
+                            <td>Waterverbruik:</td>
+                            <td id="">0.5 L/u</td>
+                          </tr>
+                        </table>
+                      <a/>
+                    </article>
+                  </article>
+                  <!-- Container voor algemene overzichtinformatie -->
+                  <article class="parent-algemeen-overzicht">
+                    <article class="algemeen-overzicht">
+                        <!-- Link naar pagina met meer details over de sensoren -->
+                      <a href="./sensor.html" id="sensor-1">
+                        <!-- Tabel met sensorinformatie -->
+                        <table class="table-informatie-kas">
+                          <tr class="tr-informatie-kas">
+                            <td>Sensor:</td>
+                            <td id="deviceNumber-322"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Locatie:</td>
+                            <td id="voltage-322"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Batterijvoltage:</td>
+                            <td id="tevredenheid-322"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Dagen resterend:</td>
+                            <td id="time-322"></td>
+                          </tr>
+                        </table>
+                      <a/>
+                    </article>
+                  </article>
+                  <article class="parent-algemeen-overzicht">
+                    <article class="algemeen-overzicht">
+                      <a href="sensoren.html" id="sensor-2">
+                        <table class="table-informatie-kas">
+                          <tr class="tr-informatie-kas">
+                            <td>Sensor:</td>
+                            <td id="deviceNumber-256"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Locatie:</td>
+                            <td id="voltage-256"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Batterijvoltage:</td>
+                            <td id="tevredenheid-256"></td>
+                          </tr>
+                          <tr class="tr-informatie-kas">
+                            <td>Dagen resterend:</td>
+                            <td id="time-256"></td>
+                          </tr>
+                        </table>
+                      <a/>
+                    </article>
+                  </article>
+                </section>
+            </section>
           </section>
         </section>
-            </section>
-        </section>
-  </section>
+      </section>
 </body>
 
 </html>

@@ -73,6 +73,31 @@ def get_weather():
     }
  
     return jsonify(weather_data)
+
+
+def get_planten_data():
+    mydb = database_connect()
+    if mydb and mydb.is_connected():
+        cursor = mydb.cursor(dictionary=True)  # Corrected from corsor to cursor
+
+        query = "SELECT id, plant_naam, plantensoort, plant_geteelt FROM planten"
+
+        cursor.execute(query)
+        planten_data = cursor.fetchall()  # Fetch all rows
+        mydb.close()
+        return planten_data
+
+    
+@app.route("/planten", methods=["GET"])
+def get_data_planten():
+    planten_data = get_planten_data()
+ 
+    if planten_data is None or len(planten_data) == 0:
+   
+        return jsonify({"error": "Failed to fetch data from database"})
+ 
+ 
+    return jsonify(planten_data) # Directly return the list of dictionaries as JSON
  
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

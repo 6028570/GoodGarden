@@ -40,36 +40,41 @@ function openModal()
             }
         }
     } 
-    else 
-    {
-        console.error("Modaal elementen niet gevonden");
-    }
+    // else 
+    // {
+    //     console.error("Modaal elementen niet gevonden");
+    // }
 }
 
-document.addEventListener('DOMContentLoaded', () => 
-{
+// document.addEventListener('DOMContentLoaded', () => {
+    // Call openModal when DOM content is loaded
     openModal();
  
-    // Roep andere functies hier aan zoals vereist, bijvoorbeeld:
-    // fetchWeatherDataAndDrawChart();
- 
-    // Stuur een bericht naar het hoofdproces om het Python-script uit te voeren.
+    // Send a message to the main process to execute the Python script
     ipcRenderer.send('run-python-script', ['some', 'arguments']);
  
-    // Luister naar updates van HTML-data vanuit het hoofdproces.
-    ipcRenderer.on('update-html-data', (event, data) => 
-    {
-        // Werk de HTML bij met de ontvangen data.
-        document.getElementById('batteryVoltage').innerText = data.batteryVoltage;
-        // Voeg vergelijkbare regels toe voor andere data velden.
+    ipcRenderer.on('python-script-response', (event, pythonData) => {
+        if (pythonData === 'error') {
+            console.error('An error occurred while retrieving data from Python');
+        } else {
+            // Update HTML elements with data received from Python
+            document.getElementById('bodem-temperatuur').textContent = pythonData.bodemTemperatuur; // Adjust the property based on your actual Python response
+        }
     });
  
-    // Trigger een event om data update aan te vragen.
+    // Listen for updates to HTML data from the main process
+    ipcRenderer.on('update-html-data', (event, data) => {
+        // Update the HTML with the received data
+        document.getElementById('batteryVoltage').innerText = data.batteryVoltage;
+        // Add similar lines for other data fields
+    });
+ 
+    // Trigger an event to request data update
     ipcRenderer.send('request-update-data');
  
-    // Haal batterij data op wanneer de pagina laadt.
+    // Fetch battery data when the page loads
     fetchBatteryData();
-});
+// });
  
 /**
  * Functie om een lijngrafiek te tekenen.
@@ -83,8 +88,9 @@ function drawLineChart(xLabels, data)
  
     // Verkrijg het canvas element en de context voor tekenen.
     const canvas = document.getElementById("myCanvas");
+    if (canvas) 
+    {
     const ctx = canvas.getContext("2d");
- 
     // Maak het canvas schoon voor nieuwe tekening.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
  
@@ -144,6 +150,11 @@ function drawLineChart(xLabels, data)
         }
     }
 }
+else
+{
+    console.log("Canvas element does not exist on this page.");
+}
+}
  
 /**
  * Functie om weergegevens op te halen en een grafiek te tekenen.
@@ -168,17 +179,17 @@ function fetchWeatherDataAndDrawChart()
             throw new Error('Network response was not ok.');
         })
         .then(data => 
-        {
-            // Verkrijg de weersvoorspelling voor de eerste 5 dagen.
-            const weatherForecast = data.weather_forecast.slice(0, 5);
-            // Converteer datums naar dagen van de week.
-            const dates = weatherForecast.map(day => convertDateToDayOfWeek(day.dag));
-            // Verkrijg de maximale temperaturen.
-            const temperatures = weatherForecast.map(day => day.max_temp);
- 
-            // Teken de lijngrafiek met de verkregen data.
-            drawLineChart(dates, temperatures);
-        })
+            {
+                // Verkrijg de weersvoorspelling voor de eerste 5 dagen.
+                const weatherForecast = data.weather_forecast.slice(0, 5);
+                // Converteer datums naar afkortingen van dagen van de week.
+                const dates = weatherForecast.map(day => convertDateToDayOfWeek(day.dag));
+                // Verkrijg de maximale temperaturen.
+                const temperatures = weatherForecast.map(day => day.max_temp);
+             
+                // Teken de lijngrafiek met de verkregen data.
+                drawLineChart(dates, temperatures);
+            })            
         .catch(error => 
         {
             // Log eventuele fouten tijdens het ophalen.
@@ -191,16 +202,32 @@ function fetchWeatherDataAndDrawChart()
  * @param {string} dateString - De datum als string in het formaat "dd-mm".
  * @returns {string} De afkorting van de dag van de week.
  */
-function convertDateToDayOfWeek(dateString) 
-{
-    // Split de datum in dag en maand, en zet deze om naar nummers.
-    const [day, month] = dateString.split('-').map(Number);
-    // Maak een nieuwe datumobject (jaar is willekeurig omdat we alleen maand en dag nodig hebben).
-    const date = new Date(2024, month - 1, day);
-    // Verkrijg de dag van de week en zet deze om naar een afkorting.
-    const dayOfWeek = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'][date.getDay()];
-    return dayOfWeek;
-}
+// function convertDateToDayOfWeek(dateString) 
+// {
+//     // Split de datum in dag en maand, en zet deze om naar nummers.
+//     const [day, month] = dateString.split('-').map(Number);
+//     // Maak een nieuwe datumobject (jaar is willekeurig omdat we alleen maand en dag nodig hebben).
+//     const date = new Date(2024, month - 1, day);
+//     // Verkrijg de dag van de week en zet deze om naar een afkorting.
+//     const dayOfWeek = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'][date.getDay()];
+//     return dayOfWeek;
+// }
+
+// function convertDateToDayOfWeek(dateString) 
+// {
+//     // Create a date object from the dateString
+//     const [year, month, day] = dateString.split("-").map(Number);
+//     const date = new Date(year, month - 1, day);
+
+//     // Array of Dutch day names
+//     const dayNames = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+
+//     // Return the day name according to the date object
+//     return dayNames[date.getDay()];
+// }
+
+
+
  
 /**
  * Functie om batterijdata op te halen wanneer de pagina laadt.
@@ -222,6 +249,7 @@ function fetchBatteryData()
             console.error('Error fetching battery data:', error);
         });
 }
+
  
 /**
  * Functie om batterijdata op de pagina bij te werken.
@@ -230,22 +258,31 @@ function fetchBatteryData()
  */
 function updateBatteryData(batteryData) 
 {
-    // Update de data voor specifieke apparaten op basis van hun ID.
-    if (batteryData[1].device_id == 322) 
+    // Check if on the specific page where the battery data should be updated
+    if (window.location.pathname.endsWith('index.html')) 
     {
-        document.getElementById('deviceNumber-322').innerHTML = batteryData[1].device_id;
-        document.getElementById('voltage-322').innerHTML = batteryData[1].label;
-        document.getElementById('time-322').innerHTML = new Date(batteryData[0].last_seen).toLocaleTimeString();
-        document.getElementById('tevredenheid-322').innerHTML = batteryData[1].last_battery_voltage;
-    }
-    if (batteryData[0].device_id == 256) 
-    {
-        document.getElementById('deviceNumber-256').innerHTML = batteryData[0].device_id;
-        document.getElementById('voltage-256').innerHTML = batteryData[0].label;
-        document.getElementById('time-256').innerHTML = new Date(batteryData[0].last_seen).toLocaleTimeString();
-        document.getElementById('tevredenheid-256').innerHTML = batteryData[0].last_battery_voltage;
+        // Update de data voor specifieke apparaten op basis van hun ID.
+        const sensor322Element = document.getElementById('deviceNumber-322');
+        const sensor256Element = document.getElementById('deviceNumber-256');
+        
+        if (batteryData[1].device_id === 322 && sensor322Element) 
+        {
+            sensor322Element.innerHTML = batteryData[1].device_id;
+            document.getElementById('voltage-322').innerHTML = batteryData[1].label;
+            document.getElementById('time-322').innerHTML = new Date(batteryData[1].last_seen * 1000).toLocaleTimeString();
+            document.getElementById('tevredenheid-322').innerHTML = batteryData[1].last_battery_voltage.toFixed(2);
+        }
+        if (batteryData[0].device_id === 256 && sensor256Element) 
+        {
+            sensor256Element.innerHTML = batteryData[0].device_id;
+            document.getElementById('voltage-256').innerHTML = batteryData[0].label;
+            document.getElementById('time-256').innerHTML = new Date(batteryData[0].last_seen * 1000).toLocaleTimeString();
+            document.getElementById('tevredenheid-256').innerHTML = batteryData[0].last_battery_voltage.toFixed(2);
+        }
     }
 }
+
+
  
 // Definieer de API-sleutel en de stad waarvoor we de weergegevens willen ophalen.
 const apiKey = "9516081f15727d063c9e2f08454a2fe9";
@@ -287,3 +324,83 @@ fetch(apiUrl)
     // Log eventuele fouten tijdens het ophalen van de data.
     console.error('There was a problem with the fetch operation:', error);
   });
+
+  function dynamischSensor()
+  {
+      if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') 
+      {
+          const sensor1 = document.getElementById("sensor-1");
+          const sensor2 = document.getElementById("sensor-2");
+          
+          if (sensor1 && sensor2) 
+          {
+              sensor1.href = `sensor.html?id=${322}`;
+              sensor2.href = `sensor.html?id=${256}`;
+          }
+          else 
+          {
+              console.log("Elementen 'sensor-1' of 'sensor-2' bestaan niet in de DOM.");
+          }
+      }
+  }
+  
+  // Aanroepen van de functie
+  dynamischSensor();
+  
+
+  function closeApplication() {
+    if (confirm("Weet je zeker dat je de applicatie wilt sluiten?")) {
+        window.close();
+    }}
+
+    function fetchPlantenData()
+    {
+        // Gebruik Axios om een GET-verzoek te versturen naar de planten endpoint.
+        axios.get('http://127.0.0.1:5000/planten')
+        .then(response => 
+        {
+            // Verwerk de ontvangen data.
+            const plantenData = response.data;
+            updatePlantenData(plantenData);
+        })
+        .catch(error => 
+        {
+            // Log eventuele fouten tijdens het ophalen.
+            console.error('Error fetching planten data:', error);
+        });
+    }
+    
+    function getPlantIdFromUrl()
+    {
+        // Maak een URL-object van de huidige locatie.
+        const currentUrl = new URL(window.location.href);
+        // Gebruik de URLSearchParams API om de query parameters te verwerken.
+        const searchParams = currentUrl.searchParams;
+        // Haal de 'id' query parameter op.
+        return searchParams.get('id'); // Dit zal een string retourneren of null als het niet bestaat.
+    }
+    
+    function updatePlantenData(plantenData) 
+    {
+        // Verkrijg de plant ID uit de URL.
+        const plantId = parseInt(getPlantIdFromUrl(), 10);
+    
+        // Vind de plant met die ID in de ontvangen JSON-data.
+        const gevondenPlant = plantenData.find(plant => plant.id === plantId);
+    
+        // Update de titel van de pagina met de naam van de gevonden plant.
+        if (gevondenPlant) 
+        {
+            document.title = gevondenPlant.plant_naam;
+            document.querySelector(".plant-titel").textContent = gevondenPlant.plant_naam;
+            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        }
+        else 
+        {
+            console.log(`Geen plant gevonden met ID ${plantId}`);
+        }
+    }
+    
+    // Roep fetchPlantenData aan ergens waar het logisch is binnen je applicatielogica, bijvoorbeeld na het laden van de pagina of na een gebruikersactie.
+    fetchPlantenData();
+    

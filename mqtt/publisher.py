@@ -12,7 +12,12 @@ publish_interval = 30  # MOET ~300 ZIJN voor productiegebruik.
 # Definieer API-eindpunten en de corresponderende MQTT topics.
 api_endpoints = [
     {"url": "https://garden.inajar.nl/api/devices/", "topic": "goodgarden/devices"},
-    # Voeg meer API-eindpunten en topics toe zoals vereist.
+    {"url": "https://garden.inajar.nl/api/relative_humidity_events/", "topic": "goodgarden/relative_humidity"},
+    {"url": "https://garden.inajar.nl/api/battery_voltage_events/", "topic": "goodgarden/battery_voltage"},
+    {"url": "https://garden.inajar.nl/api/soil_electric_conductivity_events/", "topic": "goodgarden/soil_electric_conductivity"},
+    {"url": "https://garden.inajar.nl/api/soil_relative_permittivity_events/", "topic": "goodgarden/soil_relative_permittivity"},
+    {"url": "https://garden.inajar.nl/api/soil_temperature_events/", "topic": "goodgarden/soil_temperature"},
+    {"url": "https://garden.inajar.nl/api/par_events/", "topic": "goodgarden/par_events"}
 ]
 
 def on_connect(client, userdata, flags, rc):

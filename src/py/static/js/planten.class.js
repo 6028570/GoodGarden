@@ -88,7 +88,8 @@ class PlantGrid {
                         // Handle the "Add" button
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
-                        img.src = "../static/images/Toevoegen.png";
+                        img.src = "../static/images/plus.png";
+                        // img.src = "../images/plus.png";
                         img.id = "toevoegen";
                         img.alt = "Add";
                         article.id = "modalButton";
@@ -107,60 +108,7 @@ class PlantGrid {
     
     }
 
-    displayGrid() {
-        const plantenTable = document.getElementById("planten"); // Verkrijg de tabel waarin het raster getoond moet worden.
 
-        let itemCount = 0; // Teller voor het aantal items in het raster.
-
-        this.grid.forEach((row, rowIndex) => {
-            const tr = document.createElement("tr"); // Maak een tabelrij element.
-
-            row.forEach((plant, colIndex) => {
-                const td = document.createElement("td"); // Maak een tabeldata element.
-
-                // Logica om plantitems of de "Toevoegen" knop te verwerken.
-                if (itemCount < 8) {
-                    if (plant) {
-                        // Verwerk normale plantitems.
-                        // Creëer een link element naar de planteninformatiepagina met plant ID als query parameter.
-                        // Voeg vervolgens een artikel, afbeelding en titel toe met de plantinformatie.
-                         // Handle regular plant items
-                         const link = document.createElement("a");
-                         link.href = `planteninfo.html?id=${plant.id}`;
- 
-                         const article = document.createElement("article");
-                         article.classList.add("plant-container");
-                         link.appendChild(article);
- 
-                         const img = article.appendChild(document.createElement("img"));
-                         img.src = "../static/images/icon_awesome-apple-alt.png";
-                         const h2 = article.appendChild(document.createElement("h2"));
-                         h2.classList.add("plant-naam");
-                         h2.textContent = plant.plantNaam;
- 
-                         td.appendChild(link);
-                         itemCount++;
-                        } else if (rowIndex === this.rows - 1 && colIndex === this.cols - 1 && itemCount <= 7) {
-                            // Handle the "Add" button
-                            const article = document.createElement("article");
-                            const img = article.appendChild(document.createElement("img"));
-                            img.src = "../static/images/Toevoegen.png";
-                            img.id = "toevoegen";
-                            img.alt = "Add";
-                            article.id = "modalButton";
-                            article.onclick = openModal;
-                    
-                            td.appendChild(article);
-                            itemCount++;
-                    }
-                }
-
-                tr.appendChild(td); // Voeg de td toe aan de tr.
-            });
-
-            plantenTable.appendChild(tr); // Voeg de tr toe aan de tabel.
-        });
-}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
