@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, render_template,  jsonify, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 import mysql.connector
 import requests
  
@@ -19,7 +20,6 @@ def database_connect():
  
         print("Database connection failed:", e)
         return None
-   
  
 # Function to get data from the MySQL database
 def get_database_data():
@@ -44,9 +44,7 @@ def get_data():
    
         return jsonify({"error": "Failed to fetch data from database"})
  
- 
     return jsonify(battery_data) # Directly return the list of dictionaries as JSON
- 
  
 def get_weather_data():
     api_key = "05ddd06644"
@@ -74,7 +72,6 @@ def get_weather():
  
     return jsonify(weather_data)
 
-
 def get_planten_data():
     mydb = database_connect()
     if mydb and mydb.is_connected():
@@ -86,18 +83,6 @@ def get_planten_data():
         planten_data = cursor.fetchall()  # Fetch all rows
         mydb.close()
         return planten_data
-
-    
-@app.route("/planten", methods=["GET"])
-def get_data_planten():
-    planten_data = get_planten_data()
- 
-    if planten_data is None or len(planten_data) == 0:
-   
-        return jsonify({"error": "Failed to fetch data from database"})
- 
- 
-    return jsonify(planten_data) # Directly return the list of dictionaries as JSON
  
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

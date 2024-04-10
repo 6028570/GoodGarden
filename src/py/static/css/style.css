@@ -334,7 +334,12 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
 
 .switch-container {
   display: flex;
-  align-items: end;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.switch-wrapper {
+  margin-left: 20vw;
 }
 
 .switch {
@@ -343,12 +348,14 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   width: 60px;
   height: 30px;
 }
-.switch .switch input {
+
+.switch input[type=checkbox] {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.switch .slider {
+
+.slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -359,7 +366,8 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border-radius: 34px;
   transition: 0.4s;
 }
-.switch .slider:before {
+
+.slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -370,22 +378,28 @@ body .mainContainer .mainBorder .grid-column-2 .grid-2-child .parent-table .kas-
   border-radius: 50%;
   transition: 0.4s;
 }
-.switch input:checked + .slider {
+
+input:checked + .slider {
   background-color: #2ecc71;
 }
-.switch input:checked + .slider:before {
+
+input:checked + .slider:before {
   transform: translateX(26px);
 }
-.switch .rechterkant {
+
+.rechterkant {
   display: flex;
   justify-content: end;
 }
-.switch .plant-container,
-.switch #modalButton {
+
+.plant-container,
+#modalButton {
   background-color: white;
 }
-.switch .switch-container {
+
+.switch-container {
   position: absolute;
+  right: 75px;
 }
 
 .pagina-container {

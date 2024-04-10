@@ -2,6 +2,7 @@ import mysql.connector
 import requests
 from datetime import datetime, timezone, timedelta
 import time
+import sys
 
 # Function to make a connection to the database
 def database_connect():
@@ -40,10 +41,10 @@ def create_data(url, access_token, repeat_count=5):
                 value = record.get('value', '')
 
                 print(f"\nInserted data: Timestamp: {timestamp}, Device: {device}, Battery Voltage: {value}V\n")
-                if float(value) < 3.0:
+                if float(value) < 5.0:
                     print("Waarschuwing: Batterijspanning is lager dan 3.0 volt. Opladen aanbevolen.\n")
                 # Controleer of de batterijspanning hoger is dan 4.2 volt en geef een melding
-                elif float(value) > 4.2:
+                elif float(value) > 6.2:
                     print("Melding: Batterijspanning is hoger dan 4.2 volt. Batterij is vol.\n")
                 else:
                     print("Melding: Batterijspanning is binnen het gewenste bereik.\n\n")

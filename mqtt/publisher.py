@@ -7,7 +7,7 @@ import json
 from mqtt_client import create_client, start_loop  
 
 # Stel het interval in seconden in voor het periodiek ophalen en publiceren van data.
-publish_interval = 30  # MOET ~300 ZIJN voor productiegebruik.
+publish_interval = 900  # MOET ~900 ZIJN voor productiegebruik. -- 15min
 
 # Definieer API-eindpunten en de corresponderende MQTT topics.
 api_endpoints = [
@@ -30,7 +30,7 @@ def on_connect(client, userdata, flags, rc):
         flags: Reactie vlaggen van de broker.
         rc: De connectie resultaat code.
     """
-    print("Connected with result code "+str(rc))
+    print("Geconnect met code "+str(rc))
 
 def on_message(client, userdata, msg):
     """
@@ -56,7 +56,7 @@ def publish_to_mqtt(topic, data):
     """
     json_data = json.dumps(data)  # Serialiseer de data naar een JSON-string.
     client.publish(topic, json_data)
-    print(f"\033[92mData published to MQTT topic {topic}.\033[0m")
+    print(f"\033[92mData gepubliceerd naar MQTT topic {topic}.\033[0m")
 
 def fetch_and_publish_data():
     """
@@ -72,10 +72,10 @@ def fetch_and_publish_data():
             response = requests.get(url, headers=headers)
             response.raise_for_status()  # Verifieert respons status.
             data = response.json()
-            print(f"Data from {url}: {data}")
+            print(f"Data van {url}: {data}")
             publish_to_mqtt(mqtt_topic, data)
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching data from {url}: {e}")
+            print(f"Error met data ophalen {url}: {e}")
 
 if __name__ == "__main__":
     client.loop_start()  # Start de niet-blokkerende MQTT-client loop.

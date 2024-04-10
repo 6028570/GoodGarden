@@ -1,26 +1,14 @@
 [
     {
-        "id": 3,
+        "id": 1,
         "plant_naam": "Tomatenplant",
         "plantensoort": "Groente",
         "plant_geteelt": 1
     },
     {
-        "id": 4,
+        "id": 15,
         "plant_naam": "Sla",
         "plantensoort": "Groente",
-        "plant_geteelt": 1
-    },
-    {
-        "id": 5,
-        "plant_naam": "Peterselie",
-        "plantensoort": "Kruiden",
-        "plant_geteelt": 1
-    },
-    {
-        "id": 6,
-        "plant_naam": "Aardbei",
-        "plantensoort": "Fruit",
         "plant_geteelt": 1
     }
 ]

@@ -3,7 +3,6 @@ import json
 import mysql.connector #** TYPE IN TERMINAL: "pip install mysql-connector-python"
 from mysql.connector import Error
 
-
 # Voeg de data uit het formulier toe aan de database
 def insert_plant_name(plant_naam, plantensoort, plant_geteelt):
 

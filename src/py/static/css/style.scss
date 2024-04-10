@@ -462,25 +462,29 @@ body
   background: linear-gradient(45deg, #ffcc00, #ff6600);
 }
 
-
 .switch-container {
   display: flex;
-  align-items: end;
+  align-items: center;
+  justify-content: flex-end;
 }
-
+ 
+.switch-wrapper {
+  margin-left: 20vw; // slider aan rechterkant
+}
+ 
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 30px;
-
-
-.switch input {
+}
+ 
+.switch input[type="checkbox"] {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
+ 
 .slider {
   position: absolute;
   cursor: pointer;
@@ -492,7 +496,7 @@ body
   border-radius: 34px;
   transition: 0.4s;
 }
-
+ 
 .slider:before {
   position: absolute;
   content: "";
@@ -504,31 +508,29 @@ body
   border-radius: 50%;
   transition: 0.4s;
 }
-
+ 
 input:checked + .slider {
   background-color: #2ecc71;
 }
-
+ 
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-
 .rechterkant {
   display: flex;
   justify-content: end;
 }
-
+ 
   .plant-container,
   #modalButton
   {
     background-color: white;
   }
-
+ 
   .switch-container {
     position: absolute;
+    right: 75px;
   }
-}
-
 .pagina-container {
   position: relative;
   align-items: end;
@@ -586,10 +588,3 @@ input:checked + .slider:before {
   background-color: $primary-color;
   color: white
 }
-
-// .modal-header
-// {
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-// }

@@ -40,41 +40,35 @@ function openModal()
             }
         }
     } 
-    // else 
-    // {
-    //     console.error("Modaal elementen niet gevonden");
-    // }
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-    // Call openModal when DOM content is loaded
-    openModal();
- 
-    // Send a message to the main process to execute the Python script
-    ipcRenderer.send('run-python-script', ['some', 'arguments']);
- 
-    ipcRenderer.on('python-script-response', (event, pythonData) => {
-        if (pythonData === 'error') {
-            console.error('An error occurred while retrieving data from Python');
-        } else {
-            // Update HTML elements with data received from Python
-            document.getElementById('bodem-temperatuur').textContent = pythonData.bodemTemperatuur; // Adjust the property based on your actual Python response
-        }
-    });
- 
-    // Listen for updates to HTML data from the main process
-    ipcRenderer.on('update-html-data', (event, data) => {
-        // Update the HTML with the received data
-        document.getElementById('batteryVoltage').innerText = data.batteryVoltage;
-        // Add similar lines for other data fields
-    });
- 
-    // Trigger an event to request data update
-    ipcRenderer.send('request-update-data');
- 
-    // Fetch battery data when the page loads
-    fetchBatteryData();
-// });
+// Call openModal when DOM content is loaded
+openModal();
+
+// Send a message to the main process to execute the Python script
+ipcRenderer.send('run-python-script', ['some', 'arguments']);
+
+ipcRenderer.on('python-script-response', (event, pythonData) => {
+    if (pythonData === 'error') {
+        console.error('An error occurred while retrieving data from Python');
+    } else {
+        // Update HTML elements with data received from Python
+        document.getElementById('bodem-temperatuur').textContent = pythonData.bodemTemperatuur; // Adjust the property based on your actual Python response
+    }
+});
+
+// Listen for updates to HTML data from the main process
+ipcRenderer.on('update-html-data', (event, data) => {
+    // Update the HTML with the received data
+    document.getElementById('batteryVoltage').innerText = data.batteryVoltage;
+    // Add similar lines for other data fields
+});
+
+// Trigger an event to request data update
+ipcRenderer.send('request-update-data');
+
+// Fetch battery data when the page loads
+fetchBatteryData();
  
 /**
  * Functie om een lijngrafiek te tekenen.
@@ -196,38 +190,6 @@ function fetchWeatherDataAndDrawChart()
             console.error('There was a problem with the fetch operation:', error);
         });
 }
- 
-/**
- * Functie om een datum (bijv. "07-02") om te zetten naar de dag van de week (bijv. "zo", "ma", etc.).
- * @param {string} dateString - De datum als string in het formaat "dd-mm".
- * @returns {string} De afkorting van de dag van de week.
- */
-// function convertDateToDayOfWeek(dateString) 
-// {
-//     // Split de datum in dag en maand, en zet deze om naar nummers.
-//     const [day, month] = dateString.split('-').map(Number);
-//     // Maak een nieuwe datumobject (jaar is willekeurig omdat we alleen maand en dag nodig hebben).
-//     const date = new Date(2024, month - 1, day);
-//     // Verkrijg de dag van de week en zet deze om naar een afkorting.
-//     const dayOfWeek = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'][date.getDay()];
-//     return dayOfWeek;
-// }
-
-// function convertDateToDayOfWeek(dateString) 
-// {
-//     // Create a date object from the dateString
-//     const [year, month, day] = dateString.split("-").map(Number);
-//     const date = new Date(year, month - 1, day);
-
-//     // Array of Dutch day names
-//     const dayNames = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-
-//     // Return the day name according to the date object
-//     return dayNames[date.getDay()];
-// }
-
-
-
  
 /**
  * Functie om batterijdata op te halen wanneer de pagina laadt.
@@ -404,3 +366,20 @@ fetch(apiUrl)
     // Roep fetchPlantenData aan ergens waar het logisch is binnen je applicatielogica, bijvoorbeeld na het laden van de pagina of na een gebruikersactie.
     fetchPlantenData();
     
+// Get the battery voltage
+const batteryVoltage = parseFloat(document.getElementById('battery-voltage').textContent);
+ 
+// Select the img element
+const batteryImage = document.getElementById('battery-image');
+ 
+// Check the battery voltage and decide whether to show the image
+if (batteryVoltage < 3.0) {
+    // Battery is lower than 3.0 volts, show the empty battery image
+    batteryImage.src = '../static/img/warning-logo.png';
+} else if (batteryVoltage > 4.2) {
+    // Battery is higher than 4.2 volts, do not show the image
+    batteryImage.style.display = 'none';
+} else {
+    // Battery voltage is within the desired range, hide the image
+    batteryImage.style.display = 'none';
+}

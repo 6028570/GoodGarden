@@ -28,7 +28,7 @@ class PlantGrid {
     
     // Methode om data te laden.
     loadData() {
-        fetch('../script/plants.json') // Veronderstelt dat de JSON data is opgeslagen in 'plants.json'.
+        fetch('../script/plants.json')
             .then(response => {
                 // Controleer of de netwerkrespons ok is.
                 if (!response.ok) {
@@ -89,7 +89,6 @@ class PlantGrid {
                         const article = document.createElement("article");
                         const img = article.appendChild(document.createElement("img"));
                         img.src = "../static/images/plus.png";
-                        // img.src = "../images/plus.png";
                         img.id = "toevoegen";
                         img.alt = "Add";
                         article.id = "modalButton";
