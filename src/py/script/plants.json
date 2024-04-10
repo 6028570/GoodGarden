@@ -10,5 +10,11 @@
         "plant_naam": "Sla",
         "plantensoort": "Groente",
         "plant_geteelt": 1
+    },
+    {
+        "id": 16,
+        "plant_naam": "Aardappel",
+        "plantensoort": "Groente",
+        "plant_geteelt": 1
     }
 ]

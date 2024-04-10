@@ -56,4 +56,4 @@ De branch "oomen" is up to date. Het mergen ging niet helemaal goed dus we hebbe
 
 * **Justin Doekhi** - *Front end Programmeur* - [6027529](https://github.com/6027529)
 
-* **Atilla Oomen** - *Front end Programmeur* - [6025850](https://github.com/6025850)
+* **Renzo van Putten** - *Front end Programmeur* - [6025850](https://github.com/6025850)
