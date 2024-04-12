@@ -28,7 +28,7 @@ class PlantGrid {
     
     // Methode om data te laden.
     loadData() {
-        fetch('../script/plants.json')
+        fetch('../script/json/plants.json')
             .then(response => {
                 // Controleer of de netwerkrespons ok is.
                 if (!response.ok) {

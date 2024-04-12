@@ -1,4 +1,3 @@
-# Importeer de json module om te werken met JSON data.
 import json
 
 # Importeer de subscribe functie van paho.mqtt om te abonneren op MQTT berichten.

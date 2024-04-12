@@ -1,17 +1,8 @@
-# Importeer de json en mysql.connector modules voor het werken met JSON data en MySQL databases.
-# Importeer ook os voor bestandssysteem operaties.
 import json
 import mysql.connector
 import os
 
-# Functie om een verbinding met de database te maken.
-def database_connect():
-    return mysql.connector.connect(
-        host="localhost",  # De server waar de database draait.
-        user="root",       # De gebruikersnaam om in te loggen op de database.
-        password="",       # Het wachtwoord voor de gebruiker.
-        database="goodgarden"  # De naam van de database waarmee verbinding moet worden gemaakt.
-    )
+from db_connect import database_connect  # Gebruik deze geïmporteerde functie
 
 # Functie om het absolute pad van de huidige directory te krijgen.
 def get_current_directory():
@@ -33,7 +24,7 @@ def fetch_plant_and_write_to_json():
         # Verkrijg het absolute pad van de huidige directory.
         current_directory = get_current_directory()
         # Construeer het absolute pad voor het JSON-bestand.
-        json_file_path = os.path.join(current_directory, 'plants.json')
+        json_file_path = os.path.join(current_directory, './json/plants.json')
         
         # Schrijf de opgehaalde gegevens naar een JSON-bestand.
         with open(json_file_path, 'w') as json_file:
@@ -41,13 +32,13 @@ def fetch_plant_and_write_to_json():
             
     except mysql.connector.Error as error:
         # Print de fout als er iets misgaat bij het ophalen van de gegevens.
-        print("Error fetching data from MySQL table:", error)
+        print(f"Error fetching data from MySQL table: {error}")
         
     finally:
         # Sluit de cursor en de verbinding, indien ze bestaan.
         if 'cursor' in locals():
             cursor.close()
-        if connection.is_connected():
+        if connection and connection.is_connected():
             connection.close()
 
 # Roept de functie aan om gegevens op te halen en naar JSON te schrijven.

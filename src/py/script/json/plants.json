@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "plant_naam": "Tomatenplant",
+        "plantensoort": "Groente",
+        "plant_geteelt": 1
+    },
+    {
+        "id": 15,
+        "plant_naam": "ergerg",
+        "plantensoort": "ergerwgergerg",
+        "plant_geteelt": 1
+    }
+]

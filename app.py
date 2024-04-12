@@ -1,5 +1,4 @@
-from flask import Flask, render_template,  jsonify, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify
 import mysql.connector
 import requests
  
@@ -34,7 +33,6 @@ def get_database_data():
         battery_data = cursor.fetchall() # Fetch all rows
         mydb.close()
         return battery_data
-   
  
 @app.route('/', methods=['GET'])
 def get_data():
@@ -75,14 +73,27 @@ def get_weather():
 def get_planten_data():
     mydb = database_connect()
     if mydb and mydb.is_connected():
-        cursor = mydb.cursor(dictionary=True)  # Corrected from corsor to cursor
+        try:
+            cursor = mydb.cursor(dictionary=True)
+            query = "SELECT id, plant_naam, plantensoort, plant_geteelt FROM planten"
+            cursor.execute(query)
+            planten_data = cursor.fetchall()
+            mydb.close()
+            return planten_data
+        except Exception as e:
+            print("Failed to fetch planten data:", e)
+            return {"error": "Kon plantendata niet ophalen"}
+    else:
+        return {"error": "Database connection failed"}
+    
+@app.route("/planten", methods=["GET"])
+def get_planten():
+    planten_response = get_planten_data()
 
-        query = "SELECT id, plant_naam, plantensoort, plant_geteelt FROM planten"
-
-        cursor.execute(query)
-        planten_data = cursor.fetchall()  # Fetch all rows
-        mydb.close()
-        return planten_data
+    if "error" in planten_response:
+        return jsonify(planten_response)
  
+    return jsonify(planten_response)
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

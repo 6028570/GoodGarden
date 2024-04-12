@@ -48,7 +48,7 @@ De branch "oomen" is up to date. Het mergen ging niet helemaal goed dus we hebbe
 
 ## Auteurs
 
-* **Atilla Oomen** - *Projectleider | Programmeur* - [Znooptokkie](https://github.com/Znooptokkie)
+* **Atilla Oomen** - *Projectleider | Back end Programmeur* - [Znooptokkie](https://github.com/Znooptokkie)
 
 * **Mohammed Çifçi** - *Back end Programmeur* - [6028570](https://github.com/6028570)
 

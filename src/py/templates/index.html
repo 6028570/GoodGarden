@@ -32,13 +32,13 @@
                     <span class="close">&times;</span>
                     <form action="http://localhost:3000/submit-form" method="post" onsubmit="return addplant()">
                         <label for="plantNaam">Naam van de plant</label>
-                        <br>
+                        
                         <input type="text" name="plant_naam" id="plantNaam">
-                        <br>
+                        
                         <label for="plantensoort">Soort van de plant</label>
-                        <br>
+                        
                         <input type="text" name="plantensoort" id="plantensoort">
-                        <br>
+                        
                         <label for="aanwezig">Aanwezig
                           <input type="radio" name="plant_geteelt" id="aanwezig" value="true">
                         </label>
@@ -48,14 +48,14 @@
                         </label>
 
                         <label for="ontvangenMeldingen">Meldingen ontvangen</label>
-                        <br>
+                        
                         <select name="ontvangen_meldingen">
                             <option value="true">Ja</option>
                             <option value="false">Nee</option>
                         </select>
-                        <br>
+                        
                         <section class="knop-container">
-                            <br><button class="annulatie-knop" type="button" onclick="closeOverlay()">Annuleren</button>
+                            <button class="annulatie-knop" type="button" onclick="closeOverlay()">Annuleren</button>
                             <input type="submit" value="Submit">
                         </section>
                     </form>
@@ -68,7 +68,7 @@
             <section id="sectie-1">
               <article class="parent-algemeen-overzicht">
                 <article class="algemeen-overzicht">
-                  <a href="pomp_informatie.html" id="kas-informatie">
+                  <a href="./pomp_informatie.html" id="kas-informatie">
                     <table class="table-informatie-kas">
                       <tr class="tr-informatie-pomp">
                         <td>Pomp Status:</td>

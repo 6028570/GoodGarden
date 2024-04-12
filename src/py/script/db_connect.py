@@ -1,5 +1,5 @@
-# Importeer de mysql.connector module en Error klasse uit deze module.
 import mysql.connector
+
 from mysql.connector import Error
 
 # Definieer een functie genaamd `database_connect` om verbinding te maken met de database.

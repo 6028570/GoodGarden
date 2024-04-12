@@ -7,7 +7,7 @@ import json
 from mqtt_client import create_client, start_loop  
 
 # Stel het interval in seconden in voor het periodiek ophalen en publiceren van data.
-publish_interval = 900  # MOET ~900 ZIJN voor productiegebruik. -- 15min
+publish_interval = 900  # MOET ~900 ZIJN. -- 15min
 
 # Definieer API-eindpunten en de corresponderende MQTT topics.
 api_endpoints = [
@@ -65,7 +65,7 @@ def fetch_and_publish_data():
     for endpoint in api_endpoints:
         url = endpoint["url"]
         mqtt_topic = endpoint["topic"]
-        access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Voorbeeld token.
+        access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"
 
         try:
             headers = {"Authorization": f"Token {access_token}"}

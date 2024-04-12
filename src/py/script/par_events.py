@@ -1,4 +1,3 @@
-# Importeer de json module om met JSON data te werken.
 import json
 
 # Importeer de subscribe module van paho.mqtt om te abonneren op MQTT topics.
@@ -11,23 +10,6 @@ def on_message(client, userdata, message):
     # Laad de JSON string in een Python dictionary.
     data = json.loads(payload_str)
 
-    # Initialiseer variabelen om de waarden van de apparaten op te slaan.
-    device_322_value = None
-    device_256_value = None
-
-    # Doorloop de "results" key in de data dictionary.
-    for key in data["results"]:
-        # Controleer of de "device" key overeenkomt met device 322 of 256 en sla de waarde op.
-        if key["device"] == 322:
-            device_322_value = key["value"]
-        elif key["device"] == 256:
-            device_256_value = key["value"]
-
-    # Print de waarden van beide apparaten.
-    print(f"Device 322 value: {device_322_value}")
-    print(f"Device 256 value: {device_256_value}")
-
-    # Print het volledige bericht dat ontvangen is op het abonnementstopic.
     print(f"Message received on topic {message.topic}: {data}")
 
 # Dit blok zorgt ervoor dat de code alleen wordt uitgevoerd als dit script rechtstreeks wordt uitgevoerd.

@@ -1,17 +1,8 @@
 import mysql.connector
 import requests
-from datetime import datetime, timezone, timedelta
 import time
-import sys
 
-# Function to make a connection to the database
-def database_connect():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="goodgarden"
-    )
+from db_connect import database_connect
 
 # Functie voor het aanmaken van gegevens in de database
 def create_data(url, access_token, repeat_count=5):
@@ -197,7 +188,7 @@ def delete_data(record_id):
 
 if __name__ == "__main__":
     url = "https://garden.inajar.nl/api/battery_voltage_events/?format=json"
-    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"  # Vervang dit door je werkelijke toegangstoken
+    access_token = "33bb3b42452306c58ecedc3c86cfae28ba22329c"
     
     # Je kunt repeat_count wijzigen om te bepalen hoe vaak je de bewerking wilt herhalen
     repeat_count = 10
